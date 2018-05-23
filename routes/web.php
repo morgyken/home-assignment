@@ -17,14 +17,9 @@ Route::group(['middleware' => 'web'], function () {
 
 Route::get('/', function () {  return view('gen.student-index'); })->name('general');
 
-Route::get('/sample', function () {  return view('auth12.image'); });
+Route::get('/sample', function () {  return view('gen.index1'); });
 
-Route::post('/sample3', function () {
-
-});
-
-
-Route::get('/sample-two', array('uses'=>'OnlineUsers@OnlineActivity'));
+Route::get('/sample1', function () {  return view('quest.all-questions'); });
 
 Route::group(['middleware' => ['auth']], function() {
     // your routes
@@ -41,7 +36,9 @@ Route::get('/categories', array('as'=>'categories',
 
 Route::get('/academic-level', array( 'as'=>'academic-level', 'uses' => 'AutoComplete@AcademicLevel'));
 
-Auth::routes();
+//Auth::routes();
+
+
 
 //profile pics
 
@@ -203,10 +200,13 @@ Route::get('/get_payment_meta', 'AskQuestionController@getMetadata')->name('get.
 //post payment metadata
 Route::any('/payment_meta', 'AskQuestionController@PostMetadata')->name('post.meta');
 
-Route::get('/sample', function () {  return view('cust.cust-payments-1'); });
+
 
 });
 
+Route::post('/register', 'Auth/UserRegisterController@create')->name('register');
+
+Route::get('/login', 'Auth/UserLoginController@login')->name('register');
 
 
 Auth::routes();
@@ -214,3 +214,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 });
+
+
+
+
