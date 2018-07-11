@@ -147,7 +147,8 @@
   <!-- Navbar -->
 
   <!-- Full Page Intro -->
-  <div class="view full-page-intro" style="background-image: url('{{ asset("/mdb/img/landing-img.jpg") }}'); background-repeat: no-repeat; background-size: cover;">
+  <div class="view full-page-intro" style="background-image: 
+  url('{{ asset("/mdb/landing/img/landing-img1.png") }}'); background-repeat: no-repeat; background-size: cover;">
 
     <!-- Mask & flexbox options-->
     <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
