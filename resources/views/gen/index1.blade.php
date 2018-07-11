@@ -5,16 +5,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Home Assign-Home</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Bootstrap core CSS -->
-  <link href="{{URL::asset('mdb/landing/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{URL::asset('mdb/landing/css/bootstrap.css')}}" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="{{URL::asset('mdb/landing/css/mdb.min.css ')}}" rel="stylesheet">
+  <link href="{{URL::asset('mdb/landing/css/mdb.css ')}}" rel="stylesheet">
   <!-- Your custom styles (optional) -->
-  <link href="{{URL::asset('mdb/landing/css/style.min.css ')}}" rel="stylesheet">
+  <link href="{{URL::asset('mdb/landing/css/style.css ')}}" rel="stylesheet">
   <style type="text/css">
     html,
     body,
@@ -124,8 +125,8 @@
 
               Log Out
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+             </form>
                   </a>
             @else 
 
@@ -174,84 +175,20 @@
 
           </div>
           <!--Grid column-->
-
+          @if(!Auth::check())
           <!--Grid column-->
           <div class="col-md-5 col-xl-4 mb-5" style="margin-left:189px; margin-top: 80px">
-
+        
             <!--Card-->
             <div class="card">
 
               <!--Card content-->
               <div class="card-body">
+            
 
-                <!-- Form -->
-                <form name="" action="{{route('register', ['user'=> 'tut'])}}">
-                  <!-- Heading -->
-                  <h3 class="dark-grey-text text-center">
-                    <strong>Sign Up Here </strong>
-                  </h3>
-                  <hr>
+                @include('gen/part/sign-up')
 
-                  <div class="md-form {{ $errors->has('name') ? ' has-error' : '' }}">
-                    <i class="fa fa-user prefix grey-text"></i>
-                  {{ csrf_field() }}
-                    <input type="text" name="name" id="name" class="form-control ">
-                    <label for="form3">Your name</label>
-                    @if ($errors->has('name'))
-                            <span class="help-block">
-                               <strong>{{ $errors->first('name') }}</strong>
-                            </span>
-                        @endif
-                  </div>
-                  <div class="md-form {{ $errors->has('email') ? ' has-error' : '' }}">
-                    <i class="fa fa-envelope prefix grey-text"></i>
-                  {{ csrf_field() }}
-                    <input type="text" name="email" id="email" class="form-control ">
-                    <label for="form2">Your Email</label>
-                    @if ($errors->has('email'))
-                            <span class="help-block">
-                               <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif
-                  </div>
-
-                
-                   <div class="md-form {{ $errors->has('password') ? ' has-error' : '' }}">
-                   
-                    <i class="fas fa-unlock-alt prefix grey-text"></i>
-                  {{ csrf_field() }}
-                    <input type="text" name="password" id="pwd" class="form-control ">
-                    <label for="form3">Your Password</label>
-                    @if ($errors->has('password'))
-                            <span class="help-block">
-                               <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                        @endif
-                  </div>
-
-                  <div class="md-form {{ $errors->has('message') ? ' has-error' : '' }}">
-                   
-                      <i class="fa fa-pencil prefix grey-text"></i>
-                  {{ csrf_field() }}
-                    <textarea type="text" name="message" id="message" class="md-textarea"></textarea>
-                    <label for="form8">Introductory Text... </label>
-                    @if ($errors->has('message'))
-                            <span class="help-block">
-                               <strong>{{ $errors->first('message') }}</strong>
-                            </span>
-                        @endif
-                  </div>
-
-                  <div class="text-center">
-                    <button class="btn btn-indigo">Send</button>
-                    <hr>
-                    <fieldset class="form-check">
-                      <input type="checkbox" class="form-check-input" id="checkbox1">
-                      <label for="checkbox1" class="form-check-label dark-grey-text">Subscribe me to the newsletter</label>
-                    </fieldset>
-                  </div>
-
-                </form>
+              
                 <!-- Form -->
 
               </div>
@@ -261,6 +198,7 @@
 
           </div>
           <!--Grid column-->
+          @endif
 
         </div>
         <!--Grid row-->

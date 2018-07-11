@@ -15,11 +15,13 @@ Route::group(['middleware' => 'web'], function () {
 
  //
 
-Route::get('/', function () {  return view('gen.student-index'); })->name('general');
-
-Route::get('/sample', function () {  return view('gen.index1'); });
+//Route::get('/', function () {  return view('gen.student-index'); })->name('general');
+//current home page 
+Route::get('/', function () {  return view('gen.index1'); })->name('general');
 
 Route::get('/sample1', function () {  return view('quest.all-questions'); });
+
+Route::get('/sample2', function () {  return view('cust.test'); });
 
 Route::group(['middleware' => ['auth']], function() {
     // your routes
@@ -93,21 +95,10 @@ Route::post('/post-admin-comments/{question_id}', ['as'=> 'post-comments1', 'use
 
 Route::post('/post-comments/{question_id}', ['as'=> 'post-comments', 'uses' => 'QuestionController@PostComments']);
 
-Route::get('sample/{question}/{status}',array('as'=>'sample','uses'=>'QuestionController@UpdateStatus'));
-
-/*
- * Update Question Status here
- */
-
-
 Route::post('/update-question/{question_id}', array('as' => 'update-question', 'uses'=>'UpdateQuestionController@UpdateQuestionStatus'));
 
 /*
  * accept answer here
- */
-
-/**
- * Tutot page questions
  */
 
 Route::get('tut-questions',array('as'=>'tut-questions','uses'=>'TutorController@TutProfile'))->name('tut.home');
@@ -116,12 +107,7 @@ Route::get('tut-questions',array('as'=>'tut-questions','uses'=>'TutorController@
  *
  * end tutor side
  */
-
-
-
-
 Route::post('/autocomplete', array('as' => 'autocomplete', 'uses'=>'SearchController@autocomplete'));
-
 
 Route::post('autocomplete',array('as'=>'autocomplete','uses'=>'SearchController@autocomplete'));
 
@@ -204,12 +190,25 @@ Route::any('/payment_meta', 'AskQuestionController@PostMetadata')->name('post.me
 
 });
 
-Route::post('/register', 'Auth/UserRegisterController@create')->name('register');
+Route::post('/register', 'Auth\UserRegisterController@create')->name('register');
 
-Route::get('/login', 'Auth/UserLoginController@login')->name('register');
+Route::get('/login', 'Auth\UserLoginController@login')->name('register');
 
 
-Auth::routes();
+//Auth::routes();
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Registration Routes...
+//Route::get('register', 'Auth\RegisterController@create')->name('register');
+//Route::post('register', 'Auth\RegisterController@register');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
