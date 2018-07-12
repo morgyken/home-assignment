@@ -26,7 +26,7 @@
             <div class="container-fluid">
 
                 <!-- Brand -->
-                <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">
+                <a class="navbar-brand waves-effect" href="#" target="_blank">
                     <strong class="blue-text">Home Assignment</strong>
                 </a>
 
@@ -47,17 +47,17 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">About Us</a>
+                            <a class="nav-link" href="#" target="_blank">About Us</a>
                         </li>
                     @if(Auth::check())
                         <li class="nav-item">
-                            <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">Browse Jobs</a>
+                            <a class="nav-link" href="#" target="_blank">Browse Jobs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">Post Jobs</a>
+                            <a class="nav-link" href="#" target="_blank">Post Jobs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">My Profile</a>
+                            <a class="nav-link" href="htt#" target="_blank">My Profile</a>
                         </li>
                         @endif
                         </ul>
@@ -65,12 +65,12 @@
                     <!-- Right -->
                     <ul class="navbar-nav nav-flex-icons">
                         <li class="nav-item">
-                            <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
+                            <a href="#" class="nav-link" target="_blank">
                             <i class="fa fa-facebook"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+                            <a href="#" class="nav-link" target="_blank">
                             <i class="fa fa-twitter"></i>
                             </a>
                         </li>
@@ -82,7 +82,7 @@
                             @if(Auth::check())
 
                             <li class="nav-item">
-                            <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+                            <a href="#" class="nav-link" target="_blank">
                             <i class="fas fa-sign-in-alt"></i> {{ Auth::User()->name}}
                             </a>
                         </li>              
@@ -155,7 +155,7 @@
                 <div class="card-body d-sm-flex justify-content-between">
 
                     <h4 class="mb-2 mb-sm-0 pt-1">
-                        <a href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">Home Page</a>
+                        <a href="#" target="_blank">Home Page</a>
                         <span>/</span>
                         <span>Dashboard</span>
                     </h4>
@@ -207,9 +207,7 @@
     <script type="text/javascript">
         // Animations initialization
         new WOW().init();
-    </script>
-
-    
+    </script>   
 
 </body>
 
