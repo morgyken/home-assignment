@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserController;
 
-class HomeController extends Controller
+class HomeController extends Controller  
 {
     /**
      * Create a new controller instance.
@@ -24,19 +25,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-       // return view('');
-
        if(Auth::check())
        {
             $user =  User::where('email', Auth::user()->email) ->first();
+            
             $role = $user->user_role;
 
-            //check user roles 
-
             if($role == 'cust'){
-                return view ('cust.customer-home1');
+                $user =  User::where('email', Auth::user()->email)->first();
+                               
+                return view ('cust.customer-home1', ['user' => $user]);
             }
             
        }
     }
+
+    
 }

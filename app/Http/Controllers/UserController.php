@@ -46,76 +46,47 @@ class UserController extends Controller
 
             ->paginate(15);
 
-
     return view('cust.cust-dashboard',
       [
         'questions' => $questions
 
-      ]
-
-
-  );
-   // return view('cust.cust-dashboard');
+      ]);
 
   }
 
-
   public function ProfilePicView($view){
 
-
         if($view == 'profile'){
-
             return view('auth.profile-pic');
-
         }
         else{
             return view('auth.background-pic');
         }
-
   }
 
+  public function profilePic(){
 
+    $path ='';
+    $user_id = Auth::user()->id;   
 
+    $path = public_path().'/uploads/profile/'.$user_id.'/';
 
-    public function profilePic($pic){
+    $rules = array('file' => 'required|max:10000|mimes:png,jpg, jpeg,bmp' );
 
-      $path ='';
+    $validator = Validator::make(Input::all(), $rules);
 
-      $request = request();
+    $file = Input::file('file');
 
-      $type = $request->pic;
+    if(is_array($file)){
 
-      $user_id = Auth::user()->id;
+        foreach ($file as $files){
 
-      if($pic=='profile')
-            {
-                $path = public_path().'/storage/uploads/profile/'.$user_id.'/profile/';
+            $name =  $files->getClientOriginalName();
 
+             $files->move($path, 'profile-pic.jpg');
             }
-        else
-            {
-               $path= public_path().'/storage/uploads/profile/'.$user_id.'/homepage/';
-            }
-
-
-       $rules = array('file' => 'required|max:10000|mimes:png,jpg, jpeg,bmp' );
-
-      $validator = Validator::make(Input::all(), $rules);
-
-      $file = Input::file('file');
-
-       if(is_array($file)){
-
-             foreach ($file as $files){
-
-                  $name =  $files->getClientOriginalName();
-
-                  $files->move($path, 'profile.jpg');
-                }
-
-
-            }
-          return redirect()->route('all-questions');
+        }
+    return redirect()->route('home');
     }
 
 

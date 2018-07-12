@@ -25,11 +25,6 @@
         <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
             <div class="container-fluid">
 
-                <!-- Brand -->
-                <a class="navbar-brand waves-effect" href="#" target="_blank">
-                    <strong class="blue-text">Home Assignment</strong>
-                </a>
-
                 <!-- Collapse -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -61,6 +56,13 @@
                         </li>
                         @endif
                         </ul>
+                        <form class="d-flex justify-content-center">
+                        <!-- Default input -->
+                        <input type="search" placeholder="Type your query" aria-label="Search" class="form-control">
+                        <button class="btn btn-primary btn-sm my-0 p" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
 
                     <!-- Right -->
                     <ul class="navbar-nav nav-flex-icons">
@@ -152,20 +154,11 @@
 
                 <!--Card content-->
                 <div class="card-body d-sm-flex justify-content-between">
-
-                    <h4 class="mb-2 mb-sm-0 pt-1">
-                        <a href="#" target="_blank">Home Page</a>
-                        <span>/</span>
-                        <span>Dashboard</span>
-                    </h4>
-
-                    <form class="d-flex justify-content-center">
-                        <!-- Default input -->
-                        <input type="search" placeholder="Type your query" aria-label="Search" class="form-control">
-                        <button class="btn btn-primary btn-sm my-0 p" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </form>
+                    
+                <!--Section: Testimonials v.1-->
+                
+                @include('gen.part.profile')
+                                    
                 </div>
             </div>
             <!--Grid row-->

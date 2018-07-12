@@ -45,8 +45,7 @@ Route::get('/academic-level', array( 'as'=>'academic-level', 'uses' => 'AutoComp
 //profile pics
 
 Route::get('/profile-pic-view/{view}',array('as'=>'profile-pic-view','uses'=>'UserController@ProfilePicView'));
-Route::post('/profile-pic/{pic?}',array('as'=>'profile-pic','uses'=>'UserController@ProfilePic'));
-
+Route::post('/profile-pic/',array('as'=>'profile-pic','uses'=>'UserController@ProfilePic'));
 
 //Route::get('sample',array('as'=>'sample','uses'=>'DateTimeController@getDeadlineInSeconds12'));
 
@@ -183,8 +182,6 @@ Route::get('/get_payment_meta', 'AskQuestionController@getMetadata')->name('get.
 
 //post payment metadata
 Route::any('/payment_meta', 'AskQuestionController@PostMetadata')->name('post.meta');
-
-
 
 });
 
