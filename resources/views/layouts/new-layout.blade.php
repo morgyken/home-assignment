@@ -106,7 +106,6 @@
                             Log in
 
                             @endif
-
                             </a>
                         </li>
                         </ul>

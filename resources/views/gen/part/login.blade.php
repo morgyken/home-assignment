@@ -15,19 +15,22 @@
                 </button>
             </div>
             <!--Body-->
+            <form method="post" action="{{route('login')}}" />
             <div class="modal-body">
 
                 <!-- Material input name -->
                 <div class="md-form form-sm">
                     <i class="fa fa-envelope prefix"></i>
-                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm">
+                    <input type="text" id="materialFormNameModalEx1" name="email" class="form-control form-control-sm">
                     <label for="materialFormNameModalEx1">Username</label>
                 </div>
+
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <!-- Material input email -->
                 <div class="md-form form-sm">
                     <i class="fa fa-lock prefix"></i>
-                    <input type="password" id="materialFormEmailModalEx1" class="form-control form-control-sm">
+                    <input type="password" name="password" id="materialFormEmailModalEx1" class="form-control form-control-sm">
                     <label for="materialFormEmailModalEx1">Password</label>
                 </div>
 
@@ -36,6 +39,8 @@
                         <i class="fa fa-send ml-2"></i>
                     </button>
                 </div>
+
+                </form>
 
                  <div class="text-center mt-4 mb-2">
                    <a href="#"> Forgot Password? </a>

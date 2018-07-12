@@ -111,8 +111,6 @@ Route::post('/autocomplete', array('as' => 'autocomplete', 'uses'=>'SearchContro
 
 Route::post('autocomplete',array('as'=>'autocomplete','uses'=>'SearchController@autocomplete'));
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::post('autocomplete-search',array('as'=>'autocomplete.search','uses'=>'SearchController@index'));
 
 Route::post('autocomplete-ajax',array('as'=>'searchajax','uses'=>'SearchController@autoComplete'));
@@ -192,19 +190,11 @@ Route::any('/payment_meta', 'AskQuestionController@PostMetadata')->name('post.me
 
 Route::post('/register', 'Auth\UserRegisterController@create')->name('register');
 
-Route::get('/login', 'Auth\UserLoginController@login')->name('register');
+Route::post('/login', 'Auth\UserLoginController@login')->name('login');
 
 
-//Auth::routes();
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-// Registration Routes...
-//Route::get('register', 'Auth\RegisterController@create')->name('register');
-//Route::post('register', 'Auth\RegisterController@register');
-
-// Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');

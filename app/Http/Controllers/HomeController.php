@@ -31,22 +31,12 @@ class HomeController extends Controller
             $user =  User::where('email', Auth::user()->email) ->first();
             $role = $user->user_role;
 
+            //check user roles 
+
             if($role == 'cust'){
-                return view ('cust.cust-dashboard12');
+                return view ('cust.customer-home1');
             }
-            if($role == 'tut'){
-                return view ('tut.home');
-            }
-            if($role == 'mod'){
-                return view ('admin1.home');
-            }
-            if($role == 'admin'){
-                return view ('admin2.home');
-            }
-            if($role == 'main'){
-                return view ('cust.home');
-            }
+            
        }
     }
 }
- 

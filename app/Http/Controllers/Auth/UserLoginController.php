@@ -39,14 +39,16 @@ class UserLoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
     public function login( Request $request){
-      if(Auth::attempt([
+      
+        if(Auth::attempt([
         'email' => $request->email,
         'password' => $request->password
       ]))
       {
        //$user =  User::where('email', $request-> email) ->first();
-       return redirect()->route('general');
+       return redirect()->route('home');
       }
     }
 }
