@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Welcome Home</title>
+    <script src="{{URL::asset('ckeditor/ckeditor.js')}}"></script>
+	<script src="{{URL::asset('ckeditor/samples/js/sample.js')}}"></script>
+	<link rel="stylesheet" href="{{URL::asset('ckeditor/samples/css/samples.css') }}">
+	<link rel="stylesheet" href="{{URL::asset('ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -102,7 +106,7 @@
                                 </a>
                             @else 
 
-                            <a href="{{ route('login') }}" class="nav-link border border-light rounded"
+                            <a href="#" class="nav-link border border-light rounded"
                             data-toggle="modal" data-target="#modalContactForm">
                                 <i class="fas fa-user-alt"></i>
                             Log in
@@ -127,9 +131,12 @@
             </a>
 
             <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item active waves-effect">
+                <a href="{{route('home')}}" class="list-group-item active waves-effect">
                     <i class="fa fa-pie-chart mr-3"></i>Dashboard
                 </a>
+                             
+                <a href="{{route('ask')}}">
+                    <i class="fa fa-user mr-3"></i>Post a Question</a>
                 <a href="#" class="list-group-item list-group-item-action waves-effect">
                     <i class="fa fa-user mr-3"></i>Profile</a>
                 <a href="#" class="list-group-item list-group-item-action waves-effect">
@@ -158,7 +165,6 @@
                 <!--Section: Testimonials v.1-->
                 
                 @include('gen.part.profile')
-                                    
                 </div>
             </div>
             <!--Grid row-->
@@ -168,6 +174,7 @@
         </div>
     </main>
     <!--Main layout-->
+                                   
 
     <!--Footer-->
     <footer class="page-footer text-center font-small primary-color-dark darken-2 mt-4 wow fadeIn">
@@ -182,6 +189,7 @@
             <a href="#" target="_blank">Home Assign.com</a>
         </div>
         <!--/.Copyright-->
+        
 
     </footer>
     <!--/.Footer-->
@@ -199,8 +207,10 @@
     <script type="text/javascript">
         // Animations initialization
         new WOW().init();
-    </script>   
-
+    </script> 
+    
+    @include('gen.part.upload-img')
+ 
 </body>
 
 </html>

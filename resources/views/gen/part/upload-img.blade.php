@@ -1,9 +1,7 @@
-
 <style>
 #orangeModalSubscription{
     margin-top: 50px;
     z-index: 2000;
-
     }
 </style>
 <div class="modal fade" data-backdrop="false" id="orangeModalSubscription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -32,4 +30,3 @@
       </div>
   </div>
 </div>
-

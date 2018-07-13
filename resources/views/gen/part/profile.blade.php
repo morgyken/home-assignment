@@ -65,6 +65,5 @@
     <!--Grid column-->
 </div>
 
-@include('gen.part.upload-img')
 
 </section>

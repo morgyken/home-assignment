@@ -36,3 +36,14 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 };
+
+CKEDITOR.on('dialogDefinition', function(e) {
+	var dialogName = e.data.name;
+	var dialogDefinition = e.data.definition;
+	var onShow = dialogDefinition.onShow;
+	dialogDefinition.onShow = function() {
+	  var result = onShow.call(this);
+	  this.move(this.getPosition().x, $(e.editor.container.$).position().top);
+	  return result;
+	}
+  });

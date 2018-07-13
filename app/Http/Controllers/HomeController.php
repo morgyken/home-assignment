@@ -38,6 +38,17 @@ class HomeController extends Controller
             }
             
        }
+       else{
+            return redirect()-> route('general');
+       }
+    }
+
+    public function getAskQuestions(){
+        $user =  User::where('email', Auth::user()->email) ->first();
+            
+            $role = $user->user_role;
+        
+            return view ('quest.ask-question-12', ['user' => $user]);
     }
 
     

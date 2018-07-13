@@ -21,7 +21,12 @@ Route::get('/', function () {  return view('gen.index1'); })->name('general');
 
 Route::get('/sample1', function () {  return view('quest.all-questions'); });
 
-Route::get('/sample2', function () {  return view('cust.test'); });
+Route::get('/sample2', function () {  return view('quest.ask-question-12'); });
+
+
+
+Route::get('/ask', array('as'=>'ask',
+	'uses' => 'HomeController@getAskQuestions'));
 
 Route::group(['middleware' => ['auth']], function() {
     // your routes
@@ -197,10 +202,7 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', [ 'as'=>'home', 'uses'=>'HomeController@index']);
 
 });
-
-
-
 
