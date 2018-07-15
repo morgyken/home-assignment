@@ -31,9 +31,9 @@
                     <a href="#" data-toggle="modal"
                      data-target="#orangeModalSubscription">Update Profiel Pic</a>
                 </div>
-</div>
-
         </div>
+
+    </div>
         <!--Card-->
 
     </div>
@@ -65,5 +65,6 @@
     <!--Grid column-->
 </div>
 
+@include('gen.part.upload-img')
 
 </section>

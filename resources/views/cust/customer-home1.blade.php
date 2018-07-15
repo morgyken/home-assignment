@@ -49,6 +49,7 @@
 
 </div>
 <!--/.Card-->
+@include('gen.part.upload-img')
 
 @endsection
 

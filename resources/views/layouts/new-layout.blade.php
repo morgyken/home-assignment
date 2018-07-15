@@ -171,12 +171,13 @@
             <!--Grid row-->
             <div class="row wow fadeIn">
                 @yield('content')
+               
             </div>
         </div>
     </main>
     <!--Main layout-->
                                    
-
+    
     <!--Footer-->
     <footer class="page-footer text-center font-small primary-color-dark darken-2 mt-4 wow fadeIn">
 
@@ -210,7 +211,7 @@
         new WOW().init();
     </script> 
     
-    @include('gen.part.upload-img')
+   
  
 </body>
 
