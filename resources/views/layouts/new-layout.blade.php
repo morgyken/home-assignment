@@ -16,17 +16,27 @@
     <link href="{{URL::asset('mdb/dashboard/css/bootstrap.css')}}" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="{{URL::asset('mdb/dashboard/css/mdb.css')}}" rel="stylesheet">
+    <!-- uikit included here  (optional) -->
+    <link href="{{URL::asset('mdb/dashboard/css/mdb.css')}}" rel="stylesheet">
+
+    <!-- uikit included here  (optional) -->
+    <link href="{{URL::asset('uikit/css/uikit-rtl.css')}}" rel="stylesheet">
+
+    <!-- uikit included here  (optional) -->
+    <link href="{{URL::asset('uikit/css/uikit.css')}}" rel="stylesheet">
+
+
     <!-- Your custom styles (optional) -->
     <link href="{{URL::asset('mdb/dashboard/css/style.css')}}" rel="stylesheet">
 </head>
 
-<body class="grey lighten-3">
+<body class="grey lighten-3 clearfix">
 
     <!--Main Navigation-->
     <header>
 
         <!-- Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white">
             <div class="container-fluid">
 
                 <!-- Collapse -->
@@ -182,20 +192,14 @@
     <footer class="page-footer text-center font-small primary-color-dark darken-2 mt-4 wow fadeIn">
 
         <!--Call to action-->
-        
-        
-
         <!--Copyright-->
         <div class="footer-copyright py-3">
             © 2018 Copyright:
             <a href="#" target="_blank">Home Assign.com</a>
         </div>
         <!--/.Copyright-->
-        
-
     </footer>
     <!--/.Footer-->
-
     <!-- SCRIPTS -->
     <!-- JQuery -->
     <script type="text/javascript" src="{{URL::asset('mdb/dashboard/js/jquery-3.3.1.min.js')}}"></script>
@@ -205,13 +209,21 @@
     <script type="text/javascript" src="{{URL::asset('mdb/dashboard/js/bootstrap.min.js')}}"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="{{URL::asset('mdb/dashboard/js/mdb.min.js')}}"></script>
-    <!-- Initializations -->
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{{URL::asset('uikit/js/uikit-icons.min.js')}}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{{URL::asset('uikit/js/uikit.min.js')}}"></script>
+
+     <!-- MDB core JavaScript -->
+     <script type="text/javascript" src="{{URL::asset('uikit/js/my.js')}}"></script>
+
+   <!-- Initializations -->
     <script type="text/javascript">
         // Animations initialization
         new WOW().init();
     </script> 
     
-   
+    @include('gen.part.img-upload1')
  
 </body>
 

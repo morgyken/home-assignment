@@ -27,10 +27,7 @@
                 <!--Quotation-->
                 <p><i class="fa fa-quote-left"></i> {{$user->intro_text }}</p>
               <p> 
-              <div class="text-center">
-                    <a href="#" data-toggle="modal"
-                     data-target="#orangeModalSubscription">Update Profiel Pic</a>
-                </div>
+              <a class="uk-button uk-button-default" href="#modal-sections" uk-toggle>Update Profile Pic</a>
         </div>
 
     </div>
@@ -65,6 +62,5 @@
     <!--Grid column-->
 </div>
 
-@include('gen.part.upload-img')
 
 </section>

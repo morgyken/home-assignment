@@ -49,7 +49,7 @@ Route::get('/academic-level', array( 'as'=>'academic-level', 'uses' => 'AutoComp
 
 //profile pics
 
-Route::get('/profile-pic-view/{view}',array('as'=>'profile-pic-view','uses'=>'UserController@ProfilePicView'));
+//Route::get('/profile-pic-view/{view}',array('as'=>'profile-pic-view','uses'=>'UserController@ProfilePicView'));
 Route::post('/profile-pic/',array('as'=>'profile-pic','uses'=>'UserController@ProfilePic'));
 
 //Route::get('sample',array('as'=>'sample','uses'=>'DateTimeController@getDeadlineInSeconds12'));
