@@ -58,11 +58,11 @@
                        @endif
                  </div>
 
-                  <div class="md-form {{ $errors->has('intro-text') ? ' has-error' : '' }}">
+                  <div class="md-form {{ $errors->has('introtext') ? ' has-error' : '' }}">
                    
                       <i class="fa fa-pencil prefix grey-text"></i>
                   {{ csrf_field() }}
-                    <textarea type="text" name="intro-text" id="message" class="md-textarea"></textarea>
+                    <textarea type="text" name="introtext" id="message" class="md-textarea"></textarea>
                     <label for="form8">Set profile heading text.. </label>
                     @if ($errors->has('message'))
                             <span class="help-block">

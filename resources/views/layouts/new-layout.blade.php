@@ -91,7 +91,8 @@
                             <a href="#" class="nav-link" target="_blank">
                             <i class="fas fa-sign-in-alt"></i> {{ Auth::User()->name}}
                             </a>
-                        </li>              
+                        </li>  
+                        <li>            
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); 
                                                         document.getElementById('logout-form').submit();" 
                                                         class="nav-link border border-light rounded"

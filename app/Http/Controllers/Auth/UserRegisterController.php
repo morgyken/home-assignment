@@ -25,26 +25,25 @@ class UserRegisterController extends Controller
     protected function create(Request $request)
     {
 
-        $tutor_id = rand (99999,999999); //user serial      
+       $tutor_id = rand (99999,999999); //user serial      
        //validate data       
         $this->validate($request, [
         'name' => 'required|unique:users|max:255',
         'email' => 'required',
         'password' => 'required|confirmed|min:5',
-        'intro-text' => 'required|string'
+        'introtext' => 'required|string'
         ]);
      
-        //Register user 
-
-        User::create([
+        
+       $user =  User::create([
             'name' => $request['name'],
             'email' => $request['email'], 
+            'intro_text' => $request['introtext'],
             'user_serial'=>$tutor_id,            
             'password' => bcrypt($request['password']),
-            'intro-text' => $request['intro-text']
+            
             
         ]);
-
           /*scanfold account when someone becomes a tutor
 
               //update tutor education table with the data
