@@ -19,7 +19,7 @@ class CreateQuestionMatricesTable extends Migration
             $table->rememberToken();
             $table->integer('question_id')->unique();
             $table->integer('current')->default(0);
-            $table->integer('user_id')->default(0);
+            $table->text('user_id')->default(0);
             $table->integer('reassigned')->default(0);
             $table->integer('completed')->default(0);
             $table->integer('rated')->default(0);

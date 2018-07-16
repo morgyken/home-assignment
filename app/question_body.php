@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class question_body extends Model
+class Question_body extends Model
 {
     protected $table = 'question_bodies';
     protected $dateFormat = 'Y/m/d H:i:s';
@@ -18,11 +18,11 @@ class question_body extends Model
     }
 
     public function user(){
-        return $this->belongsTo('App\User');
+       // return $this->belongsTo('App\User');
     }
     protected $fillable = [
         'question_body', 'question_id', 'summary',
-            'user_id', 'summary', 'username','category','topic'
+            'user_id', 'username','topic'
     ];
 
     /**

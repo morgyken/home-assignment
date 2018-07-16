@@ -651,11 +651,10 @@ class QuestionController extends AdminController
     public function postdeadlinePrice(){
 
       $academic_level = DB::table('academic_levels')
-                      ->select('academic_level') 
+                      ->select('academic-level') 
                       -> get();
 
               return view('quest.ask-deadline-1',['category'=> $this->getQuestionCategories()]);
-
         }
 
     /*

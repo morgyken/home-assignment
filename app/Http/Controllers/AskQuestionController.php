@@ -150,18 +150,18 @@ class AskQuestionController extends Controller
       $question_id = 0;
 
       $serial = DB::table('question_bodies')
-                            ->select('question_serial')
-                            ->orderby('question_serial', 'desc')
+                            ->select('question_id')
+                            ->orderby('question_id', 'desc')
                             ->first();
         //get the head of the question serial and add 1
 
         //check if there is a serial in place or set the first serial
-        if($serial -> question_serial == null)
+        if($serial->question_id == null)
         {
             $question_id = 100000;
         }    
 
-        $question_id = $serial-> question_serial + 1;
+        $question_id = $serial->question_id + 1;
 
         $number_of_words = rand (200,250);
 
@@ -198,7 +198,7 @@ class AskQuestionController extends Controller
                 'question_id' =>$question_id,
                 'user_id' => Auth::user()->email,
                 'topic'    => $request->topic,
-                'summary' => $summary1,
+                'summary' => $summary,
                 'special' => $request['special'],
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
@@ -214,6 +214,8 @@ class AskQuestionController extends Controller
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
 
+
+    /*
         DB::table('tutor_payment')->insert(
             [
                 'order_id' =>$question_id,
@@ -234,7 +236,6 @@ class AskQuestionController extends Controller
                 'created_at'    =>  \Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at'    =>  \Carbon\Carbon::now()->toDateTimeString()
             ]);
-
 
         /*
          * Add question Id to session, this is to be used in the adding of the price
