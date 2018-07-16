@@ -140,23 +140,7 @@
             <a class="logo-wrapper waves-effect">
                 <img src="{{URL::asset('mdb/dashboard/img/logo.png')}}" class="img-fluid logo1" alt="">
             </a>
-
-            <div class="list-group list-group-flush">
-                <a href="{{route('home')}}" class="list-group-item active waves-effect">
-                    <i class="fa fa-pie-chart mr-3"></i>Dashboard
-                </a>
-                             
-                <a href="{{route('ask')}}">
-                    <i class="fa fa-user mr-3"></i>Post a Question</a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fa fa-user mr-3"></i>Profile</a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fa fa-table mr-3"></i>Orders</a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fa fa-map mr-3"></i>Finances</a>
-               
-            </div>
-
+            @include('gen.part.sidebar-menu')
         </div>
         <!-- Sidebar -->
 
@@ -224,6 +208,8 @@
     </script> 
     
     @include('gen.part.img-upload1')
+        
+    @include('quest.part.ask-question-modal')
  
 </body>
 
