@@ -1,8 +1,8 @@
 <div id="modal-sections" uk-modal>
     <div class="uk-modal-dialog">
        
-          <div class="uk-modal-header">
-            <button class="uk-modal-close-default" type="button" uk-close></button>
+          <div class="uk-modal-header uk-flex-top">
+            <button class="uk-modal-close-default uk-align-right" type="button" uk-close></button>
             <h2 class="uk-modal-title">Upload your Images</h2>
           </div>
           

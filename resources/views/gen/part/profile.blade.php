@@ -17,7 +17,7 @@
             <div class="avatar mx-auto white">
                 <img src="{{URL::asset('uploads/profile/'.$user->id.'/profile-pic.jpg')}}" 
                 alt="avatar mx-auto white" 
-            class="rounded-circle profile-pic img-fluid">
+            class="profile-pic img-fluid">
             </div>
 
             <div class="card-body">

@@ -63,7 +63,7 @@
                       <i class="fa fa-pencil prefix grey-text"></i>
                   {{ csrf_field() }}
                     <textarea type="text" name="introtext" id="message" class="md-textarea"></textarea>
-                    <label for="form8">Set profile heading text.. </label>
+                    <label for="form8">Set profile heading text(min 100 char).. </label>
                     @if ($errors->has('message'))
                             <span class="help-block">
                                <strong>{{ $errors->first('message') }}</strong>

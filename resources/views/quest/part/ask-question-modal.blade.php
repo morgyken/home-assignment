@@ -1,22 +1,44 @@
-<!-- This is an anchor toggling the modal -->
-<a href="#modal-example" uk-toggle>Open</a>
-
 <!-- This is the modal -->
 <div id="modal-ask-question" uk-modal>
 
     <div class="uk-modal-container">
     <div class="uk-modal-header">
-        <h2 class="uk-modal-title">Headline</h2>
+        <h4>
+        <a class="uk-modal-close" style="float:right" >X</a>      
+        <span class="uk-modal-title">Post Question</span>
+        </h4>
     </div>
         
         <div class="uk-modal-body white">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <!--Card content-->
+            <div class="card-body">   
+                <form action="{{route('ask-questions')}}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                    <input type="text" name="topic" class="form-control input-lg" placeholder="Enter Topic" required="required"  id="topic">
+                    </div>
+
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                    <div class="form-group">
+                    @include('part.ckeditor')
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comment">Special Instructions </label>
+                        <textarea class="form-control" name="special" rows="5" id="comment"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="usr">Include Files</label>
+                        @include('part.file-picker')
+                    </div>       
+                    <div class="uk-modal-footer uk-text-right" >
+                            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                            <button class="uk-button uk-button-primary" type="submit">Save Details</button>
+                    </div>
+                </form> 
+            </div>
+
         </div>
-        <div class="uk-modal-footer uk-text-right" ></div>
-                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                <button class="uk-button uk-button-primary" type="button">Save</button>
-            
-        </div>
-    </div>
 </div>
 

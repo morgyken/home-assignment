@@ -147,6 +147,7 @@ class AskQuestionController extends Controller
     public function askQuestions(Request $request)
     {
       //get the question serial
+      $question_id = 0;
 
       $serial = DB::table('question_bodies')
                             ->select('question_serial')
@@ -154,17 +155,17 @@ class AskQuestionController extends Controller
                             ->first();
         //get the head of the question serial and add 1
 
-        $question_serial = $serial-> question_serial + 1;
+        //check if there is a serial in place or set the first serial
+        if($serial -> question_serial == null)
+        {
+            $question_id = 100000;
+        }    
 
-        //dd($request->academic_level);
+        $question_id = $serial-> question_serial + 1;
 
-        $question_id = str_random(25);
+        $number_of_words = rand (200,250);
 
-        $number_of_words = rand (300,400);
-
-        $summary = substr($request->question_body,0, $number_of_words);
-
-        $summary1 = strip_tags($summary);
+        $summary =  strip_tags(substr($request->question_body,0, $number_of_words));
 
         /*
          *
@@ -199,7 +200,6 @@ class AskQuestionController extends Controller
                 'topic'    => $request->topic,
                 'summary' => $summary1,
                 'special' => $request['special'],
-                'question_serial'=>$question_serial,
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
 
