@@ -32,43 +32,48 @@
             </div>
 
 
-<script>
-    $(document).ready(function(){
-        $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+    <script type="text/javascript">   
 
         $("#btn-submit").click(function(event){
             event.preventDefault();
-            var qbody =$('input[name=question_body]').val();
-            var topic = $('input[name=topic]').val();
-            var special =$('input[name =special]').val();
-            var file = $('input[name = file]').val();   
-            var token =  $('input[name =_token]').val();     
+         
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                });
+      
+                    var qbody =$('input[name=question_body]').val();
+                    var topic = $('input[name=topic]').val();
+                    var special =$('input[name =special]').val();
+                    var file = $('input[name = file]').val();   
+                    var token = "{{ csrf_token() }}";     
 
-           // console.log(qbody);
-            
+           // console.log(qbody)
+                       
             $.ajax(
                 {
                     type:"POST",
                     data:{
+                        '_method':'POST'
                         '_token' : token,
                         'question_body':qbody,
                         'topic':topic, 
                         'special':special,
                         'file':file, 
                     },
-                    url: 'ask-questions1',
+                    url: "{{url('ask-questions')}}",
+                    contentType:"application/json",
+                    dataType:'json',
                     success: function(data){
                     console.log(data)
-                  }
+                    }
+                    error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);  }
                 }
               );
         });
-
-     });
 
     </script>
 

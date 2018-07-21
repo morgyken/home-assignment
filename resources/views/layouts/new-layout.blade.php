@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Welcome Home</title>
     <script src="{{URL::asset('ckeditor/ckeditor.js')}}"></script>
@@ -15,6 +15,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Ajax  -->   
+     <!-- JQuery -->
+    <script type="text/javascript" src="{{URL::asset('mdb/dashboard/js/jquery-3.3.1.min.js')}}"></script>
    
     <link href="{{URL::asset('mdb/dashboard/css/bootstrap.css')}}" rel="stylesheet">
     <!-- Material Design Bootstrap -->

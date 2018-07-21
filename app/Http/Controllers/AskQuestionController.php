@@ -249,6 +249,6 @@ class AskQuestionController extends Controller
 
         //redirect to post deadline view
 
-        return redirect()->route('post-deadlinePrice');
+        return response()->json();
     }
 }

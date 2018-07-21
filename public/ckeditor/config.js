@@ -42,8 +42,9 @@ CKEDITOR.on('dialogDefinition', function(e) {
 	var dialogDefinition = e.data.definition;
 	var onShow = dialogDefinition.onShow;
 	dialogDefinition.onShow = function() {
-	  var result = onShow.call(this);
-	  this.move(this.getPosition().x, $(e.editor.container.$).position().top);
-	  return result;
+	var result = onShow.call(this);
+	this.move(this.getPosition().x, $(e.editor.container.$).position().top);
+
+	return result;
 	}
   });

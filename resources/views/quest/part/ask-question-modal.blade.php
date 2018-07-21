@@ -54,9 +54,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-        $("#btn-submit").click(function(event){
-            event.preventDefault();
+       
+        $("#btn-submit").click(function(){
             var qbody =$('input[name=question_body]').val();
             var topic = $('input[name=topic]').val();
             var special =$('input[name =special]').val();
@@ -73,7 +72,8 @@
                         'question_body':qbody,
                         'topic':topic, 
                         'special':special,
-                        'file':file, 
+                        'file':file    
+
                     },
                     url: 'ask-questions',
                     success: function(data){
