@@ -44,12 +44,19 @@ class HomeController extends Controller
     }
 
     public function getAskQuestions(){
-        $user =  User::where('email', Auth::user()->email) ->first();
-            
-            $role = $user->user_role;
+
+           $user = session('user');  //get user roles from the sessions 
         
-            return view ('quest.ask-question-12', ['user' => $user]);
+        
+            return view ('quest.ask-question-12', ['user' =>$user]);
     }
+
+    public function AskSample(){
+
+        $user = session('user');  //get user roles from the sessions 
+          
+         return view ('quest.part.ask1', ['user' =>$user]);
+ }
 
     
 }

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Http\Controllers\Auth\Session;
 
 class UserLoginController extends Controller
 {
@@ -47,7 +48,16 @@ class UserLoginController extends Controller
         'password' => $request->password
       ]))
       {
-       //$user =  User::where('email', $request-> email) ->first();
+
+       $user =  User::where('email', Auth::user()->email) ->first();
+            
+       $role = $user->user_role;
+
+       session(['user' => $user, 'role' => $role]);
+
+       $data = Session::all();
+
+       dd($data);
        return redirect()->route('home');
       }
     }

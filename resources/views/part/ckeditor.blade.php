@@ -7,7 +7,7 @@
 </head>
 
 
-				<textarea name="question_body" name="question_body" rows="45" id="editor">
+				<textarea name="question_body" rows="45" id="editor">
 					<h1>Post Question Here </h1>
 
 				</textarea>

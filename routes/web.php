@@ -26,7 +26,7 @@ Route::get('/sample2', function () {  return view('quest.ask-question-12'); });
 
 
 Route::get('/ask', array('as'=>'ask',
-	'uses' => 'HomeController@getAskQuestions'));
+	'uses' => 'HomeController@askSample'))->middleware('user');
 
 Route::group(['middleware' => ['auth']], function() {
     // your routes
@@ -187,6 +187,7 @@ Route::get('/get_payment_meta', 'AskQuestionController@getMetadata')->name('get.
 
 //post payment metadata
 Route::any('/payment_meta', 'AskQuestionController@PostMetadata')->name('post.meta');
+
 
 });
 

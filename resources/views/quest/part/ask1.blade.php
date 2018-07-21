@@ -1,21 +1,8 @@
-<head>
-<meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
+@extends('layouts.new-layout')
 
-<!-- This is the modal -->
-<div id="modal-ask-question" uk-modal>
+@section('content')
 
-    <div class="uk-modal-dialog">
-    <div class="uk-modal-header">
-        <h4>
-        <a class="uk-modal-close" style="float:right" >X</a>      
-        <span class="uk-modal-title">Post Question</span>
-        </h4>
-    </div>
-        
-        <div class="uk-modal-body  white">
-                <!--Card content-->
-            <div class="card-body ">   
+<div class="card-body ">   
                 <form class="uk-overflow-container" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                     <input type="text" name="topic"  id ="topic" class="form-control input-lg" placeholder="Enter Topic" required="required"  id="topic">
@@ -44,10 +31,8 @@
                 </form> 
             </div>
 
-        </div>
-</div>
 
-    <script>
+<script>
     $(document).ready(function(){
         $.ajaxSetup({
                 headers: {
@@ -75,7 +60,7 @@
                         'special':special,
                         'file':file, 
                     },
-                    url: 'ask-questions',
+                    url: 'ask-questions1',
                     success: function(data){
                     console.log(data)
                   }
@@ -86,4 +71,5 @@
      });
 
     </script>
- 
+
+    @endsection

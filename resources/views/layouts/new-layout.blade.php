@@ -4,15 +4,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Welcome Home</title>
     <script src="{{URL::asset('ckeditor/ckeditor.js')}}"></script>
 	<script src="{{URL::asset('ckeditor/samples/js/sample.js')}}"></script>
+
 	<link rel="stylesheet" href="{{URL::asset('ckeditor/samples/css/samples.css') }}">
 	<link rel="stylesheet" href="{{URL::asset('ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Bootstrap core CSS -->
+    <!-- Ajax  -->   
+   
     <link href="{{URL::asset('mdb/dashboard/css/bootstrap.css')}}" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="{{URL::asset('mdb/dashboard/css/mdb.css')}}" rel="stylesheet">
@@ -183,8 +186,10 @@
         </div>
         <!--/.Copyright-->
     </footer>
+
     <!--/.Footer-->
     <!-- SCRIPTS -->
+    
     <!-- JQuery -->
     <script type="text/javascript" src="{{URL::asset('mdb/dashboard/js/jquery-3.3.1.min.js')}}"></script>
     <!-- Bootstrap tooltips -->
@@ -200,6 +205,7 @@
 
      <!-- MDB core JavaScript -->
      <script type="text/javascript" src="{{URL::asset('uikit/js/my.js')}}"></script>
+    
 
    <!-- Initializations -->
     <script type="text/javascript">
@@ -207,6 +213,7 @@
         new WOW().init();
     </script> 
     
+  
     @include('gen.part.img-upload1')
         
     @include('quest.part.ask-question-modal')

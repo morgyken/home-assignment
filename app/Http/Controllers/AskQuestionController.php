@@ -196,7 +196,7 @@ class AskQuestionController extends Controller
             [
                 'question_body' => $request['question_body'],
                 'question_id' =>$question_id,
-                'user_id' => Auth::user()->email,
+                'user_idvbbvv' => Auth::user()->email,
                 'topic'    => $request->topic,
                 'summary' => $summary,
                 'special' => $request['special'],
@@ -209,7 +209,7 @@ class AskQuestionController extends Controller
             [
                 'user_id' => Auth::user()->email,
                 'question_id' =>$question_id,
-                'current' => 1,
+                'curre  nt' => 1,
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
