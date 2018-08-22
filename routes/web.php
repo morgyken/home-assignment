@@ -16,10 +16,10 @@ Route::group(['middleware' => 'web'], function () {
  //
 
 //Route::get('/', function () {  return view('gen.student-index'); })->name('general');
-//current home page 
+//current home page
 Route::get('/', function () {  return view('gen.index1'); })->name('general');
 
-Route::get('/sample1', function () {  return view('quest.all-questions'); });
+Route::get('/sample', function () {  return view('layouts.index-template'); });
 
 Route::get('/sample2', function () {  return view('quest.ask-question-12'); });
 
@@ -206,4 +206,3 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('/home', [ 'as'=>'home', 'uses'=>'HomeController@index']);
 
 });
-

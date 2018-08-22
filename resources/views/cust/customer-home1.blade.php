@@ -3,7 +3,7 @@
 
 @section('content')
     <!--Card-->
-    <div class="card col-md-12">
+<div class="card col-md-12">
 
 <!--Card content-->
 <div class="card-body">
