@@ -55,9 +55,9 @@ class UserLoginController extends Controller
 
        session(['user' => $user, 'role' => $role]);
 
-       $data = Session::all();
+       //$data = Session::all();
 
-       dd($data);
+       //dd($data);
        return redirect()->route('home');
       }
     }

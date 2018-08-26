@@ -1,0 +1,2 @@
+occ_co_busy=0;occ_set_refresh_rate(2);
+occInviteClose();

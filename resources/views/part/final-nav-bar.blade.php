@@ -1,7 +1,6 @@
 <style type="text/css">
     .nav-bar{
         background-color: rgba(240, 95, 64, 0.8);
-       
     }
 
  .nav-bar a {

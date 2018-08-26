@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Home Assign-Home</title>
+  <title>Home Assign-@yield('title')</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -499,16 +499,13 @@
                 
                     <!--Main layout-->
                  
-
+            </div>
                      <hr>       
 
                
                   <!-- SHOW IF STUDENT: ASK QUESTION BUTTON -->  
                                
-                    <div class="text-center">
-                        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#frameModalBottom">Ask Question Now!</a>
-                    </div>
-                    
+                   @yield('content')
                     <hr> 
               
             </div>
@@ -527,74 +524,6 @@
 
     </div>
   </main>
-  <!--Main layout-->
-<!-- Frame Modal Bottom -->
-<div class="modal fade bottom" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-    <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
-    <div class="modal-dialog modal-frame modal-bottom col-xl-10" role="document">
-
-
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="modal-header ">
-                <h2 class="modal-title" id="exampleModalLongTitle"> Post your Question</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-
-
-          <div class="row d-flex justify-content-center align-items-center">
-
-          
-            <div class="col-xl-12">
-                <form method="post" action="{{ route('post-question')}}"  enctype="multipart/form-data">
-
-                <div class="form-group">
-                  <input type="" placeholder="Topic" class="form-control"   name="topic">
-                </div>
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                 <div class="form-group">
-                  <textarea type="" placeholder="Enter the Question Details" class="form-control" rows="8"  name="question_body"></textarea>
-                </div>
-                 <div class="form-group">
-                 
-                     <select type="text" name="academic_level" class=" browser-default form-control" required="required"  id="topic" style="padding:8px; font-family:'Adamina';font-size:16px;">
-
-                    <option value="Masters">Masters </option>
-                    <option value="College">College </option>
-                    <option value="High School">High School </option>
-                    <option value="PHD">PHD </option>
-                    <option value="Junior Second Year">Junior Second Year </option>
-                    <option value="Junior Second Year ">Junior Second Year </option>
-                    <option value="Senior College">Senior College </option>
-
-                    </select>
-                    </div>  
-
-                  <div class="form-group">
-                  <input type="file" placeholder="Upload files" class="form-control"   name="file">
-                 </div>
-
-
-                 
-         
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-success">Continue</button>
-            </form>
-
-            </div>
-              
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Frame Modal Bottom -->
-
   <!--Footer-->
   <footer class="page-footer text-center font-small mt-4 wow fadeIn">
     <!--/.Call to action-->
@@ -636,13 +565,7 @@
     </div>
     <!-- Social icons -->
 
-    <!--Copyright-->
-    <div class="footer-copyright py-3">
-      © 2018 Copyright:
-      <a href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank"> MDBootstrap.com </a>
-    </div>
-    <!--/.Copyright-->
-
+    
   </footer>
 
   @include ('gen.part.login')

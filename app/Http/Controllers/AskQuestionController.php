@@ -61,53 +61,6 @@ class AskQuestionController extends Controller
 
     }
 
-
-
-    public function PostQuestionPriceDeadline(Request $request){
-
-        $payment = new PaymentController;
-
-        $quest_price = $payment-> TutorPrice($request->question_price,'junior');
-
-        DB::table('post_question_prices')->insert(
-            [
-            'question_id' =>session('question_id'),
-            'question_deadline' => $request['question_deadline'],
-            'question_price'   =>$payment->QuestionPrice($request->question_price, $request->pages, $request->urgency),
-            'urgency'          =>$request['urgency'],
-            'academic_level'   => $request->academic_level,
-            'paper_format'     => $request->paper_format,
-            'tutor_price'      =>  $quest_price,
-            'pages'           => $request['pages'],
-            'created_at'      =>\Carbon\Carbon::now()->toDateTimeString(),
-            'updated_at'       => \Carbon\Carbon::now()->toDateTimeString()
-
-            ]);
-
-       //update bonus table
-
-        DB::table('tutor_payment_bonuses')->where('order_id', session('question_id'))
-            ->update(
-                [
-                            'amount' => round($request['question_price'] *88* 0.43, 2),
-                            'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
-                ]
-             );
-
-        // store session amount
-
-        $request->session()->put('order_amount', $request['question_price']);
-
-        // store session amount
-
-        $request->session()->put('deadline', $request['question_deadline']);
-
-        //get details
-        
-        return redirect()->route('get.meta');
-
-    }
-
     public function PostMetadata(Request $request){
         //   'name', 'email' ,'country','city', 'state', 'zip'
 
@@ -144,24 +97,11 @@ class AskQuestionController extends Controller
 
     }
 
-    public function askQuestions(Request $request)
+    
+    public function postQuestion(Request $request)
     {
-      //get the question serial
-      $question_id = 0;
-
-      $serial = DB::table('question_bodies')
-                            ->select('question_id')
-                            ->orderby('question_id', 'desc')
-                            ->first();
-        //get the head of the question serial and add 1
-
-        //check if there is a serial in place or set the first serial
-        if($serial->question_id == null)
-        {
-            $question_id = 100000;
-        }    
-
-        $question_id = $serial->question_id + 1;
+        $question_id = rand (99999,999999); 
+        
 
         $number_of_words = rand (200,250);
 
@@ -195,11 +135,11 @@ class AskQuestionController extends Controller
         DB::table('question_bodies')->insert(
             [
                 'question_body' => $request['question_body'],
-                'question_id' =>$question_id,
-                'user_idvbbvv' => Auth::user()->email,
+                'user_id' => Auth::user()->email,
                 'topic'    => $request->topic,
+                'academic_level'    => $request->academic_level,
+                'question_id' => $question_id,
                 'summary' => $summary,
-                'special' => $request['special'],
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
 
@@ -209,39 +149,13 @@ class AskQuestionController extends Controller
             [
                 'user_id' => Auth::user()->email,
                 'question_id' =>$question_id,
-                'curre  nt' => 1,
+                'current' => 1,
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
 
 
-    /*
-        DB::table('tutor_payment')->insert(
-            [
-                'order_id' =>$question_id,
-                'payment_id' => rand(9999,99999),
-                'order_summary' => substr($request['question_body'], 0, 70),
-                'status'      =>0,
-                'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
-                'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
-            ]);
-
-            //tutor Bonuses
-
-        DB::table('tutor_payment_bonuses')->insert(
-            [
-                'order_id'      =>  $question_id,
-                'payment_id'    =>  rand(9999,99999),
-                'status'        =>  0,
-                'created_at'    =>  \Carbon\Carbon::now()->toDateTimeString(),
-                'updated_at'    =>  \Carbon\Carbon::now()->toDateTimeString()
-            ]);
-
-        /*
-         * Add question Id to session, this is to be used in the adding of the price
-         */
-
-        $request->session()->put('question_id',  $question_id);
+       $request->session()->put('question_id',  $question_id);
 
         // store session amount
 
@@ -249,6 +163,52 @@ class AskQuestionController extends Controller
 
         //redirect to post deadline view
 
-        return response()->json();
+        return redirect() -> route('deadlinePrice');
     }
+
+
+    public function postQuestionDetails(Request $request)
+    {
+        /*
+         * Insert into database
+         */
+
+        DB::table('question_details')->insert(
+            [
+                'urgency' => $request['urgency'],
+                'user_id' => Auth::user()->email,
+                'question_id'    => $request->seesion()->get('question_id'),
+                'pagenum'    => $request->pagenum,
+                'order_subject' => $request->order_subject,
+                'paper_type' => $request ->paper_type,
+
+                'spacing' => $request['spacing'],
+                'paper_format' => $request->paper_format,
+                'academic_level'    => $request->academic_level,
+                'lang_style'    => $request->lang_style,
+                'question_price' => $request->question_price,
+                'university' => $request->university,
+                'order_summary' =>$request->session()->get('order_summary'),
+
+                'question_deadline' => $request->question_deadline,
+                
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+
+            ]);
+
+        //add the question prices to session 
+
+        $request->session()->put('question_price', 
+
+                $request->question_price  
+            );
+
+        //redirect to post deadline view
+
+        return redirect() -> route('customer.meta');
+    }
+
+
+    
 }

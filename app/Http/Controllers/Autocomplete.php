@@ -17,7 +17,7 @@ class Autocomplete extends Controller
 
     $data = UniversityModels::where('university_name', 'LIKE', '%'.$term.'%')
     //$data = UniversityModels::
-    		->take(10)
+    		->take(8)
 
 		    ->get();
 

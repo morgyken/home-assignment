@@ -17,9 +17,9 @@ class CreateUniversityModelsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->rememberToken();
-            $table->integer('university_name');
-            $table->integer('country')->nullable();
-            $table->integer('state');
+            $table->string('university_name');
+            $table->string('country')->nullable();
+            $table->string('state')->nullable();
             
         });
     }

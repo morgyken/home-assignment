@@ -19,7 +19,10 @@ Route::group(['middleware' => 'web'], function () {
 //current home page
 Route::get('/', function () {  return view('gen.index1'); })->name('general');
 
-Route::get('/sample', function () {  return view('layouts.index-template'); });
+//Route::get('/sample', function () {  return view('layouts.index-template'); });
+
+Route::get('/sample', array('as'=>'index1',
+	'uses' => 'HomeController@index1'));
 
 Route::get('/sample2', function () {  return view('quest.ask-question-12'); });
 
@@ -72,9 +75,10 @@ Route::post('post-payment',array(
 	'as'=>'paytutor',
 	'uses'=>'PaymentController@postPayments'));
 
-Route::post('ask-questions',array('as'=>'ask-questions','uses'=>'AskQuestionController@askQuestions'));
-
 Route::get('post-questions',array('as'=>'post-questions','uses'=>'QuestionController@postQuestions'));
+
+//sample post questions 
+Route::post('post-question',array('as'=>'post-question','uses'=>'AskQuestionController@postQuestion')); 
 
 
 Route::get('view-question/{question_id}/{optional?}',array('as'=>'view-question','uses'=>'QuestionController@QuestionDetails'));
@@ -87,9 +91,11 @@ Route::get('file-download/{question_id}/{filename}/{type}',array('as'=>'file-dow
 /*
  * Post deadline and price using these two
  */
-Route::get('post-deadlinePrice',array('as'=>'post-deadlinePrice','uses'=>'QuestionController@postdeadlinePrice'));
 
-Route::post('PostQuestionPriceDeadline',array('as'=>'PostQuestionPrice','uses'=>'AskQuestionController@PostQuestionPriceDeadline'));
+Route::get('post-deadlinePric',array('as'=>'deadlinePrice','uses'=>'HomeController@getQuestionPrice'));
+
+
+Route::post('PostQuestionPriceDeadline',array('as'=>'PostQuestionPrice','uses'=>'AskQuestionController@postQuestionDetails'));
 
 
 //admin commwnts

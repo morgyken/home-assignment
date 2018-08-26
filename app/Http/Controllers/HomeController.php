@@ -43,6 +43,26 @@ class HomeController extends Controller
        }
     }
 
+       public function index1()
+    {
+       if(Auth::check())
+       {
+            $user =  User::where('email', Auth::user()->email) ->first();
+            
+            $role = $user->user_role;
+
+            if($role == 'cust'){
+                $user =  User::where('email', Auth::user()->email)->first();
+                               
+                return view ('layouts.index-template', ['user' => $user]);
+            }
+            
+       }
+       else{
+            return redirect()-> route('general');
+       }
+    }
+
     public function getAskQuestions(){
 
            $user = session('user');  //get user roles from the sessions 
@@ -57,6 +77,26 @@ class HomeController extends Controller
           
          return view ('quest.part.ask1', ['user' =>$user]);
  }
+
+ public function getQuestionPrice()
+    {
+       if(Auth::check())
+       {
+            $user =  User::where('email', Auth::user()->email) ->first();
+            
+            $role = $user->user_role;
+
+            if($role == 'cust'){
+                $user =  User::where('email', Auth::user()->email)->first();
+                               
+                return view ('quest.ask-deadline-last', ['user' => $user]);
+            }
+            
+       }
+       else{
+            return redirect()-> route('general');
+       }
+    }
 
     
 }

@@ -21,8 +21,8 @@ class Question_body extends Model
        // return $this->belongsTo('App\User');
     }
     protected $fillable = [
-        'question_body', 'question_id', 'summary',
-            'user_id', 'username','topic'
+        'question_body', 'summary',
+            'user_id', 'username','topic', 'pagenum'
     ];
 
     /**

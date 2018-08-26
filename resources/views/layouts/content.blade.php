@@ -301,28 +301,48 @@
         <main class="page-content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="form-group col-md-12">
-                        <h2> User profile </h2>
-                        <p>This is a responsive sidebar template with dropdown menu based on bootstrap 4 framework.</p>
+                    
+                    <div class="col-xl-3">
+
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image">
 
                     </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <h3>Body head</h3>
-                        <p>Body Details</p>
-                    </div>
-                </div>
+                     <div class="col-xl-1">
 
+                       
+
+                    </div>
+        <!-- Grid column -->
+                    <div class="col-xl-3">
+                        <h4>Tutor Keeen</h4>
+                        <p> Tutor Since: 12/12 </p>
+                        <p> Success rate: 122/9 </p>
+                        
+
+            
+                    </div>
+                    <div class="col-xl-5">
+                        <h4>Finances</h4>
+                        <p> Amount Ready: $234 </p>
+                        <p> Current Orders:$78 </p>
+                        <p> Warnings: Reassigned 23 Withdrawn 78</p>
+                      Plagiarism 4</p>                   
+            
+                    </div>
                 
+                    <!--Main layout-->
+                 
+            </div>
+
+                           
 
                 <hr>
+
+                @include('layouts.cust-home')
               
             </div>
         </main>
         <!-- page-content" -->
     </div>
     <!-- page-wrapper -->
-    
-   
+

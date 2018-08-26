@@ -16,16 +16,16 @@ class CreateQuestionBodiesTable extends Migration
         Schema::create('question_bodies', function (Blueprint $table) {
             $table->increments('id');
             $table->text('summary');
-            $table->text('special');
             $table->text('question_body');
-            $table->integer('question_id')->unique();
             $table->text('user_id');
+            $table->text('question_id');
+            $table->text('academic_level');
             $table->text('topic');
-            $table->text('category');
             $table->timestamps();
             $table->rememberToken();
 
         });
+        DB::statement("ALTER TABLE question_bodies AUTO_INCREMENT = 10001;");
     }
 
     /**
