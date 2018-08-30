@@ -93,7 +93,7 @@ class AskQuestionController extends Controller
 
     public function getMetadata(){
 
-      return view('cust.cust-payments-meta');
+      return view('quest.payments-meta');
 
     }
 
@@ -118,6 +118,8 @@ class AskQuestionController extends Controller
 
             $dest = public_path().'/storage/uploads/'.$question_id.'/question/';
 
+
+
             foreach ($file as $files){
                 /*
                  * loop through multiple files
@@ -127,6 +129,10 @@ class AskQuestionController extends Controller
             }
 
         }
+        else 
+            {
+                //show error
+            }
 
         /*
          * Insert into database
@@ -175,9 +181,11 @@ class AskQuestionController extends Controller
 
         DB::table('question_details')->insert(
             [
+                'tutor_price' => round(24.8 * substr($request['question_price'], 2)/100,0, PHP_ROUND_HALF_UP),
+                //'tutor_price' =>  $request['tutor_price'],
                 'urgency' => $request['urgency'],
                 'user_id' => Auth::user()->email,
-                'question_id'    => $request->seesion()->get('question_id'),
+                'question_id'    => $request->session()->get('question_id'),
                 'pagenum'    => $request->pagenum,
                 'order_subject' => $request->order_subject,
                 'paper_type' => $request ->paper_type,
@@ -186,7 +194,7 @@ class AskQuestionController extends Controller
                 'paper_format' => $request->paper_format,
                 'academic_level'    => $request->academic_level,
                 'lang_style'    => $request->lang_style,
-                'question_price' => $request->question_price,
+                'question_price' => substr($request->$request['question_price'], 2),
                 'university' => $request->university,
                 'order_summary' =>$request->session()->get('order_summary'),
 
@@ -204,11 +212,39 @@ class AskQuestionController extends Controller
                 $request->question_price  
             );
 
+
+        $request->session()->put('question_deadline', 
+
+                $request->question_deadline  
+            );
+
         //redirect to post deadline view
 
-        return redirect() -> route('customer.meta');
+        return redirect() -> route('get.meta');
     }
 
+     public function postPayment(Request $request)
+   {
+       $email=  $request->session()->get('email');
+      // Set your secret key: remember to change this to your live secret key in production
 
-    
+      \Stripe\Stripe::setApiKey("sk_test_wR9YngHY8kyTzEcixpqikNT6");
+
+      // Token is created using Checkout or Elements!
+      // Get the payment token ID submitted by the form:
+      $token = $_POST['stripeToken'];
+
+          $charge = \Stripe\Charge::create([
+          'amount' =>$request->session()->get('question_price'),
+          'currency' => 'usd',
+          'description' => 'Payment for Essay by'. session('email'),
+          'source' => $token,
+      ]);
+
+          //upfdate the date
+
+
+      return redirect()->route('general');
+   }
+   
 }

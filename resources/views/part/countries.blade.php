@@ -1,4 +1,8 @@
 <select name="country" class="form-control">
+	<option value="">Select Country</option>
+	<option value="ISO 3166-2:US">United States</option>
+	<option value="ISO 3166-2:GB">United Kingdom</option>
+	<option value="ISO 3166-2:AU">Australia</option>
 	<option value="ISO 3166-2:AF">Afghanistan</option>
 	<option value="ISO 3166-2:AX">Åland Islands</option>
 	<option value="ISO 3166-2:AL">Albania</option>

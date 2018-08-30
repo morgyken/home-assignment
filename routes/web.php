@@ -57,6 +57,9 @@ Route::post('/profile-pic/',array('as'=>'profile-pic','uses'=>'UserController@Pr
 
 //Route::get('sample',array('as'=>'sample','uses'=>'DateTimeController@getDeadlineInSeconds12'));
 
+//post payments
+
+Route::post('/make-payment', ['uses'=>'AskQuestionController@postPayment', 'as'=>'post.payment']);
 
 Route::get('comment-files/{question_id}/{filename}/{commentId}',array('as'=>'comment-files','uses'=>'QuestionController@CommentFilesDownload'));
 

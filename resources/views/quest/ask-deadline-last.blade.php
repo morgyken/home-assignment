@@ -144,9 +144,46 @@
             base_price = base_price;
         }
 
-        console.log(base_price); 
+       
 
-        document.getElementById("price").value = base_price;  
+        document.getElementById("price").value = '$ '+ base_price;  
+
+    }
+
+    function tutor_price_calc()
+
+    {
+        var amount = 0;
+        var pages = Number(document.getElementById("page_num").value);
+
+        if(diff < 3)
+        {
+            amount = 5.5* pages
+        }
+
+         if(diff < 6)
+        {
+            amount = 5.0* pages
+        }
+
+         if(diff < 10)
+        {
+            amount = 4.5* pages
+        }
+         if(diff < 15)
+        {
+            amount = 4.0 * pages
+        }
+         if(diff < 20)
+        {
+            amount = 3.5* pages
+        }
+        else
+        {
+            amount = 3.0* pages
+        }
+
+        return amount;
 
     }
 
@@ -639,10 +676,10 @@
                                                 </select>
                                                     </div>
                                             
-                                                </div>                                  
+                                                </div>
+
      
-
-
+                                           
                                             <div class="form-group">
                                                @include('part.auto-com')
                                             </div>
@@ -677,6 +714,11 @@
                        </div>
                     </div>
 
+                     <input type="hidden" name="tutor_price" 
+                             value="tutor_price_calc()" />
+
+
+
                         <div class="card" style="margin-top: 20px; margin-bottom: 20px; margin-left: 0px;">
                              <div class="card-body">
                               <h3 class="card-title">What is your Price</h3>
@@ -685,7 +727,7 @@
 
                         <div style="font-size:24px;padding-bottom: 20px;"> <button type="button" id="min" onclick="decrementValue()">
                             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>
-                        <i class="fa fa-usd" aria-hidden="true"></i>
+                        </i>
                         <input type="text" id="price" name="question_price" id="price" min="12"
                         onkeyup="this.value = minmax(this.value, 20, 2030)" max="150" value="20" style="text-align: center; font-weight: 800" readonly>
                             <button type="button" id="plus" onclick="incrementValue()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>

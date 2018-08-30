@@ -1,6 +1,6 @@
  
 
-  <script src="https://www.paypalobjects.com/api/checkout.js"></script
+  <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
 
   <div id="paypal-button"></div>

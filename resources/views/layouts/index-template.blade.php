@@ -575,7 +575,7 @@
                     </div>  
 
                   <div class="form-group">
-                  <input type="file" placeholder="Upload files" class="form-control"   name="file">
+                  @include('part.file-picker')
                  </div>
 
 
