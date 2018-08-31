@@ -65,25 +65,18 @@ class AskQuestionController extends Controller
         //   'name', 'email' ,'country','city', 'state', 'zip'
 
         $question_id =  $request->session()->get('question_id');
-
-        $price = DB::table('post_question_prices')
-       				->select('question_price')
-       				->where('question_id', $question_id)
-       				->first();
+        $question_price =  $request->session()->get('question_price');
 
         DB::table('payment_metadata')->insert(
             [
-                'name' => $request->name,
-                'email' =>Auth::User()->email,
-
+                'name' => $request->name, 
+                'email' => Auth::user()->email,     
                 'country' => $request->country,
                 'city'    => $request->city,
-
                 'state' => $request->state,
                 'zip' => $request->zip,
-
-                'amount' =>$price->question_price,
-                'token'=> "#". substr($question_id, 0,17),
+                'question_id'=> $question_id,
+                'amount' =>$question_price,
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
@@ -183,7 +176,7 @@ class AskQuestionController extends Controller
             [
                 'tutor_price' => round(24.8 * substr($request['question_price'], 2)/100,0, PHP_ROUND_HALF_UP),
                 //'tutor_price' =>  $request['tutor_price'],
-                'urgency' => $request['urgency'],
+                'urgency' => $request->urgency,
                 'user_id' => Auth::user()->email,
                 'question_id'    => $request->session()->get('question_id'),
                 'pagenum'    => $request->pagenum,

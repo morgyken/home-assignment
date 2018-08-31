@@ -23,7 +23,28 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    
+       public function index()
+    {
+       if(Auth::check())
+       {
+            $user =  User::where('email', Auth::user()->email) ->first();
+            
+            $role = $user->user_role;
+
+            if($role == 'cust'){
+                $user =  User::where('email', Auth::user()->email)->first();
+                               
+                return view ('layouts.index-template', ['user' => $user]);
+            }
+            
+       }
+       else{
+            return redirect()-> route('general');
+       }
+    }
+
+    public function index1()
     {
        if(Auth::check())
        {
@@ -43,25 +64,6 @@ class HomeController extends Controller
        }
     }
 
-       public function index1()
-    {
-       if(Auth::check())
-       {
-            $user =  User::where('email', Auth::user()->email) ->first();
-            
-            $role = $user->user_role;
-
-            if($role == 'cust'){
-                $user =  User::where('email', Auth::user()->email)->first();
-                               
-                return view ('layouts.index-template', ['user' => $user]);
-            }
-            
-       }
-       else{
-            return redirect()-> route('general');
-       }
-    }
 
     public function getAskQuestions(){
 

@@ -19,13 +19,12 @@ class CreatePaymentMetadatasTable extends Migration
             $table->increments(10009);
             $table->rememberToken();
             $table->string('name');
-            $table->string('token');
             $table->string('email');
             $table->string('country');
             $table->string('city');
             $table->string('state');
             $table->string('zip');
-            $table->string('customer_id'); //customer email
+            $table->string('question_id'); //customer email
             $table->integer('amount');
             $table->timestamps();
         });

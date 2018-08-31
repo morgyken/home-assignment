@@ -45,7 +45,7 @@
                     <!-- Link -->
                 </div>
             <div class="col-md-11" style="text-align: center; margin-bottom:70px;" >
-            <form method="post" action="{{route('PostQuestionPrice')}}"  >
+            <form method="post" action="{{route('post.meta')}}"  >
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">                       
                    
@@ -139,16 +139,11 @@
          <!-- Card Light -->
         <div class="card" id="payments">
 
-          <!-- Card image -->
-          <div class="view overlay clearfix">
-            
-
-                            <div class="card">
-                <div class="card-header text-center"><h4>Make 1 Dollar payment </h4>
+            <div class="card-header text-center"><h4>Make 1 Dollar payment </h4>
                 </div>
 
                 <div class="container">
-                    <div class="row col-md-6 col-md-offset-3 text-center">
+                    <div class="col-md-offset-3 text-center">
                         <div class="row" style="border-right-style:solid; border-right-color:#f7f7f7">
 
                                   <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -222,11 +217,8 @@
                                 </style>                        
                                                          
                     </div>
-                </div>
-            </div>
-
-        </div>
-        </div>
+		        </div>
+		     </div>
 
 
 
