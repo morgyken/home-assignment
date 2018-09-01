@@ -81,21 +81,14 @@ class UpdateQuestionController extends Controller
                 $question, $request->update);
         }
 
-        if($request->update =='accepted'){
-            DB::table('question_matrices')->where('question_id', $question)
-                ->update(
-                    [
-                        'tutor_id'   => $request->user_id,
-                        'completed' => 1,            
-                        
-                        'current' => 1,
-                        
-                        'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
-                    ]
-                );
+        if($request->update =='accept-ans'){
 
-            //post comments
-            $this->postComment("Congratulations, the questios was accepted by our customer", $request->update, $question, $request->update);
+            //change status to accepted 
+
+          $this-> UpdateQuestion('completed', $question);
+
+           //update te question ratings
+            
         }
 
 
@@ -206,14 +199,15 @@ class UpdateQuestionController extends Controller
 
 
 
-        if($request->update =='postAnswer'){
+        if($request->update =='post-ans'){
             //file uploads
 
             $file = Input::file('file');
 
             if(is_array($file)){
+                 $dest = public_path().'/storage/uploads/'.$question.'/answer/';
 
-                $dest = public_path().'/storage/uploads/'.$question.'/answer/';
+               // $dest = public_path().'/storage/uploads/'.$question.'/answer/';
 
                 foreach ($file as $files){
                     /**
@@ -225,43 +219,13 @@ class UpdateQuestionController extends Controller
                 }
 
             }
-            /*
-              * Update the question status
-              */
 
-            DB::table('post_answers')->insert(
-                [
-                    'answer_id'=>rand(9000,90000),
-                    'overdue' => '0',
-                    'question_id' =>$question,
-                    'user_id' => Auth::user()->email,
-                    'answered' => 1,
-                    'answer_body' => $request['answer_body'],
-                    'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
-                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
-                ]);
-
-
-            /**
-             * Update the matrix table
-             *
-             */
-
-            DB::table('question_matrices')->where('question_id', $question)
-                ->update(
-                    [                                   
-             
-                                             
-                        'answered' => 1,
             
-                      
-                        'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
-                    ]
-                );
+           //update status 
 
-                 $this->postComment("The question has been answered. Thank you for using our platform.", $question, $request->update);        
+           $this-> UpdateQuestion('answered', $question);
 
-        }
+         }
 
 
         if($request->update =='reassigned'){
@@ -400,9 +364,23 @@ class UpdateQuestionController extends Controller
 
         }
     
+        return redirect()->back();
 
-        return redirect()->route('view-question', ['question_id'=> $question]);
+    }
 
+    public function UpdateQuestion($status, $question)
+    {
+         DB::table('question_matrices')->where('question_id', $question)
+                ->update(
+                    [                                   
+             
+                                             
+                        'status' =>$status,
+            
+                      
+                        'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                    ]
+                );
     }
 
     public function QuestionHistory($status, $question){

@@ -5,6 +5,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use DB;
 
 class HomeController extends Controller  
 {
@@ -26,6 +27,15 @@ class HomeController extends Controller
     
        public function index()
     {
+
+      $questions =  DB::table('question_bodies')
+            ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')        
+            
+            ->where('question_details.user_id', '=', Auth::user()->email)
+            ->orderBy('question_bodies.created_at', 'desc')
+            ->paginate(25); 
+
+
        if(Auth::check())
        {
             $user =  User::where('email', Auth::user()->email) ->first();
@@ -35,7 +45,12 @@ class HomeController extends Controller
             if($role == 'cust'){
                 $user =  User::where('email', Auth::user()->email)->first();
                                
-                return view ('layouts.index-template', ['user' => $user]);
+                return view ('layouts.index-template',
+                 [
+                  'user' => $user,
+                  'questions' => $questions
+
+               ]);
             }
             
        }
@@ -44,25 +59,7 @@ class HomeController extends Controller
        }
     }
 
-    public function index1()
-    {
-       if(Auth::check())
-       {
-            $user =  User::where('email', Auth::user()->email) ->first();
-            
-            $role = $user->user_role;
 
-            if($role == 'cust'){
-                $user =  User::where('email', Auth::user()->email)->first();
-                               
-                return view ('cust.customer-home1', ['user' => $user]);
-            }
-            
-       }
-       else{
-            return redirect()-> route('general');
-       }
-    }
 
 
     public function getAskQuestions(){

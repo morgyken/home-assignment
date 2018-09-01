@@ -19,7 +19,7 @@ class CreateQuestionBodiesTable extends Migration
             $table->text('question_body');
             $table->text('user_id');
             $table->text('question_id');
-            $table->text('academic_level');
+            //$table->text('academic_level');
             $table->text('topic');
             $table->timestamps();
             $table->rememberToken();

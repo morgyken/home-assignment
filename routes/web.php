@@ -213,4 +213,9 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/home', [ 'as'=>'home', 'uses'=>'HomeController@index']);
+
+Route::get('/question_det/{question_id}', 
+
+	[ 'as'=>'question_det', 'uses'=>'QuestionController@NewQuestionDetails']);
+
 });

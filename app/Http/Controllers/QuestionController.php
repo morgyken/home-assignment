@@ -429,6 +429,97 @@ class QuestionController extends AdminController
         ]);
     }
     
+    
+    public function NewQuestionDetails($question_id)
+    {
+
+       $question =  DB::table('question_bodies')
+            ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')            
+            
+            ->where('question_details.question_id', '=', $question_id)
+            ->first();
+
+        $time = new DateTimeModel();
+
+        /*
+        * return the comments in the following
+        *
+        */
+
+        $interval = $time ->getDeadlineInSeconds($question_id);
+
+        $path_question = public_path().'/storage/uploads/'.$question_id.'/question/';
+
+            //dd($path_question);
+                                
+
+            $manuals = [];
+         
+            $filesInFolder = \File::files($path_question);
+
+
+
+            foreach($filesInFolder as $path)
+            {
+                $manuals[] = pathinfo($path);
+            }
+
+        /**
+         * Find the path to the files 
+         */
+        $path_ans = public_path().'/storage/uploads/'.$question_id.'/answer/';
+
+
+        $manuals_ans = [];
+
+        $filesInFolder_ans = \File::files($path_ans);
+
+        foreach($filesInFolder_ans as $path)
+        {
+            $manuals_ans[] = pathinfo($path);
+        }
+
+
+
+       if(Auth::check())
+       {
+            $user =  User::where('email', Auth::user()->email) ->first();
+            
+            $role = $user->user_role;
+
+            if($role == 'cust'){
+
+                $user =  User::where('email', Auth::user()->email)->first();
+                               
+                return view ('quest.question-details', 
+                  [
+                    'user' => $user,
+
+                    'question' => $question,
+                    /*
+                     * Get user type here, include messages
+                     */
+                    
+                    'files'=>$manuals,
+                    /*
+                     * Get diference in time 
+                     */
+
+                    'difference' => $interval,
+
+                  
+                    'answer_files' => $manuals_ans                    
+
+                  ]);
+            }
+            
+       }
+       else{
+            return redirect()-> route('general');
+       }
+    }
+
+    //ned of question details 
     // count question matrices
     public function allcounts($userid)
     {

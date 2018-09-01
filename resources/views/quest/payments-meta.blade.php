@@ -37,8 +37,7 @@
           <div class="view overlay clearfix">
             
 
-                  <!-- Card content -->
-                  <div class="card-body">
+
                     <!-- Title -->
                     <h3 class="card-title text-center">Enter Payment Details</h3>
                       <hr class="my-4">
@@ -47,9 +46,7 @@
             <div class="col-md-11" style="text-align: center; margin-bottom:70px;" >
             <form method="post" action="{{route('post.meta')}}"  >
 
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">                       
-                   
-                    <div class="card" style="margin-top: 20px; margin-bottom:20px; margin-left: 0px;">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">     
                        
                          <div class="row">                         	
                   
@@ -127,26 +124,20 @@
 
                                   </form> 
                         </div>
-                    </div>
-
-                                         
-                </form>
+                   
             </div>
         </div>
         <!-- Card Light -->
         </div>
 
-         <!-- Card Light -->
-        <div class="card" id="payments">
 
-            <div class="card-header text-center"><h4>Make 1 Dollar payment </h4>
+
+            <div class="card-header text-center"><h4>Make {{ Session::get('question_price')}} payment </h4>
                 </div>
 
                 <div class="container">
-                    <div class="col-md-offset-3 text-center">
-                        <div class="row" style="border-right-style:solid; border-right-color:#f7f7f7">
-
-                                  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <div class="text-center col-md-6">
+                          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                         <input type="hidden" name="cmd" value="_s-xclick">
                                         <input type="hidden" name="hosted_button_id" value="SLTRFUAAURHJJ">
                                         <table>
@@ -174,52 +165,10 @@
                                         <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                                 </form>
                         </div>
-                         <div class="row row-centered">
-                            <h3> Pay using Card </h3>
-                                                        
-                            <div class="col-centered col-fixed">
-                                <div class="line-separator"></div>
-                            </div>
-
-                        </div>
-                        <div class="row" style="padding-right:10px; ">
-                         
-                                               
-
-                            <form action="{{route('post.payment')}}" method="post" id="payment-form">
-                                    {{ csrf_field()}}
-                                                      
-
-                                <label for="card-element">
-                                  Credit or debit card
-                                </label>
-                                <div class="form-row">  
-                                <div id="card-element" class="mystripe">
-                                  <!-- A Stripe Element will be inserted here. -->
-                                </div>
-                                <div class="form-row">  
-
-                                <!-- Used to display form errors. -->
-                                <div id="card-errors" role="alert"></div>
-                           
-
-                              <button type="submit" class="btn btn-primary">Submit Payment</button>
-                            </form>
-                                <style type="text/css">
-                                    /**
-                                     * The CSS shown here will not be introduced in the Quickstart guide, but shows
-                                     * how you can use CSS to style your Element's container.
-                                     */
-                                    input{
-                                        color: #890999;
-                                    }
-
-                                </style>                        
-                                                         
-                    </div>
+                     
+                      <div class="col-md-6">
+                         <h1>Pay using cards </h1>
+                      </div>                               
+                </div>
 		        </div>
-		     </div>
-
-
-
-        @endsection
+		     @endsection

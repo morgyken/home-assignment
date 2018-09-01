@@ -21,18 +21,15 @@ class CreateQuestionDetailsTable extends Migration
             $table->string('urgency');
             $table->string('pagenum');
             $table->string('order_subject');
-
             $table->string('paper_type');
             $table->string('spacing'); 
             $table->string('paper_format'); 
-            $table->string('academic_level');
             $table->string('lang_style');
             $table->string('order_summary');
-
             $table->string('question_price');
             $table->string('university');
             $table->string('tutor_price');
-            
+            $table->string('academic_level');
             $table->string('question_deadline');
             $table->timestamps();
             $table->rememberToken();

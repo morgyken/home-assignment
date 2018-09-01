@@ -76,17 +76,17 @@ class AskQuestionController extends Controller
                 'state' => $request->state,
                 'zip' => $request->zip,
                 'question_id'=> $question_id,
-                'amount' =>$question_price,
+                'amount' =>substr($request->$request['question_price'], 2),
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
 
-          return redirect()->route('get-cust-payments');
+          return redirect()->back();
     }
 
     public function getMetadata(){
 
-      return view('quest.payments-meta');
+        return view('quest.payments-meta');
 
     }
 
@@ -96,7 +96,7 @@ class AskQuestionController extends Controller
         $question_id = rand (99999,999999); 
         
 
-        $number_of_words = rand (200,250);
+        $number_of_words = rand (120,150);
 
         $summary =  strip_tags(substr($request->question_body,0, $number_of_words));
 
@@ -133,12 +133,11 @@ class AskQuestionController extends Controller
 
         DB::table('question_bodies')->insert(
             [
-                'question_body' => $request['question_body'],
-                'user_id' => Auth::user()->email,
-                'topic'    => $request->topic,
-                'academic_level'    => $request->academic_level,
+                'question_body' =>  htmlspecialchars($request['question_body']),
+                'user_id'   => Auth::user()->email,
+                'topic'     => $request->topic,
                 'question_id' => $question_id,
-                'summary' => $summary,
+                'summary' => htmlspecialchars($summary),
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
 
@@ -182,14 +181,13 @@ class AskQuestionController extends Controller
                 'pagenum'    => $request->pagenum,
                 'order_subject' => $request->order_subject,
                 'paper_type' => $request ->paper_type,
-
+                'academic_level'    => $request->academic_level,
                 'spacing' => $request['spacing'],
                 'paper_format' => $request->paper_format,
-                'academic_level'    => $request->academic_level,
                 'lang_style'    => $request->lang_style,
                 'question_price' => substr($request->$request['question_price'], 2),
                 'university' => $request->university,
-                'order_summary' =>$request->session()->get('order_summary'),
+                'order_summary' =>htmlspecialchars($request->session()->get('order_summary')),
 
                 'question_deadline' => $request->question_deadline,
                 

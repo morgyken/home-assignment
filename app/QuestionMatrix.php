@@ -13,14 +13,15 @@ class QuestionMatrix extends Model
      *
      * @var array
      */
-    protected $fillable = ['question_id', 'current','cancelled',  'reassigned','completed' ,'rated','revision', 'suggested', 'bid', 'disputed','paid', 'user_id','active'];
+    protected $fillable = ['question_id','status' ];
+    // 'current','cancelled',  'reassigned','completed' ,'rated','revision', 'suggested', 'bid', 'disputed','paid', 'user_id','active'
 
     protected $table='question_matrices';
 
     protected $dateFormat = 'Y/m/d H:i:s';
     protected $connection = 'mysql';
     public $timestamps = true;
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['created_at', 'updated_at'];
 
     /**
      * The attributes that should be hidden for arrays.

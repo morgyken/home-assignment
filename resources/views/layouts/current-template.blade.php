@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">  
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Home Assign-@yield('title')</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
@@ -24,6 +24,48 @@
 
     <!-- uikit included here  (optional) -->
     <link href="{{URL::asset('uikit/css/uikit.css')}}" rel="stylesheet">
+
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+  <script>tinymce.init({ selector:'textarea' });</script>
+
+    <style type="text/css">
+         /**
+             * The CSS shown here will not be introduced in the Quickstart guide, but shows
+             * how you can use CSS to style your Element's container.
+             */
+            .StripeElement {
+              background-color: white;
+              height: 40px;
+              padding: 10px 12px;
+              coloe: #000;
+              border-radius: 4px;
+              border: 1px solid transparent;
+              box-shadow: 0 1px 3px 0 #e6ebf1;
+              -webkit-transition: box-shadow 150ms ease;
+              transition: box-shadow 150ms ease;
+            }
+
+            .StripeElement--focus {
+              box-shadow: 0 1px 3px 0 #cfd7df;
+            }
+
+            .StripeElement--invalid {
+              border-color: #fa755a;
+            }
+
+            .StripeElement--webkit-autofill {
+              background-color: #fefde5 !important;
+            }
+            .mystripe{
+
+                padding: 20px 20px; margin:23px; 
+                border-style: solid; 
+                border-color: #465778; 
+                color:#4682B4
+                font-size:26px;
+            }
+
+     </style>
 
 
   <style type="text/css">
@@ -493,7 +535,7 @@
                         <p> Amount Ready: $234 </p>
                         <p> Current Orders:$78 </p>
                         <p> Warnings: Reassigned 23 Withdrawn 78</p>
-                      Plagiarism 4</p>                   
+                      Suspensions 4</p>                   
             
                     </div>
                 
@@ -569,6 +611,12 @@
   </footer>
 
   @include ('gen.part.login')
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the the stripe tags---------->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="{{ URL::asset('stripejs/example4.js')}}" data-rel-js></script>
+  <script src="{{ URL::asset('stripe/js/l10n.js')}}" data-rel-js></script>
+  <script src="{{URL::asset('stripe/js/index.js')}}" data-rel-js></script>
  
   <script type="text/javascript" src="{{URL::asset('mdb/landing/js/jquery-3.3.1.min.js ')}}"></script>
   <!-- Bootstrap tooltips -->
@@ -588,6 +636,97 @@
 
      <!-- MDB core JavaScript -->
      <script type="text/javascript" src="{{URL::asset('uikit/js/my.js')}}"></script>
+
+     <script type="text/javascript">
+                  // Create a Stripe client.
+            var stripe = Stripe('pk_test_LvVBuMY1fQNF0g0xcJFU18ur');
+
+            // Create an instance of Elements.
+            var elements = stripe.elements();
+
+            // Custom styling can be passed to options when creating an Element.
+            // (Note that this demo uses a wider set of styles than the guide below.)
+            var style = {
+              base: {
+                color: '#32325d',
+                lineHeight: '18px',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                  color: '#aab7c4'
+                }
+              },
+              invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+              }
+            };
+
+            // Create an instance of the card Element.
+            var card = elements.create('card', {style: style});
+
+            // Add an instance of the card Element into the `card-element` <div>.
+            card.mount('#card-element');
+
+            // Handle real-time validation errors from the card Element.
+            card.addEventListener('change', function(event) {
+              var displayError = document.getElementById('card-errors');
+              if (event.error) {
+                displayError.textContent = event.error.message;
+              } else {
+                displayError.textContent = '';
+              }
+            });
+
+            // Handle form submission.
+            var form = document.getElementById('payment-form');
+            form.addEventListener('submit', function(event) {
+              event.preventDefault();
+
+              stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                  // Inform the user if there was an error.
+                  var errorElement = document.getElementById('card-errors');
+                  errorElement.textContent = result.error.message;
+                } else {
+                  // Send the token to your server.
+                  stripeTokenHandler(result.token);
+                }
+              });
+            });
+            function stripeTokenHandler(token) {
+              // Insert the token ID into the form so it gets submitted to the server
+              var form = document.getElementById('payment-form');
+              var hiddenInput = document.createElement('input');
+              hiddenInput.setAttribute('type', 'hidden');
+              hiddenInput.setAttribute('name', 'stripeToken');
+              hiddenInput.setAttribute('value', token.id);
+              form.appendChild(hiddenInput);
+
+              // Submit the form
+              form.submit();
+            }
+
+            var style = {
+              base: {
+                color: '#303238',
+                fontSize: '16px',
+                fontFamily: '"Open Sans", sans-serif',
+                fontSmoothing: 'antialiased',
+                '::placeholder': {
+                  color: '#CFD7DF',
+                },
+              },
+              invalid: {
+                color: '#e5424d',
+                ':focus': {
+                  color: '#303238',
+                },
+              },
+            };
+    </script>
+
 
   <!-- Initializations -->
   <script type="text/javascript">
