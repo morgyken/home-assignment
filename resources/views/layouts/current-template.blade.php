@@ -20,13 +20,19 @@
     <link rel="stylesheet" href="{{URL::asset('sidebar/assets/css/custom-themes.css ')}}">
     <link rel="shortcut icon" type="image/png" href="{{URL::asset('sidebar/assets/img/favicon.png ')}}" />
 
-    <link href="{{URL::asset('uikit/css/uikit-rtl.css')}}" rel="stylesheet">
-
-    <!-- uikit included here  (optional) -->
-    <link href="{{URL::asset('uikit/css/uikit.css')}}" rel="stylesheet">
-
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
   <script>tinymce.init({ selector:'textarea' });</script>
+
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <style type="text/css">
          /**

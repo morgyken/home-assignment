@@ -88,7 +88,21 @@ class UpdateQuestionController extends Controller
           $this-> UpdateQuestion('completed', $question);
 
            //update te question ratings
-            
+          DB::table('qpost_ratings')->where('question_id', $question)
+                ->update(
+                      [  
+                        'question_id' => $question, 
+
+                        'tutor' => 'tutor',
+
+                        'ratings' => $request->rating, 
+
+                        'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                    ]
+
+                );
+
+            return redirect()-> back();
         }
 
 
@@ -127,25 +141,19 @@ class UpdateQuestionController extends Controller
          
         }
 
-        if($request->update =='revision'){
+        if($request->update ==='revision'){
             /**
              * Post to assigned matrix
              */
             DB::table('question_matrices')->where('question_id', $question)
                 ->update(
-                    [
-                       
-                        'revision' => 1,
-                        'answered' => 0,
-                        'assigned' => 1,
-                        'current' => 0,
-                        'paid' => 0,
+                    [                      
+                        'status' => 'revision',
                         'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
                     ]
                 );
 
-              //post comments
-            $this->postComment("The question has been set on revision, please ensure that you submit the revision on time. ",$question, $request->update);
+
 
         }
 
@@ -230,21 +238,13 @@ class UpdateQuestionController extends Controller
 
         if($request->update =='reassigned'){
 
-            DB::table('question_matrices')->where('question_id', $question)
-                ->update(
-                    [
-                        
-                        'reassigned'    => 1,                        
-                        'rated'         => 0,
-                        'user_id'       => $request->user_id,
-                        'tutor_id'      => $request->tutor_id,                        
-                        'assigned'      => 1,
-                        'current'       => 0,
-                        'paid'          => 0,
-                        'updated_at'    => \Carbon\Carbon::now()->toDateTimeString()
-                    ]
-                );
+            //Assign the question to a new tutor
 
+            //change the status to reassigned 
+
+            //if no tutor is selected make the question available
+
+            //then go to tutor, moderator, admin finish.
 
 
                 $this->postComment($request->comments_body , $question, $request->update);
@@ -353,8 +353,7 @@ class UpdateQuestionController extends Controller
              DB::table('question_matrices')->where('question_id', $question)
                 ->update(
                     [ 
-                        'user_id'       => $request->user_id,
-                        
+                        'user_id'       => $request->user_id,                       
                         
                       
                         'paid'          => 1,
@@ -364,7 +363,7 @@ class UpdateQuestionController extends Controller
 
         }
     
-        return redirect()->back();
+        return redirect()->back(); // include appropriate message 
 
     }
 

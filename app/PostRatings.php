@@ -12,7 +12,7 @@ class PostRatings extends Model
     public $timestamps = true;
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
     
-    protected $fillable = ['question_id', 'ratings'];
+    protected $fillable = ['question_id', 'ratings', 'tutor'];
 
     /**
      * The attributes that should be hidden for arrays.

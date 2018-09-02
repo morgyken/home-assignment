@@ -153,7 +153,7 @@
                           
         
                         <div class="col-md-4">
-                          <a href="" class="btn btn-secondary btn-rounded mb-4" data-toggle="modal" data-target="#re-assign">Reassign the question</a>
+                          <a href="" class="btn btn-secondary btn-rounded mb-4" data-toggle="modal" data-target="#reassign">Reassign the question</a>
                         </div>
 
                     </p>
@@ -291,9 +291,26 @@
                    {{ csrf_field() }} 
                                             
                     <input type="hidden" name="update" value="accept-ans">
+                    <h4>Rate tutor</h4>
+                    <div class="col-md-2">
+                          <label><input type="radio" id="urg" value="1" name="rating">Poor</label>
+                        </div>
+                        <div class="col-md-2">
+                          <label><input type="radio" id="urg" value="2" name="rating">Average</label>
+                        </div>
+                        <div class="col-md-2">
+                          <label><input type="radio" id="urg" value="3" name="rating">Good</label>
+                        </div>
+                        <div class="col-md-2">
+                          <label><input type="radio" id="urg" value="4" name="rating">Very Good</label>
+                        </div>
+                        <div class="col-md-2">
+                          <label><input type="radio" id="urg" value="5" name="rating">Excellent!</label>
+                        </div>
+                    </div>
                                      
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Post answer</button>
+                    <button type="submit" class="btn btn-success"> Accept Answer </button>
             </form>
 
             </div>
@@ -305,5 +322,91 @@
   </div>
 </div>
   <!-- End o Accepted -->
+
+
+  <!-- Reassign the questions   -->
+  <div class="modal fade bottom" id="reassign" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+    <div class="modal-dialog modal-frame modal-bottom col-xl-10" role="document">
+
+
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-header ">
+                <h4 class="modal-title" id="exampleModalLongTitle"> Reassing Question</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+         <div class="row d-flex justify-content-center align-items-center">
+
+          
+            <div class="col-xl-12">
+                <div class="card-body">
+                    <form action="{{ route('update-question', ['question_id' => $question->question_id]) }}" method="POST">
+                   {{ csrf_field() }} 
+                                            
+                    <input type="hidden" name="update" value="reassign">
+                    <h4>Select Tutor</h4>
+                    <div class="col-md-12">
+                        @include('part.auto-com')
+                    </div>
+                                     
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success"> Accept Answer </button>
+            </form>
+
+            </div>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- End of REassign Question -->
+
+  <!-- Reassign the questions   -->
+  <div class="modal fade bottom" id="revision" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+    <div class="modal-dialog modal-frame modal-bottom col-xl-10" role="document">
+
+
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-header ">
+                <h4 class="modal-title" id="exampleModalLongTitle"> Reassing Question</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+         <div class="row d-flex justify-content-center align-items-center">
+
+          
+            <div class="col-xl-12">
+                <div class="card-body">
+                    <form action="{{ route('update-question', ['question_id' => $question->question_id]) }}" method="POST">
+                   {{ csrf_field() }} 
+                                            
+                    <input type="hidden" name="update" value="revision">
+                    <h4>Are you sure you want to put the question on Revision? </h4>
+                              
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success"> Put on Revision </button>
+            </form>
+
+            </div>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- End of REassign Question -->
     
  @endsection

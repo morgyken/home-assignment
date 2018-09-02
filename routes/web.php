@@ -214,8 +214,13 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/home', [ 'as'=>'home', 'uses'=>'HomeController@index']);
 
+Route::get('/tutor-auto', 
+	[ 'as'=>'tutor-auto', 'uses'=>'AutoComplete@Tutor']);
+
 Route::get('/question_det/{question_id}', 
 
 	[ 'as'=>'question_det', 'uses'=>'QuestionController@NewQuestionDetails']);
+
+
 
 });

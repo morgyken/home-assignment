@@ -15,10 +15,16 @@ class CreatePostRatingsTable extends Migration
     {
         Schema::create('post_ratings', function (Blueprint $table) {
             $table->increments('id');
+
             $table->timestamps();
+
             $table->rememberToken();
-            $table->integer('ratings');
-            $table->string('tutor');
+
+            $table->integer('ratings')->nullable();
+
+            $table->string('tutor')->nullable();
+            
+            $table->string('question_id')->unique();
 
         });
     }

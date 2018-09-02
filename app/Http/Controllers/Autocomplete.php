@@ -5,6 +5,7 @@ use App\UniversityModels;
 use App\AcademicLevel;
 use App\QuestionCategories;
 use DB;
+use App\User;
 
 use Illuminate\Http\Request;
 
@@ -30,6 +31,31 @@ class Autocomplete extends Controller
 
    	
    	return response()->json($result);      	
+
+    }
+
+    public function Tutor(Request $request)
+    {
+
+    $term= $request->term;
+
+    $data = User::where('email', 'LIKE', '%'.$term.'%')
+    //$data = UniversityModels::
+            ->take(8)
+
+            ->get();
+
+        dd($data);
+
+    $result = array();
+
+    foreach ($data as $key => $value) {
+        # code...
+        $result []= ['id' =>$value->id, 'value' => $value->email];
+    }
+
+    
+    return response()->json($result);       
 
     }
 

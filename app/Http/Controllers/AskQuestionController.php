@@ -145,9 +145,25 @@ class AskQuestionController extends Controller
 
         DB::table('question_matrices')->insert(
             [
-                'user_id' => Auth::user()->email,
                 'question_id' =>$question_id,
-                'current' => 1,
+                'status' => 'new',
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        //post the question on the question ratings table 
+
+        DB::table('question_details')->insert(
+            [
+               'question_id' =>$question_id, 
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        //post the question on the question ratings table 
+
+
+        DB::table('question_ratings')->insert(
+            [
+                'question_id' =>$question_id,
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
@@ -171,12 +187,15 @@ class AskQuestionController extends Controller
          * Insert into database
          */
 
-        DB::table('question_details')->insert(
-            [
+        $question  = $request-> session()->get('question_id');
+
+        DB::table('question_details')->where('question_id', $question)
+                ->update(
+                    [    
                 'tutor_price' => round(24.8 * substr($request['question_price'], 2)/100,0, PHP_ROUND_HALF_UP),
                 //'tutor_price' =>  $request['tutor_price'],
                 'urgency' => $request->urgency,
-                'user_id' => Auth::user()->email,
+                
                 'question_id'    => $request->session()->get('question_id'),
                 'pagenum'    => $request->pagenum,
                 'order_subject' => $request->order_subject,

@@ -28,19 +28,53 @@ class HomeController extends Controller
        public function index()
     {
 
-      $questions =  DB::table('question_bodies')
+      //Get user 
+      $user =  User::where('email', Auth::user()->email) ->first();
+
+      //get user role 
+            
+            $role = $user->user_role;
+
+            //initialize object 
+
+          
+
+//if customer 
+       if($role == 'cust'){
+
+            $questions =  DB::table('question_bodies')
             ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')        
             
             ->where('question_details.user_id', '=', Auth::user()->email)
             ->orderBy('question_bodies.created_at', 'desc')
             ->paginate(25); 
 
+          }
+
+//if tutor 
+      if($role == 'tutor'){
+
+            $questions =  DB::table('question_bodies')
+
+            ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')  
+
+            ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')
+
+            ->where('question_matrices.status', '=','new')
+
+            ->orwhere('question_matrices.status', '=','active')
+
+            ->orderBy('question_bodies.created_at', 'desc')
+
+            ->paginate(25); 
+
+          }
+
+
 
        if(Auth::check())
        {
-            $user =  User::where('email', Auth::user()->email) ->first();
             
-            $role = $user->user_role;
 
             if($role == 'cust'){
                 $user =  User::where('email', Auth::user()->email)->first();

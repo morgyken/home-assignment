@@ -579,16 +579,13 @@
                 </button>
             </div>
 
-
-
           <div class="row d-flex justify-content-center align-items-center">
 
-          
             <div class="col-xl-12">
                 <form method="post" action="{{ route('post-question')}}"  enctype="multipart/form-data">
 
                 <div class="form-group">
-                  <input type="" placeholder="Topic" class="form-control"   name="topic">
+                  <input type="text" placeholder="Topic" class="form-control"   name="topic">
                 </div>
                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
                  <div class="form-group">
@@ -597,10 +594,7 @@
 
                   <div class="form-group">
                   @include('part.file-picker')
-                 </div>
-
-
-                 
+                 </div>      
          
 
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
