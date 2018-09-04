@@ -5,25 +5,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
   <title>Home Assign-Home</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Bootstrap core CSS -->
-  <link href="{{URL::asset('mdb/landing/css/bootstrap.css')}}" rel="stylesheet">
+  <link href="<?php echo e(URL::asset('mdb/landing/css/bootstrap.css')); ?>" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="{{URL::asset('mdb/landing/css/mdb.css ')}}" rel="stylesheet">  <!-- Your custom styles (optional) -->
+  <link href="<?php echo e(URL::asset('mdb/landing/css/mdb.css ')); ?>" rel="stylesheet">  <!-- Your custom styles (optional) -->
  
     <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
-    <link rel="stylesheet" href="{{URL::asset('sidebar/assets/css/custom.css')}}">
-    <link rel="stylesheet" href="{{URL::asset('sidebar/assets/css/custom-themes.css ')}}">
-    <link rel="shortcut icon" type="image/png" href="{{URL::asset('sidebar/assets/img/favicon.png ')}}" />
+    <link rel="stylesheet" href="<?php echo e(URL::asset('sidebar/assets/css/custom.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::asset('sidebar/assets/css/custom-themes.css ')); ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo e(URL::asset('sidebar/assets/img/favicon.png ')); ?>" />
 
-    <link href="{{URL::asset('uikit/css/uikit-rtl.css')}}" rel="stylesheet">
+    <link href="<?php echo e(URL::asset('uikit/css/uikit-rtl.css')); ?>" rel="stylesheet">
 
     <!-- uikit included here  (optional) -->
-    <link href="{{URL::asset('uikit/css/uikit.css')}}" rel="stylesheet">
+    <link href="<?php echo e(URL::asset('uikit/css/uikit.css')); ?>" rel="stylesheet">
 
 
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
@@ -103,7 +103,7 @@
           <li class="nav-item">
             <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">About Us</a>
           </li>
-      @if(Auth::check())
+      <?php if(Auth::check()): ?>
         <li class="nav-item">
             <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">Browse Jobs</a>
           </li>
@@ -113,7 +113,7 @@
         <li class="nav-item">
             <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">My Profile</a>
           </li>
-        @endif
+        <?php endif; ?>
         </ul>
 
         <!-- Right -->
@@ -133,14 +133,15 @@
           <li class="nav-item">
 
                   
-            @if(Auth::check())
+            <?php if(Auth::check()): ?>
 
             <li class="nav-item">
             <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-             <i class="fas fa-sign-in-alt"></i> {{ Auth::User()->name}}
+             <i class="fas fa-sign-in-alt"></i> <?php echo e(Auth::User()->name); ?>
+
             </a>
           </li>              
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); 
+            <a href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault(); 
                                          document.getElementById('logout-form').submit();" 
                                           class="nav-link border border-light rounded"
               target="_blank">
@@ -148,18 +149,18 @@
               
 
               Log Out
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+              <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
              </form>
                   </a>
-            @else 
+            <?php else: ?> 
 
-            <a href="{{ route('login') }}" class="nav-link border border-light rounded"
+            <a href="<?php echo e(route('login')); ?>" class="nav-link border border-light rounded"
               data-toggle="modal" data-target="#modalContactForm">
                  <i class="fas fa-user-alt"></i>
               Log in
 
-            @endif
+            <?php endif; ?>
 
             </a>
           </li>
@@ -513,7 +514,7 @@
                  
 
                  <hr class="my-4">     
-                  @if($user =='cust')
+                  <?php if($user =='cust'): ?>
                
                   <!-- SHOW IF STUDENT: ASK QUESTION BUTTON -->  
                                
@@ -521,15 +522,15 @@
                         <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#frameModalBottom">Ask Question Now!</a>
                     </div>
                     
-                    @endif
+                    <?php endif; ?>
                  <hr class="my-4">
                     <div class='container'>
                       <h3>
-                      @if($user =='cust')
+                      <?php if($user =='cust'): ?>
                        Previous
-                      @else
+                      <?php else: ?>
                         Available   
-                       @endif
+                       <?php endif; ?>
                      Questions </h3>
 
                       <table class="table">
@@ -543,21 +544,21 @@
                             </tr>
                           </thead>
                           <tbody>
-                            @foreach($questions as $question => $value)
-                            <tr class='clickable-row' data-href="{{route('question_det', ['question_id' =>$value->question_id  ]) }}">
-                              <td>{{$value->question_id }}</th>
-                              <td>{{$value->summary  }}</td>
-                              <td> {{$value->created_at  }} </td>
-                              <td> ${{ $value->question_price  }}</td>
+                            <?php $__currentLoopData = $questions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $question => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <tr class='clickable-row' data-href="<?php echo e(route('question_det', ['question_id' =>$value->question_id  ])); ?>">
+                              <td><?php echo e($value->question_id); ?></th>
+                              <td><?php echo e($value->summary); ?></td>
+                              <td> <?php echo e($value->created_at); ?> </td>
+                              <td> $<?php echo e($value->question_price); ?></td>
                             </tr>
-                          @endforeach
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                           </tbody>
                         </table> 
 
                     </div>
 
             </div>
-             <h4>{{ $questions->links() }}</h4> 
+             <h4><?php echo e($questions->links()); ?></h4> 
         </main>
         <!-- page-content" -->
     </div>
@@ -593,18 +594,18 @@
 
           
             <div class="col-xl-12">
-                <form method="post" action="{{ route('post-question')}}"  enctype="multipart/form-data">
+                <form method="post" action="<?php echo e(route('post-question')); ?>"  enctype="multipart/form-data">
 
                 <div class="form-group">
                   <input type="" placeholder="Topic" class="form-control"   name="topic">
                 </div>
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                 <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
                  <div class="form-group">
                   <textarea type="" style="height:250px;"  placeholder="Enter the Question Details" class="form-control" rows="9"  name="question_body"></textarea>
                 </div>
 
                   <div class="form-group">
-                  @include('part.file-picker')
+                  <?php echo $__env->make('part.file-picker', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                  </div>
 
 
@@ -669,26 +670,26 @@
 
   </footer>
 
-  @include ('gen.part.login')
+  <?php echo $__env->make('gen.part.login', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
  
-  <script type="text/javascript" src="{{URL::asset('mdb/landing/js/jquery-3.3.1.min.js ')}}"></script>
+  <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/jquery-3.3.1.min.js ')); ?>"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="{{URL::asset('mdb/landing/js/popper.min.js ')}}"></script>
+  <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/popper.min.js ')); ?>"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="{{URL::asset('mdb/landing/js/bootstrap.min.js ')}}"></script>
+  <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/bootstrap.min.js ')); ?>"></script>
   <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="{{URL::asset('mdb/landing/js/mdb.min.js ')}}"></script>
+  <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/mdb.min.js ')); ?>"></script>
 
    <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script src="{{URL::asset('sidebar/assets/js/custom.js')}}"></script>
+    <script src="<?php echo e(URL::asset('sidebar/assets/js/custom.js')); ?>"></script>
         <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="{{URL::asset('uikit/js/uikit-icons.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/uikit-icons.min.js')); ?>"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="{{URL::asset('uikit/js/uikit.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/uikit.min.js')); ?>"></script>
 
      <!-- MDB core JavaScript -->
-     <script type="text/javascript" src="{{URL::asset('uikit/js/my.js')}}"></script>
+     <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/my.js')); ?>"></script>
 
   <!-- Initializations -->
   <script type="text/javascript">

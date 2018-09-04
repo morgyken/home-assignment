@@ -83,9 +83,6 @@ Route::get('post-questions',array('as'=>'post-questions','uses'=>'QuestionContro
 //sample post questions 
 Route::post('post-question',array('as'=>'post-question','uses'=>'AskQuestionController@postQuestion')); 
 
-
-Route::get('view-question/{question_id}/{optional?}',array('as'=>'view-question','uses'=>'QuestionController@QuestionDetails'));
-
 Route::post('/post-answer/{question_id}', ['as' =>'post.answer', 'uses' => 'QuestionController@PostAnswer']);
 
 
@@ -220,6 +217,22 @@ Route::get('/tutor-auto',
 Route::get('/question_det/{question_id}', 
 
 	[ 'as'=>'question_det', 'uses'=>'QuestionController@NewQuestionDetails']);
+
+//questio bids 
+
+Route::get('/bids/{question_id}/', 
+
+	[ 'as'=>'get-bids', 'uses'=>'QuestionController@GetTBids']);
+
+
+
+Route::post('/bids/{question_id}/{tutor_id}', 
+
+	[ 'as'=>'post-bids', 'uses'=>'QuestionController@PostBids']);
+
+Route::post('/assign/{question_id}/{tutor_id}', 
+
+	[ 'as'=>'assign-question', 'uses'=>'QuestionController@AssignQuestion']);
 
 
 

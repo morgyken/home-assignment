@@ -179,263 +179,15 @@ class QuestionController extends AdminController
 
     }
 
-    /*
-     * get question details
-     */
-    public function QuestionDetails($question_id, $optional=null){
-        $email = Auth::user()->email;
-
-        $details = $this->findTutorprofile($email, $optional);
-
-
-        $sum = $details['sum'];
-
-        $sum_2 = $details['sum2'];
-
-        $comments12 = $details['comments'];
-
-        $count=  $details['count'];
-
-
-        $question_price= PostQuestionPrice::where('question_id',$question_id)->firstOrFail();
-
-        
-        $question = PostQuestionModel::where('question_id', $question_id)->firstOrFail();
-        /*
-         * Pull question price in this model quesry
-         *
-         */
-    
-        $status = DB::table('question_matrices')->where('question_id',$question_id)->first();
-          
-        $time = new DateTimeModel();
-
-        /*
-        * return the comments in the following
-        *
-        */
-
-        $interval = $time ->getDeadlineInSeconds($question_id);
-
-        /*
-         * return the comments in the following
-         *
-         */
-
-        if(
-        empty(
-        $comments= PostComments::where('question_id', $question_id)->first()
-        )
-
-        )
-        {
-            $comments = [];
-        }
-        else{
-
-            $comments= DB::table('post_comments')
-                ->where('question_id', $question_id)
-                ->get();
-        }
-
-      
-        if(
-        empty(
-        $tutor= User::where('user_role', 'tutor')->get()
-        )
-
-        )
-        {
-            $tutor= [];
-        }
-        else{
-
-            $tutor= DB::table('users')
-                ->where('user_role','tutor')
-                ->get();
-        }
-
-
-
-
-        
-
-      if(
-        empty(
-        $answer12= PostComments::where('question_id', $question_id)->first()
-        )
-
-        )
-        {
-            $answer12 = [];
-        }
-        else{
-
-           $answer12 = DB::table('post_answers')
-                ->where('question_id', $question_id)
-                ->get();
-        }
-
-        if(
-        empty(
-        $priceSuggestion= SuggestPriceIncrease::where('question_id', '=', $question_id)->first()
-        )
-
-        )
-        {
-            $priceSuggestion= array();
-        }
-        else{
-
-            $priceSuggestion = DB::table('suggest_price_increases')->where('question_id', '=', $question_id) ->get();
-        }
-        /*
-       * Get Sugegsted deadline
-       */
-
-        if(
-        empty(
-        $deadlines= SuggestDeadline::where('question_id', '=', $question_id)->get()
-        )
-
-        )
-        {
-            $deadlines= array();
-        }
-        else{
-
-            $deadlines = DB::table('suggest_deadlines')->where('question_id', '=', $question_id) ->get();
-        }
-        
-
-        $posted= DB::table('question_bodies')->where('question_id', '=', $question_id)->value('created_at');
-        
-
-            $user12 = Auth::User()->email;
-
-            $user = DB::table('users')->where('email', '=', $user12) ->get();
-
-            /**
-             * Question files generator
-             */
-            
-            $path_question = public_path().'/storage/uploads/'.$question_id.'/question/';
-
-            //dd($path_question);
-                                
-
-            $manuals = [];
-         
-            $filesInFolder = \File::files($path_question);
-
-
-
-            foreach($filesInFolder as $path)
-            {
-                $manuals[] = pathinfo($path);
-            }
-
-        /**
-         * Answer files generator
-         */
-        $path_ans = public_path().'/storage/uploads/'.$question_id.'/answer/';
-
-
-        $manuals_ans = [];
-
-        $filesInFolder_ans = \File::files($path_ans);
-
-        foreach($filesInFolder_ans as $path)
-        {
-            $manuals_ans[] = pathinfo($path);
-        }
-
-
-        return view ('quest.question-det', [
-
-         // return view ('quest.question-det12', [
-
-            /*
-             * Get user type here
-             */
-            'user' =>$user,
-            
-            /*
-             * Return Comments
-             */
-            
-            'comments' => $comments,
-
-            /*
-             * Get Question
-             */
-
-            'question' => $question,
-            
-            /*
-             * Files and more file details 
-             */
-            
-            'files'=>$manuals,
-
-            /*
-             * Assigned is assigned
-             */
-
-            'status'=>$status,
-
-           
-
-            //get tutors for select
-            'tutors' => $tutor,
-
-             //their own car
-
-            'sum' => $sum,
-
-            //answer body
-
-            'answer' => $answer12,
-
-
-            'sum_2' => $sum_2,
-
-
-            'question_price' => $question_price,
-            /*
-             * Pass comments all of them
-             */
-
-            'price1' => $priceSuggestion,
-
-            /*
-             * pass suggested deadline to the view
-             */
-
-            'deadlines' => $deadlines,
-
-            'difference' => $interval,
-
-            'price' => $question_price->question_price,
-
-            'posted' => $posted,
-
-            'answer_files' => $manuals_ans,
-
-            'comments21' => $comments12,
-
-            'count' => $count
-
-        ]);
-    }
+    // question details 
     
     
     public function NewQuestionDetails($question_id)
     {
 
        $question =  DB::table('question_bodies')
-            ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')            
-            
+            ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')
+            ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')             
             ->where('question_details.question_id', '=', $question_id)
             ->first();
 
@@ -479,6 +231,13 @@ class QuestionController extends AdminController
             $manuals_ans[] = pathinfo($path);
         }
 
+        //check if assigned 
+
+        $assigned = DB::table('assign_questions')
+                    ->where('question_id',$question_id)
+                    ->orderby('created_at', 'desc') 
+                    ->first();
+
 
 
        if(Auth::check())
@@ -487,10 +246,6 @@ class QuestionController extends AdminController
             
             $role = $user->user_role;
 
-            if($role == 'cust'){
-
-                $user =  User::where('email', Auth::user()->email)->first();
-                               
                 return view ('quest.question-details', 
                   [
                     'user' => $user,
@@ -507,11 +262,16 @@ class QuestionController extends AdminController
 
                     'difference' => $interval,
 
+                    //assigned 
+                    'assigned'   => $assigned->assigned,
+
                   
-                    'answer_files' => $manuals_ans                    
+                    'answer_files' => $manuals_ans,
+
+                    'role'   => $role                   
 
                   ]);
-            }
+            
             
        }
        else{
@@ -519,12 +279,89 @@ class QuestionController extends AdminController
        }
     }
 
-    //ned of question details 
-    // count question matrices
-    public function allcounts($userid)
-    {
-        // $user = DB::table('question_matrices')->where('email', '=', $user12) ->get();
+    //bid points function
 
+    public function CalculateBidpoints(){
+
+      //use number of Questions
+
+
+      //use how long the person has been on the website (age of the account)
+
+
+      //let tutors be on fire!!!
+
+
+      //calculate success rate 
+
+      //Check number of questions anwered
+
+    } 
+
+    public function AssignQuestion ($question, $tutor)
+    {
+
+      DB::table('assign_questions')->insert(
+            [
+               
+
+                'tutor_id' =>$tutor,
+                'question_id' =>$question,
+                'assigned' => 1,
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            ]);
+
+      //return home 
+
+    return redirect()->back();
+
+
+    } 
+    
+    // count question matrices
+    public function GetBids($question_id)
+    {
+
+        //get bids, let all bids to be automatched 
+
+        $bids = DB::table('question_bids')->select('bidpoints')
+
+                    ->where('question_id',$question_id)->get();
+
+        //return bids 
+        return count($bids);
+    }
+
+     // Post bids 
+    public function PostBids(Request $request, $question_id, $tutor_id)
+    {
+
+        $checkbid = DB::table('question_bids')->select('tutor_id')
+                    ->where('tutor_id', $tutor_id)->first();
+
+        if($checkbid  == null)
+        {
+
+        //avoid bidding twice for the same tutor 
+
+            DB::table('question_bids')->insert(
+            [
+                'bidpoints' => 34, //calculate bidpoints 
+
+                'tutor_id' =>$tutor_id,
+                'question_id' =>$question_id,
+
+                'question_deadline' =>$request->question_deadline,
+                'bid_price' =>$request->bid_price,
+
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            ]);
+
+        }
+
+     return redirect()-> back();        
     }
 
     public function increaseDeadline(Request $request, $question)

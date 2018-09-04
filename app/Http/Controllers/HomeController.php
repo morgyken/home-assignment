@@ -37,7 +37,6 @@ class HomeController extends Controller
 
             //initialize object 
 
-          
 
 //if customer 
        if($role == 'cust'){
@@ -45,7 +44,7 @@ class HomeController extends Controller
             $questions =  DB::table('question_bodies')
             ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')        
             
-            ->where('question_details.user_id', '=', Auth::user()->email)
+            ->where('question_bodies.user_id', '=', Auth::user()->email)
             ->orderBy('question_bodies.created_at', 'desc')
             ->paginate(25); 
 
@@ -64,45 +63,33 @@ class HomeController extends Controller
 
             ->orwhere('question_matrices.status', '=','active')
 
+            ->orwhere('question_matrices.status', '=',1)
+
             ->orderBy('question_bodies.created_at', 'desc')
 
             ->paginate(25); 
 
           }
 
-
+  
 
        if(Auth::check())
-       {
-            
+       {                
 
-            if($role == 'cust'){
-                $user =  User::where('email', Auth::user()->email)->first();
-                               
-                return view ('layouts.index-template',
+               return view ('layouts.index-template',
                  [
                   'user' => $user,
-                  'questions' => $questions
+                  'questions' => $questions,
+                  'user' => $role
 
                ]);
-            }
-            
+                    
        }
        else{
             return redirect()-> route('general');
        }
     }
-
-
-
-
-    public function getAskQuestions(){
-
-           $user = session('user');  //get user roles from the sessions 
-        
-        
-            return view ('quest.ask-question-12', ['user' =>$user]);
-    }
+    
 
     public function AskSample(){
 

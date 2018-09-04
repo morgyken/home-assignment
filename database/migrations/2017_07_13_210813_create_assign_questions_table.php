@@ -15,8 +15,9 @@ class CreateAssignQuestionsTable extends Migration
     {
         Schema::create('assign_questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id');    
-            $table-> boolean('assigned');
+            $table->string('tutor_id')->unique();    
+            $table-> string('question_id');
+            $table->integer('assigned')->default(0);
             $table->timestamps();
             $table->rememberToken();
         });

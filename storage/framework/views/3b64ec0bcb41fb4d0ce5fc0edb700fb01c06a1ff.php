@@ -4,31 +4,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Home Assign-Home</title>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">  
+  <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+  <title>Home Assign-<?php echo $__env->yieldContent('title'); ?></title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Bootstrap core CSS -->
-  <link href="{{URL::asset('mdb/landing/css/bootstrap.css')}}" rel="stylesheet">
+  <link href="<?php echo e(URL::asset('mdb/landing/css/bootstrap.css')); ?>" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="{{URL::asset('mdb/landing/css/mdb.css ')}}" rel="stylesheet">  <!-- Your custom styles (optional) -->
+  <link href="<?php echo e(URL::asset('mdb/landing/css/mdb.css ')); ?>" rel="stylesheet">  <!-- Your custom styles (optional) -->
  
     <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
-    <link rel="stylesheet" href="{{URL::asset('sidebar/assets/css/custom.css')}}">
-    <link rel="stylesheet" href="{{URL::asset('sidebar/assets/css/custom-themes.css ')}}">
-    <link rel="shortcut icon" type="image/png" href="{{URL::asset('sidebar/assets/img/favicon.png ')}}" />
-
-    <link href="{{URL::asset('uikit/css/uikit-rtl.css')}}" rel="stylesheet">
-
-    <!-- uikit included here  (optional) -->
-    <link href="{{URL::asset('uikit/css/uikit.css')}}" rel="stylesheet">
-
+    <link rel="stylesheet" href="<?php echo e(URL::asset('sidebar/assets/css/custom.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(URL::asset('sidebar/assets/css/custom-themes.css ')); ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo e(URL::asset('sidebar/assets/img/favicon.png ')); ?>" />
 
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
   <script>tinymce.init({ selector:'textarea' });</script>
 
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <style type="text/css">
+         /**
+             * The CSS shown here will not be introduced in the Quickstart guide, but shows
+             * how you can use CSS to style your Element's container.
+             */
+            .StripeElement {
+              background-color: white;
+              height: 40px;
+              padding: 10px 12px;
+              coloe: #000;
+              border-radius: 4px;
+              border: 1px solid transparent;
+              box-shadow: 0 1px 3px 0 #e6ebf1;
+              -webkit-transition: box-shadow 150ms ease;
+              transition: box-shadow 150ms ease;
+            }
+
+            .StripeElement--focus {
+              box-shadow: 0 1px 3px 0 #cfd7df;
+            }
+
+            .StripeElement--invalid {
+              border-color: #fa755a;
+            }
+
+            .StripeElement--webkit-autofill {
+              background-color: #fefde5 !important;
+            }
+            .mystripe{
+
+                padding: 20px 20px; margin:23px; 
+                border-style: solid; 
+                border-color: #465778; 
+                color:#4682B4
+                font-size:26px;
+            }
+
+     </style>
 
 
   <style type="text/css">
@@ -61,13 +104,6 @@
                   background: #1C2331!important;
               }
           }
-
-    .clickable-row{
-      cursor: pointer;
-    }
-    #inputText {
-    height : 12000px;
-}
   </style>
 </head>
 
@@ -103,7 +139,7 @@
           <li class="nav-item">
             <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">About Us</a>
           </li>
-      @if(Auth::check())
+      <?php if(Auth::check()): ?>
         <li class="nav-item">
             <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">Browse Jobs</a>
           </li>
@@ -113,7 +149,7 @@
         <li class="nav-item">
             <a class="nav-link" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">My Profile</a>
           </li>
-        @endif
+        <?php endif; ?>
         </ul>
 
         <!-- Right -->
@@ -133,14 +169,15 @@
           <li class="nav-item">
 
                   
-            @if(Auth::check())
+            <?php if(Auth::check()): ?>
 
             <li class="nav-item">
             <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-             <i class="fas fa-sign-in-alt"></i> {{ Auth::User()->name}}
+             <i class="fas fa-sign-in-alt"></i> <?php echo e(Auth::User()->name); ?>
+
             </a>
           </li>              
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); 
+            <a href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault(); 
                                          document.getElementById('logout-form').submit();" 
                                           class="nav-link border border-light rounded"
               target="_blank">
@@ -148,18 +185,18 @@
               
 
               Log Out
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+              <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
              </form>
                   </a>
-            @else 
+            <?php else: ?> 
 
-            <a href="{{ route('login') }}" class="nav-link border border-light rounded"
+            <a href="<?php echo e(route('login')); ?>" class="nav-link border border-light rounded"
               data-toggle="modal" data-target="#modalContactForm">
                  <i class="fas fa-user-alt"></i>
               Log in
 
-            @endif
+            <?php endif; ?>
 
             </a>
           </li>
@@ -505,55 +542,29 @@
                         <p> Amount Ready: $234 </p>
                         <p> Current Orders:$78 </p>
                         <p> Warnings: Reassigned 23 Withdrawn 78</p>
-                      Plagiarism 4</p>                   
+                      Suspensions 4</p>                   
             
                     </div>
                 
                     <!--Main layout-->
                  
-
-                 <hr class="my-4">     
+            </div>
+                     <hr>       
 
                
                   <!-- SHOW IF STUDENT: ASK QUESTION BUTTON -->  
                                
-                    <div class="text-center">
-                        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#frameModalBottom">Ask Question Now!</a>
-                    </div>
-                    
-                 <hr class="my-4">
-                    <div class='container'>
-                      <h1> Previous Questions </h1> 
-                      <table class="table">
-                          <caption>My Questions </caption>
-                          <thead>
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Details</th>
-                              <th scope="col">Deadline</th>
-                              <th scope="col">Price</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            @foreach($questions as $question => $value)
-                            <tr class='clickable-row' data-href="{{route('question_det', ['question_id' =>$value->question_id  ]) }}">
-                              <td>{{$value->question_id }}</th>
-                              <td>{{$value->summary  }}</td>
-                              <td> {{$value->created_at  }} </td>
-                              <td> ${{ $value->question_price  }}</td>
-                            </tr>
-                          @endforeach
-                          </tbody>
-                        </table> 
-
-                    </div>
-
+                   <?php echo $__env->yieldContent('content'); ?>
+                    <hr> 
+              
             </div>
-             <h4>{{ $questions->links() }}</h4> 
         </main>
         <!-- page-content" -->
     </div>
     <!-- page-wrapper -->
+
+
+
 
         <hr class="my-4">
 
@@ -562,54 +573,6 @@
 
     </div>
   </main>
-  <!--Main layout-->
-<!-- Frame Modal Bottom -->
-<div class="modal fade bottom" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-    <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
-    <div class="modal-dialog modal-frame modal-bottom col-xl-10" role="document">
-
-
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="modal-header ">
-                <h4 class="modal-title" id="exampleModalLongTitle"> Post your Question</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-          <div class="row d-flex justify-content-center align-items-center">
-
-            <div class="col-xl-12">
-                <form method="post" action="{{ route('post-question')}}"  enctype="multipart/form-data">
-
-                <div class="form-group">
-                  <input type="text" placeholder="Topic" class="form-control"   name="topic">
-                </div>
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                 <div class="form-group">
-                  <textarea type="" style="height:250px;"  placeholder="Enter the Question Details" class="form-control" rows="9"  name="question_body"></textarea>
-                </div>
-
-                  <div class="form-group">
-                  @include('part.file-picker')
-                 </div>      
-         
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-success">Continue</button>
-            </form>
-
-            </div>
-              
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Frame Modal Bottom -->
-
   <!--Footer-->
   <footer class="page-footer text-center font-small mt-4 wow fadeIn">
     <!--/.Call to action-->
@@ -652,49 +615,130 @@
     <!-- Social icons -->
 
     
-
   </footer>
 
-  @include ('gen.part.login')
+  <?php echo $__env->make('gen.part.login', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the the stripe tags---------->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="<?php echo e(URL::asset('stripejs/example4.js')); ?>" data-rel-js></script>
+  <script src="<?php echo e(URL::asset('stripe/js/l10n.js')); ?>" data-rel-js></script>
+  <script src="<?php echo e(URL::asset('stripe/js/index.js')); ?>" data-rel-js></script>
  
-  <script type="text/javascript" src="{{URL::asset('mdb/landing/js/jquery-3.3.1.min.js ')}}"></script>
+  <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/jquery-3.3.1.min.js ')); ?>"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="{{URL::asset('mdb/landing/js/popper.min.js ')}}"></script>
+  <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/popper.min.js ')); ?>"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="{{URL::asset('mdb/landing/js/bootstrap.min.js ')}}"></script>
+  <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/bootstrap.min.js ')); ?>"></script>
   <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="{{URL::asset('mdb/landing/js/mdb.min.js ')}}"></script>
+  <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/mdb.min.js ')); ?>"></script>
 
    <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script src="{{URL::asset('sidebar/assets/js/custom.js')}}"></script>
+    <script src="<?php echo e(URL::asset('sidebar/assets/js/custom.js')); ?>"></script>
         <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="{{URL::asset('uikit/js/uikit-icons.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/uikit-icons.min.js')); ?>"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="{{URL::asset('uikit/js/uikit.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/uikit.min.js')); ?>"></script>
 
      <!-- MDB core JavaScript -->
-     <script type="text/javascript" src="{{URL::asset('uikit/js/my.js')}}"></script>
+     <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/my.js')); ?>"></script>
+
+     <script type="text/javascript">
+                  // Create a Stripe client.
+            var stripe = Stripe('pk_test_LvVBuMY1fQNF0g0xcJFU18ur');
+
+            // Create an instance of Elements.
+            var elements = stripe.elements();
+
+            // Custom styling can be passed to options when creating an Element.
+            // (Note that this demo uses a wider set of styles than the guide below.)
+            var style = {
+              base: {
+                color: '#32325d',
+                lineHeight: '18px',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                  color: '#aab7c4'
+                }
+              },
+              invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+              }
+            };
+
+            // Create an instance of the card Element.
+            var card = elements.create('card', {style: style});
+
+            // Add an instance of the card Element into the `card-element` <div>.
+            card.mount('#card-element');
+
+            // Handle real-time validation errors from the card Element.
+            card.addEventListener('change', function(event) {
+              var displayError = document.getElementById('card-errors');
+              if (event.error) {
+                displayError.textContent = event.error.message;
+              } else {
+                displayError.textContent = '';
+              }
+            });
+
+            // Handle form submission.
+            var form = document.getElementById('payment-form');
+            form.addEventListener('submit', function(event) {
+              event.preventDefault();
+
+              stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                  // Inform the user if there was an error.
+                  var errorElement = document.getElementById('card-errors');
+                  errorElement.textContent = result.error.message;
+                } else {
+                  // Send the token to your server.
+                  stripeTokenHandler(result.token);
+                }
+              });
+            });
+            function stripeTokenHandler(token) {
+              // Insert the token ID into the form so it gets submitted to the server
+              var form = document.getElementById('payment-form');
+              var hiddenInput = document.createElement('input');
+              hiddenInput.setAttribute('type', 'hidden');
+              hiddenInput.setAttribute('name', 'stripeToken');
+              hiddenInput.setAttribute('value', token.id);
+              form.appendChild(hiddenInput);
+
+              // Submit the form
+              form.submit();
+            }
+
+            var style = {
+              base: {
+                color: '#303238',
+                fontSize: '16px',
+                fontFamily: '"Open Sans", sans-serif',
+                fontSmoothing: 'antialiased',
+                '::placeholder': {
+                  color: '#CFD7DF',
+                },
+              },
+              invalid: {
+                color: '#e5424d',
+                ':focus': {
+                  color: '#303238',
+                },
+              },
+            };
+    </script>
+
 
   <!-- Initializations -->
   <script type="text/javascript">
     // Animations initialization
     new WOW().init();
-    jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-});
-    $('#myTabs a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-
-})
-
-    tinymce.init({
-            selector: '#tinymce',
-            branding: false
-        });
   </script>
 </body>
 

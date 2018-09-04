@@ -18,7 +18,7 @@ class QuestionBids extends Model
         //$Question = factory(App\PostQuestionModel::class)->create();
     }
 
-    protected $fillable = [ 'question_id','tutor_id', 'bidpoints'];
+    protected $fillable = [ 'question_id','tutor_id', 'bidpoints', 'bid_price', 'question_deadline'];
 
     /**
      * The attributes that should be hidden for arrays.
