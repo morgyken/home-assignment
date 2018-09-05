@@ -143,6 +143,8 @@
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </table>
 
+                            <?php if($question->status == 'answered'): ?>
+
                              <hr>
 
                              <div class="row col-md-12 text-left card-body">              
@@ -164,6 +166,10 @@
 
                     </p>
                     </div>
+                    <?php else: ?> 
+                    <h4> The Question has not been Answered</h4>
+                      <?php endif; ?>
+
                       <?php endif; ?>
                          </div>
                          <!--/.Panel 3-->
@@ -198,7 +204,11 @@
                         <div class="col-md-4">
                           <p>Subject: <?php echo e($question->order_subject); ?></p>
                             <p>Academic Level: <?php echo e($question->academic_level); ?></p>
+                            <?php if($assigned == 1): ?>
                              <p>Number of Bids: <?php echo e($question->academic_level); ?></p>
+                             <?php else: ?>
+                              <p>Assigned to: <?php echo e($tutor); ?></p>
+                             <?php endif; ?>
                         </div>
 
                     </p>
@@ -210,12 +220,54 @@
         <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h3>Tutor Bids </h3></div>
           <br>
+
             <div class="row col-md-12 text-left card-body">              
                 <p>
-                        <div class="col-md-6" >                     
-                            <p>Accept offer: $45</p>
-                            <p>Interested Tutors: 44</p>
-                            <p>My Bid: $45</p>                            
+                        <div class="col-md-6" > 
+
+                        <form method="post" action="<?php echo e(route('assign-question', ['question_id' => $question->question_id])); ?>"> 
+                             <?php echo e(csrf_field()); ?>
+
+
+                        <h5>Select a tutor to assign the Question</h5> 
+                            <?php if(count($bids)  >=1  ): ?>
+
+                            <?php 
+
+                            $num = 1;
+
+                            ?>
+
+                                <?php $__currentLoopData = $bids; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bid => $key): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                            <?php
+                            ++ $num;
+
+                            ?>
+
+                                     <div>
+                                        <input type="radio" id="huey" name="tutor_id" value="<?php echo e($key->tutor_id); ?>"  checked />
+                                        <label for="huey"><?php echo e($num); ?>:- Tutor Keen | $<?php echo e($key->bid_price); ?> | <?php echo e($key->question_deadline); ?> </label>
+                                    </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    
+                                    <button class="btn btn-warning btn-rounded"> Assign Question</button>
+                            <?php else: ?> 
+                            <h6>The Question has no Bids </h6>
+
+                            <?php endif; ?>
+
+
+
+                            </form>
+
+
+                            <form  action="" type="post">
+                                <h5> Or just assign your favourite tutor</h5>
+
+                            </form>
+
+
                         
                         </div>                                       
         

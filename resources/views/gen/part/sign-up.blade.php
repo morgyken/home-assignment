@@ -45,31 +45,22 @@
                         @endif
                   </div>
 
-                    <div class="md-form {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                   
-                   <i class="fas fa-unlock-alt prefix grey-text"></i>
-                 {{ csrf_field() }}
-                   <input type="password" name="password_confirmation" id="pwd" class="form-control ">
-                   <label for="form3">Confirm Password</label>
-                   @if ($errors->has('password'))
-                           <span class="help-block">
-                              <strong>{{ $errors->first('password') }}</strong>
-                           </span>
-                       @endif
-                 </div>
+                     <label style="margin-left:30px;">&nbsp;&nbsp;Sex: &nbsp;&nbsp;            
+                  <label class="radio-inline">
+                      <input type="radio" value="boy" name="sex" checked>&nbsp;Male &nbsp;
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" value="girl" name="sex">&nbsp;Female &nbsp;
+                    </label>
 
-                  <div class="md-form {{ $errors->has('introtext') ? ' has-error' : '' }}">
-                   
-                      <i class="fa fa-pencil prefix grey-text"></i>
-                  {{ csrf_field() }}
-                    <textarea type="text" name="introtext" id="message" class="md-textarea"></textarea>
-                    <label for="form8">Set profile heading text(min 100 char).. </label>
-                    @if ($errors->has('message'))
-                            <span class="help-block">
-                               <strong>{{ $errors->first('message') }}</strong>
-                            </span>
-                        @endif
-                  </div>
+                    <label class="radio-inline">
+                      <input type="radio" value="other" name="sex">&nbsp;Other 
+                    </label>
+
+                    </label> 
+
+                    <hr>
+                  
 
                   <div class="text-center">
                     <button class="btn btn-indigo">Send</button>

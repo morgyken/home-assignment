@@ -132,7 +132,7 @@
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home
+            <a class="nav-link" href="<?php echo e(route('home')); ?>">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>

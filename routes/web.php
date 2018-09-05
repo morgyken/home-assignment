@@ -22,7 +22,7 @@ Route::get('/', function () {  return view('gen.index1'); })->name('general');
 //Route::get('/sample', function () {  return view('layouts.index-template'); });
 
 Route::get('/sample', array('as'=>'index1',
-	'uses' => 'HomeController@index1'));
+	'uses' => 'Auth\UserRegisterController@GenerateArray'));
 
 Route::get('/sample2', function () {  return view('quest.ask-question-12'); });
 
@@ -209,7 +209,7 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-Route::get('/home', [ 'as'=>'home', 'uses'=>'HomeController@index']);
+
 
 Route::get('/tutor-auto', 
 	[ 'as'=>'tutor-auto', 'uses'=>'AutoComplete@Tutor']);
@@ -230,10 +230,13 @@ Route::post('/bids/{question_id}/{tutor_id}',
 
 	[ 'as'=>'post-bids', 'uses'=>'QuestionController@PostBids']);
 
-Route::post('/assign/{question_id}/{tutor_id}', 
+Route::post('/assign/{question_id}/{tutor_id?}', 
 
 	[ 'as'=>'assign-question', 'uses'=>'QuestionController@AssignQuestion']);
 
 
+
+
+Route::get('/home', [ 'as'=>'home', 'uses'=>'HomeController@index']);
 
 });

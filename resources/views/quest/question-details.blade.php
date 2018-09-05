@@ -143,6 +143,8 @@
                                 @endforeach
                             </table>
 
+                            @if($question->status == 'answered')
+
                              <hr>
 
                              <div class="row col-md-12 text-left card-body">              
@@ -164,6 +166,10 @@
 
                     </p>
                     </div>
+                    @else 
+                    <h4> The Question has not been Answered</h4>
+                      @endif
+
                       @endif
                          </div>
                          <!--/.Panel 3-->
@@ -198,7 +204,11 @@
                         <div class="col-md-4">
                           <p>Subject: {{ $question->order_subject}}</p>
                             <p>Academic Level: {{$question->academic_level}}</p>
+                            @if($assigned == 1)
                              <p>Number of Bids: {{$question->academic_level}}</p>
+                             @else
+                              <p>Assigned to: {{$tutor}}</p>
+                             @endif
                         </div>
 
                     </p>
@@ -210,12 +220,53 @@
         <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h3>Tutor Bids </h3></div>
           <br>
+
             <div class="row col-md-12 text-left card-body">              
                 <p>
-                        <div class="col-md-6" >                     
-                            <p>Accept offer: $45</p>
-                            <p>Interested Tutors: 44</p>
-                            <p>My Bid: $45</p>                            
+                        <div class="col-md-6" > 
+
+                        <form method="post" action="{{ route('assign-question', ['question_id' => $question->question_id])  }}"> 
+                             {{ csrf_field() }}
+
+                        <h5>Select a tutor to assign the Question</h5> 
+                            @if(count($bids)  >=1  )
+
+                            <?php 
+
+                            $num = 1;
+
+                            ?>
+
+                                @foreach($bids as $bid => $key)
+
+                            <?php
+                            ++ $num;
+
+                            ?>
+
+                                     <div>
+                                        <input type="radio" id="huey" name="tutor_id" value="{{ $key->tutor_id }}"  checked />
+                                        <label for="huey">{{$num }}:- Tutor Keen | ${{$key->bid_price}} | {{ $key->question_deadline }} </label>
+                                    </div>
+                                @endforeach
+                                    
+                                    <button class="btn btn-warning btn-rounded"> Assign Question</button>
+                            @else 
+                            <h6>The Question has no Bids </h6>
+
+                            @endif
+
+
+
+                            </form>
+
+
+                            <form  action="" type="post">
+                                <h5> Or just assign your favourite tutor</h5>
+
+                            </form>
+
+
                         
                         </div>                                       
         

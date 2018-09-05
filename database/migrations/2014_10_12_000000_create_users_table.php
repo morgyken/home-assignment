@@ -21,7 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('user_serial');
             $table->string('user_role')->default('cust');
             $table->string('user_level')->default('New');
-            $table->string('intro_text');
+            $table->string('intro_text')->nullable();
+            $table->string('sex');
+            $table->string('user_name');
             $table->rememberToken();
             $table->timestamps();
         });

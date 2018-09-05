@@ -181,9 +181,25 @@ class QuestionController extends AdminController
 
     // question details 
     
-    
+    public static function getDeadlineInSeconds12($deadline){
+   
+
+      $TimeStart = strtotime(\Carbon\Carbon::now());
+
+      $TimeEnd = strtotime($deadline);
+
+      $Difference = ($TimeEnd - $TimeStart);
+
+      return $Difference/3600;
+
+    }
+
     public function NewQuestionDetails($question_id)
     {
+
+      $user =  User::where('email', Auth::user()->email) ->first();
+            
+            $role = $user->user_role;
 
        $question =  DB::table('question_bodies')
             ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')
@@ -197,6 +213,12 @@ class QuestionController extends AdminController
         * return the comments in the following
         *
         */
+
+        $bids = DB::table('question_bids') ->where('question_id', $question_id) 
+                  ->orderby('bidpoints')
+                  ->take(5)
+                  ->get();
+
 
         $interval = $time ->getDeadlineInSeconds($question_id);
 
@@ -230,21 +252,29 @@ class QuestionController extends AdminController
         {
             $manuals_ans[] = pathinfo($path);
         }
+        //give assiged status
 
-        //check if assigned 
-
-        $assigned = DB::table('assign_questions')
+          $assigned1 = DB::table('assign_questions')
                     ->where('question_id',$question_id)
                     ->orderby('created_at', 'desc') 
                     ->first();
 
 
+        if($assigned1 == null)
+        {
 
-       if(Auth::check())
+          $assigned = 0;
+          $tutor = '';
+        }
+        else
+        {
+          $assigned = $assigned1->assigned;
+          $tutor = $assigned1->tutor_id;
+        }
+
+      if(Auth::check())
        {
-            $user =  User::where('email', Auth::user()->email) ->first();
             
-            $role = $user->user_role;
 
                 return view ('quest.question-details', 
                   [
@@ -263,12 +293,18 @@ class QuestionController extends AdminController
                     'difference' => $interval,
 
                     //assigned 
-                    'assigned'   => $assigned->assigned,
+                    'assigned'   => $assigned,
 
                   
                     'answer_files' => $manuals_ans,
 
-                    'role'   => $role                   
+                    'role'   => $role,        
+
+                    'tutor'   => $tutor,
+
+                    //bids 
+
+                    'bids' => $bids,            
 
                   ]);
             
@@ -298,14 +334,13 @@ class QuestionController extends AdminController
 
     } 
 
-    public function AssignQuestion ($question, $tutor)
+    public function AssignQuestion ( Request $request, $question, $tutor=null)
     {
 
       DB::table('assign_questions')->insert(
             [
                
-
-                'tutor_id' =>$tutor,
+                'tutor_id' => ($tutor == null) ? $request->tutor_id: $tutor ,
                 'question_id' =>$question,
                 'assigned' => 1,
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),

@@ -12,6 +12,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\RandomNames;
+
 
 class UserRegisterController extends Controller
 {
@@ -26,62 +28,43 @@ class UserRegisterController extends Controller
     protected function create(Request $request)
     {
 
+     // dd($request->sex);
+      //get random name 
+
+      $name = $this->GenerateRandomName($request->sex);
+
        $tutor_id = rand (99999,999999); //user serial      
        //validate data       
         $this->validate($request, [
-        'name' => 'required|unique:users|max:255',
-        'email' => 'required',
-        'password' => 'required|confirmed|min:5',
-        'introtext' => 'required|string'
+
+          'name' => 'required|max:255',
+
+          'email' => 'required',
+
+          'password' => 'required|min:5',
+
+          'sex' => 'required'         
+
         ]);
      
         
        $user =  User::create([
+
             'name' => $request['name'],
+
             'email' => $request['email'], 
-            'intro_text' => $request['introtext'],
-            'user_serial'=>$tutor_id,            
+
+            'user_name' => $name,
+
+            'sex' => $request->sex,
+
+            'user_serial'=>$tutor_id,
+
             'password' => bcrypt($request['password']),
             
             
         ]);
-          /*scanfold account when someone becomes a tutor
-
-              //update tutor education table with the data
-
-         DB::table('tutor_education')->insert(
-            [
-                'user_serial'          =>  $tutor_id,         
-                'created_at'        =>  \Carbon\Carbon::now()->toDateTimeString(),
-                'updated_at'        =>  \Carbon\Carbon::now()->toDateTimeString()
-
-            ]);
-
-
-        //update tutor profie accounts 
-        DB::table('tutor_profile')->insert(
-            [
-                'user_serial'          =>$tutor_id,         
-                'created_at'        =>  \Carbon\Carbon::now()->toDateTimeString(),
-                'updated_at'        =>  \Carbon\Carbon::now()->toDateTimeString()
-
-            ]);
-
-        //update tutor accounts
-      
-
-         DB::table('tutor_accounts')->insert(
-            [
-                'account_id'        =>  rand(89000,999999), 
-                'user_serial'          =>  $data['email'],         
-                'account_status'    => 'New',
-                'account_level'     => 'Beginner',
-                'created_at'        =>  \Carbon\Carbon::now()->toDateTimeString(),
-                'updated_at'        =>  \Carbon\Carbon::now()->toDateTimeString()
-
-            ]);        
-
-            */
+          
       //User login 
       if(Auth::attempt([
         'email' => $request->email,
@@ -92,8 +75,36 @@ class UserRegisterController extends Controller
       }
       else
       {
-        dd('user not logged i9n');
-      }     
+        return "User not fund!";
+      }
     
+    }
+
+    //get random Name 
+
+    public function GenerateRandomName($sex)
+    {
+
+      //$sex = 'other';
+
+      if($sex == 'other')
+      {
+         $name = RandomNames::inRandomOrder()->select('name')->take(2)->get()->toArray();
+      }
+      else {
+
+        //get results as an array
+
+         $name = RandomNames::inRandomOrder()->select('name')
+                   ->where('sex', $sex)->take(2)->get()->toArray();
+    }    
+
+   // dd($name);
+
+      $name = $name[1]['name'].'-'.$name[0]['name'];
+
+  
+      return  $name;
+
     }
 }

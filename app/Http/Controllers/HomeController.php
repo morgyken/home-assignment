@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
 
       //Get user 
-      $user =  User::where('email', Auth::user()->email) ->first();
+      $user = DB::table('users')->where('email', Auth::user()->email) ->first();
 
       //get user role 
             
@@ -80,7 +80,7 @@ class HomeController extends Controller
                  [
                   'user' => $user,
                   'questions' => $questions,
-                  'user' => $role
+                  'role' => $role
 
                ]);
                     
@@ -88,6 +88,11 @@ class HomeController extends Controller
        else{
             return redirect()-> route('general');
        }
+    }
+
+    public function index2(){   
+      
+     return view ('gen.landing');
     }
     
 
