@@ -479,67 +479,12 @@
         <main class="page-content">
             <div class="container-fluid">
                 <div class="row">
-                    
-                    <div class="col-xl-3 text-center">
+                  
+                    <!--Include Profile -->
 
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image">
+                    @include('part.new-profile')              
 
-                        @if($role == 'cust')
-                        <p>Account Type: <strong>Student</strong> </p>
-                         @elseif($role == 'tutor')
-                        <p>Account Type: <strong>Tutor</strong> </p>
-                         @else
-                            <p>Account Type: <strong>Admin</strong> </p>
-                        @endif
-
-                    </div>
-                     <div class="col-xl-1">
-
-                       
-
-                    </div>
-                    @if($role == 'cust')
-                    <div>
-
-                     <hr class="my-5">
-
-                       <p> Student Since: <strong>{{$user->created_at}}</strong> </p>
-                       <p> Question Asked: <strong>100</strong>
-                       </p>
-                       <p> Rejected: <strong>23</strong></p>
-                    </div>
-                    @else 
-                    <div class="col-xl-3">
-                        <h4>{{ Auth::user()->user_name }}</h4>
-                        <p> Tutor Since: {{ $user->created_at}}</p>
-                        <p> Success rate: 122/9 </p>
-                        <p> Total Earnings: $400 </p>                                    
-                    </div>
-                    <div class="col-xl-5">
-                        <h4>Finances</h4>
-                        <p> Amount Ready: $234 </p>
-                        <p> Current Orders:$78 </p>
-                        <p> Warnings: Reassigned 23 Withdrawn 78</p>
-                      Plagiarism 4</p> 
-            
-                    </div>
-                    @endif
-        <!-- Grid column -->
-                    
-                
-                    <!--Main layout-->
-                 
-
-                 <hr class="my-4">     
-                  @if($user =='cust')
                
-                  <!-- SHOW IF STUDENT: ASK QUESTION BUTTON -->  
-                               
-                    <div class="text-center">
-                        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#frameModalBottom">Ask Question Now!</a>
-                    </div>
-                    
-                    @endif
                  <hr class="my-4">
                     <div class='container'>
                       <h3>

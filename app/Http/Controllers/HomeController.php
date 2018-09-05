@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -114,7 +114,7 @@ class HomeController extends Controller
             if($role == 'cust'){
                 $user =  User::where('email', Auth::user()->email)->first();
                                
-                return view ('quest.ask-deadline-last', ['user' => $user]);
+                return view ('quest.ask-deadline-last', ['user' => $user, 'role' => $role]);
             }
             
        }

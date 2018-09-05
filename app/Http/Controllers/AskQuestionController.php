@@ -85,8 +85,11 @@ class AskQuestionController extends Controller
     }
 
     public function getMetadata(){
+        $user =  User::where('email', Auth::user()->email) ->first();
+            
+            $role = $user->user_role;
 
-        return view('quest.payments-meta');
+        return view('quest.payments-meta', ['role' => $role, 'user'=> $user]);
 
     }
 

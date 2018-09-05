@@ -495,7 +495,6 @@
 
                     </div>
                      <div class="col-xl-1">
-
                        
 
                     </div>
@@ -508,7 +507,10 @@
                        <p> Question Asked: <strong>100</strong>
                        </p>
                        <p> Rejected: <strong>23</strong></p>
+
+                       <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#frameModalBottom">Ask Question Now!</a>
                     </div>
+                    
                     <?php else: ?> 
                     <div class="col-xl-3">
                         <h4><?php echo e(Auth::user()->user_name); ?></h4>
@@ -531,16 +533,7 @@
                     <!--Main layout-->
                  
 
-                 <hr class="my-4">     
-                  <?php if($user =='cust'): ?>
                
-                  <!-- SHOW IF STUDENT: ASK QUESTION BUTTON -->  
-                               
-                    <div class="text-center">
-                        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#frameModalBottom">Ask Question Now!</a>
-                    </div>
-                    
-                    <?php endif; ?>
                  <hr class="my-4">
                     <div class='container'>
                       <h3>

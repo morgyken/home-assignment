@@ -95,7 +95,8 @@ Route::get('file-download/{question_id}/{filename}/{type}',array('as'=>'file-dow
 Route::get('post-deadlinePric',array('as'=>'deadlinePrice','uses'=>'HomeController@getQuestionPrice'));
 
 
-Route::post('PostQuestionPriceDeadline',array('as'=>'PostQuestionPrice','uses'=>'AskQuestionController@postQuestionDetails'));
+Route::post('PostQuestionPriceDeadline',array('as'=>'PostQuestionPrice',
+	'uses'=>'AskQuestionController@postQuestionDetails'));
 
 
 //admin commwnts

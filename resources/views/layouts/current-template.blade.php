@@ -516,34 +516,7 @@
             <div class="container-fluid">
                 <div class="row">
                     
-                    <div class="col-xl-3">
-
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image">
-
-                    </div>
-                     <div class="col-xl-1">
-
-                       
-
-                    </div>
-        <!-- Grid column -->
-                    <div class="col-xl-3">
-                        <h4>Tutor Keeen</h4>
-                        <p> Tutor Since: 12/12/02 </p>
-                        <p> Success rate: 122/9 </p>
-                        <p> Total Earnings: $400 </p>
-                        
-
-            
-                    </div>
-                    <div class="col-xl-5">
-                        <h4>Finances</h4>
-                        <p> Amount Ready: $234 </p>
-                        <p> Current Orders:$78 </p>
-                        <p> Warnings: Reassigned 23 Withdrawn 78</p>
-                      Suspensions 4</p>                   
-            
-                    </div>
+                    @include('part.new-profile')
                 
                     <!--Main layout-->
                  
@@ -561,10 +534,6 @@
         <!-- page-content" -->
     </div>
     <!-- page-wrapper -->
-
-
-
-
         <hr class="my-4">
 
       </section>
