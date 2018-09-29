@@ -189,15 +189,8 @@ return [
 
         Intervention\Image\ImageServiceProvider::class, 
 
-        //add Anouar
 
-        Anouar\Paypalpayment\PaypalpaymentServiceProvider::class,
-
-        /*
-         * BrainTree Service providers ...
-        */
-
-        //Oureastudios\Laravel\BraintreeServiceProvider::class,
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
     ],
 
@@ -249,21 +242,15 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Input' => Illuminate\Support\Facades\Input::class,  
-       //'Paypalpayment'   => Anouar\Paypalpayment\Facades\PaypalPayment::class,
-
-
-         'Paypalpayment'   => Anouar\Paypalpayment\Facades\PaypalPayment::class,
-
-        // this is used in showing the currently logged in users found at:
-
-        //https://github.com/thomastkim/laravel-online-users
 
         'Activity' => Kim\Activity\ActivityFacade::class,
 
         //image processor 
 
-        'Image' => Intervention\Image\Facades\Image::class     
+        'Image' => Intervention\Image\Facades\Image::class,    
 
+
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class
     ],
 
 ];

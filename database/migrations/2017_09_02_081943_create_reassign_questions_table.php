@@ -13,12 +13,12 @@ class CreateReassignQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reassign_questions', function (Blueprint $table) {
+        Schema::create('assign_questions', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->rememberToken();
             $table->string('question_id');
-            $table->string('user_id');
+            $table->string('tutor_id');
             $table->string('status');
         });
     }

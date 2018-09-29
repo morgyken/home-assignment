@@ -81,7 +81,7 @@ class AskQuestionController extends Controller
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
 
-          return redirect()->back();
+          return redirect()->route('view-make-payment');
     }
 
     public function getMetadata(){
@@ -90,6 +90,16 @@ class AskQuestionController extends Controller
             $role = $user->user_role;
 
         return view('quest.payments-meta', ['role' => $role, 'user'=> $user]);
+
+    }
+
+
+     public function GetMakePayments(){
+        $user =  User::where('email', Auth::user()->email) ->first();
+            
+            $role = $user->user_role;
+
+        return view('quest.make-payments', ['role' => $role, 'user'=> $user]);
 
     }
 
@@ -161,15 +171,17 @@ class AskQuestionController extends Controller
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
-        //post the question on the question ratings table 
+
+        //init Questions assignment to tutors 
 
 
-        DB::table('question_ratings')->insert(
+        DB::table('assign_questions')->insert(
             [
                 'question_id' =>$question_id,
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
+
 
 
        $request->session()->put('question_id',  $question_id);
@@ -190,6 +202,8 @@ class AskQuestionController extends Controller
          * Insert into database
          */
 
+       
+
         $question  = $request-> session()->get('question_id');
 
         DB::table('question_details')->where('question_id', $question)
@@ -207,7 +221,7 @@ class AskQuestionController extends Controller
                 'spacing' => $request['spacing'],
                 'paper_format' => $request->paper_format,
                 'lang_style'    => $request->lang_style,
-                'question_price' => substr($request->$request['question_price'], 2),
+                'question_price' => substr($request->question_price,2),
                 'university' => $request->university,
                 'order_summary' =>htmlspecialchars($request->session()->get('order_summary')),
 
@@ -238,6 +252,8 @@ class AskQuestionController extends Controller
 
      public function postPayment(Request $request)
    {
+
+
        $email=  $request->session()->get('email');
       // Set your secret key: remember to change this to your live secret key in production
 
@@ -245,19 +261,33 @@ class AskQuestionController extends Controller
 
       // Token is created using Checkout or Elements!
       // Get the payment token ID submitted by the form:
-      $token = $_POST['stripeToken'];
+        $token = $request->stripeToken;
+        $question_id = $request->session()->get('question_id');
+
+
 
           $charge = \Stripe\Charge::create([
-          'amount' =>$request->session()->get('question_price'),
+          'amount' =>100* substr($request->session()->get('question_price'),2),
           'currency' => 'usd',
-          'description' => 'Payment for Essay by'. session('email'),
+          'description' => 'Payment for Essay',
           'source' => $token,
+           'metadata' => ['order_id' => $question_id, 'username' => Auth::user()->name, 
+           'email' => Auth::user()->email]
       ]);
 
-          //upfdate the date
+        DB::table('question_matrices')->where('question_id', $question_id )
+                ->update(
+                    [        
+                                             
+                        'status' =>'Paid',
+                        'user_id' => Auth::user()->email,                      
+                        'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                    ]
+                );
+         
 
 
-      return redirect()->route('general');
+      return redirect()->route('home');
    }
    
 }

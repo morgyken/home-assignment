@@ -2,17 +2,16 @@
 <html>
 <head>
   <script src="https://js.stripe.com/v3/"></script>
-  <script src="{{ URL::asset(stripe/js/index.js')  }}" data-rel-js></script>
+  <script src="<?php echo e(URL::asset('stripe/js/index.js')); ?>" data-rel-js></script>
 
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
 
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('stripe/css/base.css')}}" data-rel-css="" />
+  <link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('stripe/css/base.css')); ?>" data-rel-css="" />
 
   <!-- CSS for each example: -->
-
-  <link rel="stylesheet" type="text/css" href="{{URL::asset('stripe/css/example2.css') }}" data-rel-css="" />
+  <link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('stripe/css/example2.css')); ?>" data-rel-css="" />
   
 </head>
 <body>
@@ -107,17 +106,17 @@
      
      
     </section>
- <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
+ <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes  octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
 </style>
     </main>
   </div>
 
   <!-- Simple localization script for Stripe's examples page. -->
-  <script src="{{ URL::asset('stripe/js/l10n.js')  }}" data-rel-js></script>
+  <script src="<?php echo e(URL::asset('stripe/js/l10n.js')); ?>" data-rel-js></script>
 
   <!-- Scripts for each example: -->
   
-  <script src=" {{URL::asset('js/example2.js') }}" data-rel-js></script>
+  <script src=" <?php echo e(URL::asset('js/example2.js')); ?>" data-rel-js></script>
  
 
 </body>

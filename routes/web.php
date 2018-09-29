@@ -190,7 +190,7 @@ Route::get('cust-dashboard', array(
 Route::get('/status/{question_id}', 'QuestionStatus@clientOrderStatus')->name('stats');
 
 //get payment meta
-Route::get('/get_payment_meta', 'AskQuestionController@getMetadata')->name('get.meta');
+Route::get('/get-payment-meta', 'AskQuestionController@getMetadata')->name('get.meta');
 
 //post payment metadata
 Route::any('/payment_meta', 'AskQuestionController@PostMetadata')->name('post.meta');
@@ -235,9 +235,29 @@ Route::post('/assign/{question_id}/{tutor_id?}',
 
 	[ 'as'=>'assign-question', 'uses'=>'QuestionController@AssignQuestion']);
 
+Route::get('/home/{params?}', [ 'as'=>'home', 'uses'=>'HomeController@index']);
 
+//paypal routes 
 
+Route::get('payment-with-paypal/{price}', 
+	['uses' => 'PaypalPayments@PayWithPaypal', 'as' =>'get.paypal']);
 
-Route::get('/home', [ 'as'=>'home', 'uses'=>'HomeController@index']);
+Route::get('/view-make-payment',['as'=>'view-make-payment', 'uses' =>'AskQuestionController@GetMakePayments'] );
+
+Route::get('paypal/callback/', 
+	['uses' => 'PaypalPayments@PayWithPaypalCallback', 'as' =>'paypal-callback']);
+
+Route::get('payment/success', function () {
+    return view('paypal.payment-success');
+})->name('success');
+
+Route::get('/payment/error', function () {
+
+    return view('paypal.error');
+
+})->name('paypal-error');
+
+//Route::get('/questions/{param?}',['uses' => 'QuestionController@ViewQuestions', 'as' =>'view.questions'] );
+
 
 });

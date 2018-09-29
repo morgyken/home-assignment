@@ -2,7 +2,7 @@
 <html>
 <head>
   <script src="https://js.stripe.com/v3/"></script>
-  <script src="{{ URL::asset(stripe/js/index.js')  }}" data-rel-js></script>
+  <script src="{{ URL::asset('stripe/js/index.js') }}" data-rel-js></script>
 
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
@@ -11,7 +11,6 @@
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('stripe/css/base.css')}}" data-rel-css="" />
 
   <!-- CSS for each example: -->
-
   <link rel="stylesheet" type="text/css" href="{{URL::asset('stripe/css/example2.css') }}" data-rel-css="" />
   
 </head>

@@ -55,7 +55,11 @@
                                
                                     <div class="col-md-3" >
                                         <span >
+                                            <?php if(Auth::user()->user_role=='tutor'): ?>
+                                            <p>Price: $<?php echo e($question->tutor_price); ?></p>
+                                            <?php else: ?>
                                             <p>Price: $<?php echo e($question->question_price); ?></p>
+                                            <?php endif; ?>
                                         </span>
                                     </div>
                                     <div class="col-md-3">

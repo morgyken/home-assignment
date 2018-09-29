@@ -12,11 +12,9 @@
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
+        "srmklive/paypal": "~1.0",
         "stevebauman/location": "^2.0",
-        "stripe/stripe-php": "5.*",
-        "anouar/paypalpayment": ">=3.0",
-        "oureastudios/laravel5-braintree": "dev-master"
-
+        "stripe/stripe-php": "5.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

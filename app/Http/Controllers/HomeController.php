@@ -25,7 +25,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-       public function index()
+       public function index($params = null)
     {
 
       //Get user 
@@ -53,11 +53,14 @@ class HomeController extends Controller
 //if tutor 
       if($role == 'tutor'){
 
+          if($params == null)
+          {
             $questions =  DB::table('question_bodies')
 
             ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')  
 
             ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')
+
 
             ->where('question_matrices.status', '=','new')
 
@@ -67,11 +70,30 @@ class HomeController extends Controller
 
             ->orderBy('question_bodies.created_at', 'desc')
 
-            ->paginate(25); 
+            ->paginate(25);
+
 
           }
 
-  
+          else{
+            $questions =  DB::table('question_bodies')
+
+            ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')  
+
+            ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')
+
+            ->where('question_matrices.status', '=', $params)
+
+            ->where('question_matrices.user_id', '=', Auth::user()->email)
+
+            ->orderBy('question_bodies.created_at', 'desc')
+
+            ->paginate(25);
+
+          }             
+
+          }
+            
 
        if(Auth::check())
        {                
@@ -121,6 +143,16 @@ class HomeController extends Controller
        else{
             return redirect()-> route('general');
        }
+    }
+
+
+
+
+    public function ViewQuestions ($params = null)
+    {
+
+      
+
     }
 
     

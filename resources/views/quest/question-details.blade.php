@@ -57,7 +57,11 @@
                                
                                     <div class="col-md-3" >
                                         <span >
+                                            @if(Auth::user()->user_role=='tutor')
+                                            <p>Price: ${{ $question->tutor_price}}</p>
+                                            @else
                                             <p>Price: ${{ $question->question_price}}</p>
+                                            @endif
                                         </span>
                                     </div>
                                     <div class="col-md-3">

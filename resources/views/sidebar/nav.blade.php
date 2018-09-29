@@ -1,8 +1,9 @@
-   <div class="page-wrapper chiller-theme sidebar-bg bg1 toggled">
-        <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
-            <i class="fas fa-bars"></i>
-        </a>
-        <nav id="sidebar" class="sidebar-wrapper">
+        
+
+
+
+
+<nav id="sidebar" class="sidebar-wrapper">
             <div class="sidebar-content">
                 <div class="sidebar-brand">
                     <a href="#">pro sidebar</a>
@@ -12,7 +13,7 @@
                 </div>
                 <div class="sidebar-header">
                     <div class="user-pic">
-                        <img class="img-responsive img-rounded" src="assets/img/user.jpg" alt="User picture">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image">
                     </div>
                     <div class="user-info">
                         <span class="user-name">Jhon
@@ -36,21 +37,23 @@
                         <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-tachometer-alt"></i>
-                                <span>Dashboard</span>
+                                <span>Qustions</span>
                                 <span class="badge badge-pill badge-danger">New</span>
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">Dashboard 1
+                                        <a href="{{ route('home') }}">All Questions
                                             <span class="badge badge-pill badge-success">Pro</span>
                                         </a>
                                     </li>
+                                   
                                     <li>
-                                        <a href="#">Dashboard 2</a>
+                                        <a href="{{ route('home', ['params' => 'Bid']) }}">My Bids</a>
                                     </li>
-                                    <li>
-                                        <a href="#">Dashboard 3</a>
+
+                                     <li>
+                                        <a href="{{ route('home', ['params' => 'Suggested']) }}">Suggested </a>
                                     </li>
                                 </ul>
                             </div>
@@ -58,88 +61,75 @@
                         <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>E-commerce</span>
+                                <span>My Questions</span>
                                 <span class="badge badge-pill badge-primary">3</span>
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">Products
+                                        <a href="{{ route('home', ['params' => 'Assigned']) }}">Current
 
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">Orders</a>
+                                        <a href="{{ route('home', ['params' => 'Answered']) }}">Answered</a>
                                     </li>
                                     <li>
-                                        <a href="#">Credit cart</a>
+                                        <a href="{{ route('home', ['params' => 'Completed']) }}">Completed</a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('home', ['params' => 'Revision']) }}">Revisions</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('home', ['params' => 'Reassigned']) }}">Reassigned</a>
+                                    </li>
+
                                 </ul>
                             </div>
                         </li>
                         <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="far fa-gem"></i>
-                                <span>Components</span>
+                                <span>Messages</span>
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">General</a>
+                                        <a href="#">New</a>
                                     </li>
                                     <li>
-                                        <a href="#">Panels</a>
+                                        <a href="#">In Progress</a>
                                     </li>
                                     <li>
-                                        <a href="#">Tables</a>
+                                        <a href="#">Completed</a>
                                     </li>
-                                    <li>
-                                        <a href="#">Icons</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Forms</a>
-                                    </li>
+                                    
                                 </ul>
                             </div>
                         </li>
+
                         <li class="sidebar-dropdown">
                             <a href="#">
-                                <i class="fa fa-chart-line"></i>
-                                <span>Charts</span>
+                                <i class="far fa-gem"></i>
+                                <span>Payments </span>
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">Pie chart</a>
+                                        <a href="#">Available payments</a>
                                     </li>
                                     <li>
-                                        <a href="#">Line chart</a>
+                                        <a href="#">Amount in-Progress</a>
                                     </li>
                                     <li>
-                                        <a href="#">Bar chart</a>
+                                        <a href="#">Total Earnings</a>
                                     </li>
-                                    <li>
-                                        <a href="#">Histogram</a>
-                                    </li>
+                                    
                                 </ul>
                             </div>
                         </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-globe"></i>
-                                <span>Maps</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Google maps</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Open street map</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                     
                         <li class="header-menu">
                             <span>Extra</span>
                         </li>
@@ -163,7 +153,6 @@
                         </li>
                     </ul>
                 </div>
-                <!-- sidebar-menu  -->
             </div>
             <!-- sidebar-content  -->
             <div class="sidebar-footer">
@@ -297,52 +286,3 @@
                 </div>
             </div>
         </nav>
-        <!-- sidebar-wrapper  -->
-        <main class="page-content">
-            <div class="container-fluid">
-                <div class="row">
-                    
-                    <div class="col-xl-3">
-
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image">
-
-                    </div>
-                     <div class="col-xl-1">
-
-                       
-
-                    </div>
-        <!-- Grid column -->
-                    <div class="col-xl-3">
-                        <h4>Tutor Keeen</h4>
-                        <p> Tutor Since: 12/12 </p>
-                        <p> Success rate: 122/9 </p>
-                        
-
-            
-                    </div>
-                    <div class="col-xl-5">
-                        <h4>Finances</h4>
-                        <p> Amount Ready: $234 </p>
-                        <p> Current Orders:$78 </p>
-                        <p> Warnings: Reassigned 23 Withdrawn 78</p>
-                      Plagiarism 4</p>                   
-            
-                    </div>
-                
-                    <!--Main layout-->
-                 
-            </div>
-
-                           
-
-                <hr>
-
-                @include('layouts.cust-home')
-              
-            </div>
-        </main>
-        <!-- page-content" -->
-    </div>
-    <!-- page-wrapper -->
-

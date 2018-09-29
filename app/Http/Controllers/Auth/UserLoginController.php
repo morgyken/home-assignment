@@ -42,22 +42,22 @@ class UserLoginController extends Controller
     }
 
     public function login( Request $request){
+       // dd($request->email);
       
         if(Auth::attempt([
         'email' => $request->email,
         'password' => $request->password
       ]))
       {
-
+     
        $user =  User::where('email', Auth::user()->email) ->first();
             
        $role = $user->user_role;
 
        session(['user' => $user, 'role' => $role]);
-
-       //$data = Session::all();
-
-       //dd($data);
+       
+       //redirect differently for every user.
+       
        return redirect()->route('home');
       }
     }

@@ -13,16 +13,19 @@
   <!-- Bootstrap core CSS -->
   <link href="{{URL::asset('mdb/landing/css/bootstrap.css')}}" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="{{URL::asset('mdb/landing/css/mdb.css ')}}" rel="stylesheet">  <!-- Your custom styles (optional) -->
- 
+  <link href="{{URL::asset('mdb/landing/css/mdb.css ')}}" rel="stylesheet"> 
+
+    <link href="{{URL::asset('stripe/css/base.css ')}}" rel="stylesheet"> 
+     <!-- Your custom styles (optional) -->
+
     <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="{{URL::asset('sidebar/assets/css/custom.css')}}">
     <link rel="stylesheet" href="{{URL::asset('sidebar/assets/css/custom-themes.css ')}}">
     <link rel="shortcut icon" type="image/png" href="{{URL::asset('sidebar/assets/img/favicon.png ')}}" />
 
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    
   <script>tinymce.init({ selector:'textarea' });</script>
-
 
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 
@@ -34,45 +37,9 @@
   
  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <style type="text/css">
-         /**
-             * The CSS shown here will not be introduced in the Quickstart guide, but shows
-             * how you can use CSS to style your Element's container.
-             */
-            .StripeElement {
-              background-color: white;
-              height: 40px;
-              padding: 10px 12px;
-              coloe: #000;
-              border-radius: 4px;
-              border: 1px solid transparent;
-              box-shadow: 0 1px 3px 0 #e6ebf1;
-              -webkit-transition: box-shadow 150ms ease;
-              transition: box-shadow 150ms ease;
-            }
 
-            .StripeElement--focus {
-              box-shadow: 0 1px 3px 0 #cfd7df;
-            }
-
-            .StripeElement--invalid {
-              border-color: #fa755a;
-            }
-
-            .StripeElement--webkit-autofill {
-              background-color: #fefde5 !important;
-            }
-            .mystripe{
-
-                padding: 20px 20px; margin:23px; 
-                border-style: solid; 
-                border-color: #465778; 
-                color:#4682B4
-                font-size:26px;
-            }
-
-     </style>
-
+     <script src="https://js.stripe.com/v3/"></script>
+   
 
   <style type="text/css">
     html,
@@ -216,301 +183,7 @@
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
         </a>
-        <nav id="sidebar" class="sidebar-wrapper">
-            <div class="sidebar-content">
-                <div class="sidebar-brand">
-                    <a href="#">pro sidebar</a>
-                    <div id="close-sidebar">
-                        <i class="fas fa-times"></i>
-                    </div>
-                </div>
-                <div class="sidebar-header">
-                    <div class="user-pic">
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg" class="img-fluid z-depth-1 rounded-circle" alt="Responsive image">
-                    </div>
-                    <div class="user-info">
-                        <span class="user-name">Jhon
-                            <strong>Smith</strong>
-                        </span>
-                        <span class="user-role">Administrator</span>
-                        <span class="user-status">
-                            <i class="fa fa-circle"></i>
-                            <span>Online</span>
-                        </span>
-                    </div>
-                </div>
-                <!-- sidebar-header  -->
-                
-                <!-- sidebar-search  -->
-                <div class="sidebar-menu">
-                    <ul>
-                        <li class="header-menu">
-                            <span>General</span>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-tachometer-alt"></i>
-                                <span>Dashboard</span>
-                                <span class="badge badge-pill badge-danger">New</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Dashboard 1
-                                            <span class="badge badge-pill badge-success">Pro</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dashboard 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dashboard 3</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>E-commerce</span>
-                                <span class="badge badge-pill badge-primary">3</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Products
-
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Orders</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Credit cart</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="far fa-gem"></i>
-                                <span>Components</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">General</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Panels</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Tables</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Icons</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Forms</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-chart-line"></i>
-                                <span>Charts</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Pie chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Line chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Bar chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Histogram</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-globe"></i>
-                                <span>Maps</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Google maps</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Open street map</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="header-menu">
-                            <span>Extra</span>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-calendar"></i>
-                                <span>Calendar</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-folder"></i>
-                                <span>Examples</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-book"></i>
-                                <span>Documentation</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- sidebar-menu  -->
-            </div>
-            <!-- sidebar-content  -->
-            <div class="sidebar-footer">
-                <div class="dropdown">
-
-                    <a href="#" class="" id="dropdownMenuNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-bell"></i>
-                        <span class="badge badge-pill badge-warning notification">3</span>
-                    </a>
-                    <div class="dropdown-menu notifications" aria-labelledby="dropdownMenuMessage">
-                        <div class="notifications-header">
-                            <i class="fa fa-bell"></i>
-                            Notifications
-                        </div>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <div class="notification-content">
-                                <div class="icon">
-                                    <i class="fas fa-check text-success border border-success"></i>
-                                </div>
-                                <div class="content">
-                                    <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
-                                    <div class="notification-time">
-                                        6 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <div class="notification-content">
-                                <div class="icon">
-                                    <i class="fas fa-exclamation text-info border border-info"></i>
-                                </div>
-                                <div class="content">
-                                    <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
-                                    <div class="notification-time">
-                                        Today
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <div class="notification-content">
-                                <div class="icon">
-                                    <i class="fas fa-exclamation-triangle text-warning border border-warning"></i>
-                                </div>
-                                <div class="content">
-                                    <div class="notification-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
-                                    <div class="notification-time">
-                                        Yesterday
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-center" href="#">View all notifications</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-envelope"></i>
-                        <span class="badge badge-pill badge-success notification">7</span>
-                    </a>
-                    <div class="dropdown-menu messages" aria-labelledby="dropdownMenuMessage">
-                        <div class="messages-header">
-                            <i class="fa fa-envelope"></i>
-                            Messages
-                        </div>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <div class="message-content">
-                                <div class="pic">
-                                    <img src="assets/img/user.jpg" alt="">
-                                </div>
-                                <div class="content">
-                                    <div class="message-title">
-                                        <strong> Jhon doe</strong>
-                                    </div>
-                                    <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
-                                </div>
-                            </div>
-
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <div class="message-content">
-                                <div class="pic">
-                                    <img src="assets/img/user.jpg" alt="">
-                                </div>
-                                <div class="content">
-                                    <div class="message-title">
-                                        <strong> Jhon doe</strong>
-                                    </div>
-                                    <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
-                                </div>
-                            </div>
-
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <div class="message-content">
-                                <div class="pic">
-                                    <img src="assets/img/user.jpg" alt="">
-                                </div>
-                                <div class="content">
-                                    <div class="message-title">
-                                        <strong> Jhon doe</strong>
-                                    </div>
-                                    <div class="message-detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. In totam explicabo</div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-center" href="#">View all messages</a>
-
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-cog"></i>
-                        <span class="badge-sonar"></span>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuMessage">
-                        <a class="dropdown-item" href="#">My profile</a>
-                        <a class="dropdown-item" href="#">Help</a>
-                        <a class="dropdown-item" href="#">Setting</a>
-                    </div>
-                </div>
-                <div>
-                    <a href="#">
-                        <i class="fa fa-power-off"></i>
-                    </a>
-                </div>
-            </div>
-        </nav>
+          @include('sidebar.nav')
         <!-- sidebar-wrapper  -->
         <main class="page-content">
             <div class="container-fluid">
@@ -587,11 +260,7 @@
 
   @include ('gen.part.login')
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <!------ Include the the stripe tags---------->
-  <script src="https://js.stripe.com/v3/"></script>
-  <script src="{{ URL::asset('stripejs/example4.js')}}" data-rel-js></script>
-  <script src="{{ URL::asset('stripe/js/l10n.js')}}" data-rel-js></script>
-  <script src="{{URL::asset('stripe/js/index.js')}}" data-rel-js></script>
+    <!------ Include the the stripe tags----------> 
  
   <script type="text/javascript" src="{{URL::asset('mdb/landing/js/jquery-3.3.1.min.js ')}}"></script>
   <!-- Bootstrap tooltips -->
@@ -612,8 +281,9 @@
      <!-- MDB core JavaScript -->
      <script type="text/javascript" src="{{URL::asset('uikit/js/my.js')}}"></script>
 
+   <script type="text/javascript">
      <script type="text/javascript">
-                  // Create a Stripe client.
+       // Create a Stripe client.
             var stripe = Stripe('pk_test_LvVBuMY1fQNF0g0xcJFU18ur');
 
             // Create an instance of Elements.
@@ -670,38 +340,8 @@
                 }
               });
             });
-            function stripeTokenHandler(token) {
-              // Insert the token ID into the form so it gets submitted to the server
-              var form = document.getElementById('payment-form');
-              var hiddenInput = document.createElement('input');
-              hiddenInput.setAttribute('type', 'hidden');
-              hiddenInput.setAttribute('name', 'stripeToken');
-              hiddenInput.setAttribute('value', token.id);
-              form.appendChild(hiddenInput);
-
-              // Submit the form
-              form.submit();
-            }
-
-            var style = {
-              base: {
-                color: '#303238',
-                fontSize: '16px',
-                fontFamily: '"Open Sans", sans-serif',
-                fontSmoothing: 'antialiased',
-                '::placeholder': {
-                  color: '#CFD7DF',
-                },
-              },
-              invalid: {
-                color: '#e5424d',
-                ':focus': {
-                  color: '#303238',
-                },
-              },
-            };
-    </script>
-
+     </script>
+   </script>
 
   <!-- Initializations -->
   <script type="text/javascript">
