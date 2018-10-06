@@ -196,22 +196,6 @@ Route::get('/get-payment-meta', 'AskQuestionController@getMetadata')->name('get.
 Route::any('/payment_meta', 'AskQuestionController@PostMetadata')->name('post.meta');
 
 
-});
-
-Route::post('/register', 'Auth\UserRegisterController@create')->name('register');
-
-Route::post('/login', 'Auth\UserLoginController@login')->name('login');
-
-
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-
-
-
 Route::get('/tutor-auto', 
 	[ 'as'=>'tutor-auto', 'uses'=>'AutoComplete@Tutor']);
 
@@ -257,7 +241,33 @@ Route::get('/payment/error', function () {
 
 })->name('paypal-error');
 
-//Route::get('/questions/{param?}',['uses' => 'QuestionController@ViewQuestions', 'as' =>'view.questions'] );
 
+Route::post('messages/{questionid}',	['uses' => 'MessageController@PostMessages', 'as' =>'messages']);
+
+
+});
+
+Route::post('/register', 'Auth\UserRegisterController@create')->name('register');
+
+Route::post('/login', 'Auth\UserLoginController@login')->name('login');
+
+
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+//paypal Here 
+
+Route::get('paypal/{price}/{qid}', 'PaymentControllerOne@payWithpaypal');
+
+// route for check status of the payment
+Route::get('status', 'PaymentControllerOne@getPaymentStatus');
+
+Route::get('/payment/success/{qid}', 'PaymentControllerOne@getPaymentSuccess');
+
+Route::get('/payment/failed/{qid}', 'PaymentControllerOne@getPaymentFailed');
 
 });

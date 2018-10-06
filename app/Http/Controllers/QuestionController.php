@@ -30,6 +30,10 @@ use Illuminate\Support\Facades\Input;
 
 use Illuminate\Support\Facades\Auth;
 
+
+use App\ MessagesModel;
+
+
 class QuestionController extends AdminController
 {
     /*
@@ -198,8 +202,11 @@ class QuestionController extends AdminController
     {
 
       $user =  User::where('email', Auth::user()->email) ->first();
-            
-            $role = $user->user_role;
+
+               
+      $role = $user->user_role;
+
+      $messages = MessagesModel::all();
 
        $question =  DB::table('question_bodies')
             ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')
@@ -243,7 +250,6 @@ class QuestionController extends AdminController
          */
         $path_ans = public_path().'/storage/uploads/'.$question_id.'/answer/';
 
-
         $manuals_ans = [];
 
         $filesInFolder_ans = \File::files($path_ans);
@@ -252,25 +258,15 @@ class QuestionController extends AdminController
         {
             $manuals_ans[] = pathinfo($path);
         }
-        //give assiged status
+    
+    //check if the question is assigned
 
-          $assigned1 = DB::table('assign_questions')
-                    ->where('question_id',$question_id)
-                    ->orderby('created_at', 'desc') 
-                    ->first();
+        $tutor= '';
+
+    /
+        $assigned ='1';
 
 
-        if($assigned1 == null)
-        {
-
-          $assigned = 0;
-          $tutor = '';
-        }
-        else
-        {
-          $assigned = $assigned1->assigned;
-          $tutor = $assigned1->tutor_id;
-        }
 
       if(Auth::check())
        {
@@ -289,12 +285,10 @@ class QuestionController extends AdminController
                     /*
                      * Get diference in time 
                      */
-
                     'difference' => $interval,
 
                     //assigned 
                     'assigned'   => $assigned,
-
                   
                     'answer_files' => $manuals_ans,
 
@@ -304,7 +298,11 @@ class QuestionController extends AdminController
 
                     //bids 
 
-                    'bids' => $bids,            
+                    'bids' => $bids,  
+
+                    //messages
+
+                    'messages'     => $messages   
 
                   ]);
             

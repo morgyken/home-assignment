@@ -4,35 +4,35 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Welcome Home</title>
-    <script src="{{URL::asset('ckeditor/ckeditor.js')}}"></script>
-	<script src="{{URL::asset('ckeditor/samples/js/sample.js')}}"></script>
+    <script src="<?php echo e(URL::asset('ckeditor/ckeditor.js')); ?>"></script>
+	<script src="<?php echo e(URL::asset('ckeditor/samples/js/sample.js')); ?>"></script>
 
-	<link rel="stylesheet" href="{{URL::asset('ckeditor/samples/css/samples.css') }}">
-	<link rel="stylesheet" href="{{URL::asset('ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css') }}">
+	<link rel="stylesheet" href="<?php echo e(URL::asset('ckeditor/samples/css/samples.css')); ?>">
+	<link rel="stylesheet" href="<?php echo e(URL::asset('ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css')); ?>">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Ajax  -->   
      <!-- JQuery -->
-    <script type="text/javascript" src="{{URL::asset('mdb/dashboard/js/jquery-3.3.1.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('mdb/dashboard/js/jquery-3.3.1.min.js')); ?>"></script>
    
-    <link href="{{URL::asset('mdb/dashboard/css/bootstrap.css')}}" rel="stylesheet">
+    <link href="<?php echo e(URL::asset('mdb/dashboard/css/bootstrap.css')); ?>" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="{{URL::asset('mdb/dashboard/css/mdb.css')}}" rel="stylesheet">
+    <link href="<?php echo e(URL::asset('mdb/dashboard/css/mdb.css')); ?>" rel="stylesheet">
     <!-- uikit included here  (optional) -->
-    <link href="{{URL::asset('mdb/dashboard/css/mdb.css')}}" rel="stylesheet">
+    <link href="<?php echo e(URL::asset('mdb/dashboard/css/mdb.css')); ?>" rel="stylesheet">
 
     <!-- uikit included here  (optional) -->
-    <link href="{{URL::asset('uikit/css/uikit-rtl.css')}}" rel="stylesheet">
+    <link href="<?php echo e(URL::asset('uikit/css/uikit-rtl.css')); ?>" rel="stylesheet">
 
     <!-- uikit included here  (optional) -->
-    <link href="{{URL::asset('uikit/css/uikit.css')}}" rel="stylesheet">
+    <link href="<?php echo e(URL::asset('uikit/css/uikit.css')); ?>" rel="stylesheet">
 
 
     <!-- Your custom styles (optional) -->
-    <link href="{{URL::asset('mdb/dashboard/css/style.css')}}" rel="stylesheet">
+    <link href="<?php echo e(URL::asset('mdb/dashboard/css/style.css')); ?>" rel="stylesheet">
 </head>
 
 <body class="grey lighten-3 clearfix">
@@ -63,7 +63,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#" target="_blank">About Us</a>
                         </li>
-                    @if(Auth::check())
+                    <?php if(Auth::check()): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="#" target="_blank">Browse Jobs</a>
                         </li>
@@ -73,7 +73,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="htt#" target="_blank">My Profile</a>
                         </li>
-                        @endif
+                        <?php endif; ?>
                         </ul>
                         <form class="d-flex justify-content-center">
                         <!-- Default input -->
@@ -100,15 +100,16 @@
                         <li class="nav-item">
 
                                 
-                            @if(Auth::check())
+                            <?php if(Auth::check()): ?>
 
                             <li class="nav-item">
                             <a href="#" class="nav-link" target="_blank">
-                            <i class="fas fa-sign-in-alt"></i> {{ Auth::User()->name}}
+                            <i class="fas fa-sign-in-alt"></i> <?php echo e(Auth::User()->name); ?>
+
                             </a>
                         </li>  
                         <li>            
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); 
+                            <a href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault(); 
                                                         document.getElementById('logout-form').submit();" 
                                                         class="nav-link border border-light rounded"
                             target="_blank">
@@ -116,18 +117,18 @@
                             
 
                             Log Out
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+                            <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
                             </form>
                                 </a>
-                            @else 
+                            <?php else: ?> 
 
                             <a href="#" class="nav-link border border-light rounded"
                             data-toggle="modal" data-target="#modalContactForm">
                                 <i class="fas fa-user-alt"></i>
                             Log in
 
-                            @endif
+                            <?php endif; ?>
                             </a>
                         </li>
                         </ul>
@@ -143,9 +144,9 @@
         <div class="sidebar-fixed position-fixed">
 
             <a class="logo-wrapper waves-effect">
-                <img src="{{URL::asset('mdb/dashboard/img/logo.png')}}" class="img-fluid logo1" alt="">
+                <img src="<?php echo e(URL::asset('mdb/dashboard/img/logo.png')); ?>" class="img-fluid logo1" alt="">
             </a>
-            @include('gen.part.sidebar-menu')
+            <?php echo $__env->make('gen.part.sidebar-menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
         <!-- Sidebar -->
 
@@ -164,12 +165,12 @@
                     
                 <!--Section: Testimonials v.1-->
                 
-                @include('gen.part.profile')
+                <?php echo $__env->make('gen.part.profile', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 </div>
             </div>
             <!--Grid row-->
             <div class="row wow fadeIn">
-                @yield('content')
+                <?php echo $__env->yieldContent('content'); ?>
                
             </div>
         </div>
@@ -193,20 +194,20 @@
     <!-- SCRIPTS -->
     
     <!-- JQuery -->
-    <script type="text/javascript" src="{{URL::asset('mdb/dashboard/js/jquery-3.3.1.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('mdb/dashboard/js/jquery-3.3.1.min.js')); ?>"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="{{URL::asset('mdb/dashboard/js/popper.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('mdb/dashboard/js/popper.min.js')); ?>"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="{{URL::asset('mdb/dashboard/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('mdb/dashboard/js/bootstrap.min.js')); ?>"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="{{URL::asset('mdb/dashboard/js/mdb.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('mdb/dashboard/js/mdb.min.js')); ?>"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="{{URL::asset('uikit/js/uikit-icons.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/uikit-icons.min.js')); ?>"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="{{URL::asset('uikit/js/uikit.min.js')}}"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/uikit.min.js')); ?>"></script>
 
      <!-- MDB core JavaScript -->
-     <script type="text/javascript" src="{{URL::asset('uikit/js/my.js')}}"></script>
+     <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/my.js')); ?>"></script>
     
 
    <!-- Initializations -->

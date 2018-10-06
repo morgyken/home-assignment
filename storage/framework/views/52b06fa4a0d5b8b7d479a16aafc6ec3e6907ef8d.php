@@ -1,13 +1,10 @@
-
-@extends('layouts.current-template')
-
-    @section('title')
+    <?php $__env->startSection('title'); ?>
 
     Set Price
 
-    @endsection
+    <?php $__env->stopSection(); ?>
 
-    @section('content')
+    <?php $__env->startSection('content'); ?>
 
  
 
@@ -61,16 +58,16 @@
             <div class="col-md-11" style="text-align: center; margin-bottom:70px;" >
              
 
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">     
+                <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">     
                        
                          <div class="row">                         	
                   
                          <div class="col-md-6">
-                         	<h3>Serial: {{ session('question_id')}} </h3>
+                         	<h3>Serial: <?php echo e(session('question_id')); ?> </h3>
                          </div>                        
                               
                           <div class="col-md-6">
-                            <h3>Amount:{{ session('question_price')}} </h3>
+                            <h3>Amount:<?php echo e(session('question_price')); ?> </h3>
                           </div>
                             </div>
 
@@ -79,7 +76,7 @@
                               <div  class="col-md-12">
                                 <hr>    
 
-                              <div class="card-header text-center"><h4>Make {{ Session::get('question_price')}} payment </h4>
+                              <div class="card-header text-center"><h4>Make <?php echo e(Session::get('question_price')); ?> payment </h4>
                                 </div>
                                 <div>
                                   <br>
@@ -89,10 +86,10 @@
 
                       <!--
                         <div class="text-center col-md-12">
-                          <a href="{{ route('get.paypal', ['price'=> session('question_price')]) }}" ><img src="https://news.androidout.com/wp-content/uploads/sites/3/sites/3/2014/05/paypal.png" height="150px"> </a>
+                          <a href="<?php echo e(route('get.paypal', ['price'=> session('question_price')])); ?>" ><img src="https://news.androidout.com/wp-content/uploads/sites/3/sites/3/2014/05/paypal.png" height="150px"> </a>
 
                       -->
-                        <a href="{!! URL::to('paypal', ['price' => substr(Session::get('question_price'),2), 'qid' => session('question_id')]) !!}" class="btn btn-primary">
+                        <a href="<?php echo URL::to('paypal', ['price' => substr(Session::get('question_price'),2), 'qid' => session('question_id')]); ?>" class="btn btn-primary">
                                                 
                                       
             Pay with PayPal</a>
@@ -108,8 +105,9 @@
                       </div>
 
 
-                      <form action="{{ route('post.payment') }}" method="post" id="payment-form">
-                        {{ csrf_field()}}
+                      <form action="<?php echo e(route('post.payment')); ?>" method="post" id="payment-form">
+                        <?php echo e(csrf_field()); ?>
+
 
                           <label for="card-element">
                             Credit or debit card
@@ -205,4 +203,6 @@
 
      
                         
-	@endsection
+	<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.current-template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -44,7 +44,7 @@ class UserLoginController extends Controller
     public function login( Request $request){
        // dd($request->email);
       
-        if(Auth::attempt([
+    if(Auth::attempt([
         'email' => $request->email,
         'password' => $request->password
       ]))
@@ -60,5 +60,10 @@ class UserLoginController extends Controller
        
        return redirect()->route('home');
       }
+      else {
+      return redirect()->route('general');
     }
+    }
+
+
 }

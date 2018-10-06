@@ -1,12 +1,10 @@
-@extends('layouts.current-template')
-
-    @section('title')
+    <?php $__env->startSection('title'); ?>
 
     Set Price
 
-    @endsection
+    <?php $__env->stopSection(); ?>
 
-    @section('content')
+    <?php $__env->startSection('content'); ?>
 
 
        <!-- Card Light -->
@@ -41,32 +39,32 @@
                               <div class="row col-md-12">              
                 
                                     <div class="col-md-3" >
-                                        <p>Category: {{$question->order_subject}}</p>
+                                        <p>Category: <?php echo e($question->order_subject); ?></p>
                                     </div>
                                     <div class="col-md-3" >
                                  
-                                        <p>Time left: {!! $difference !!} </p>
+                                        <p>Time left: <?php echo $difference; ?> </p>
                                     
                                     </div>
-                                   @if(Auth::user()->user_role=='admin')
+                                   <?php if(Auth::user()->user_role=='admin'): ?>
                                     <div class="col-md-3">                    
-                                         <p>Price: ${{ $question->question_price}}</p>
+                                         <p>Price: $<?php echo e($question->question_price); ?></p>
                                        
                                      </div>
-                                      @endif
+                                      <?php endif; ?>
                                
                                     <div class="col-md-3" >
                                         <span >
-                                            @if(Auth::user()->user_role=='tutor')
-                                            <p>Price: ${{ $question->tutor_price}}</p>
-                                            @else
-                                            <p>Price: ${{ $question->question_price}}</p>
-                                            @endif
+                                            <?php if(Auth::user()->user_role=='tutor'): ?>
+                                            <p>Price: $<?php echo e($question->tutor_price); ?></p>
+                                            <?php else: ?>
+                                            <p>Price: $<?php echo e($question->question_price); ?></p>
+                                            <?php endif; ?>
                                         </span>
                                     </div>
                                     <div class="col-md-3">
                                       
-                                      <span>Posted:{{ $question->created_at }}</span>
+                                      <span>Posted:<?php echo e($question->created_at); ?></span>
                                     </div>
                                 </div>
                                     <hr class="my-4">
@@ -76,7 +74,8 @@
                                         <hr>
                                                        
 
-                            <span style="font-weight:800; color:#337ab7;">{{ ucfirst(strstr($question->user_id, '@', true)) }}
+                            <span style="font-weight:800; color:#337ab7;"><?php echo e(ucfirst(strstr($question->user_id, '@', true))); ?>
+
 
                                         </span> Posted a Question 
                             <hr>
@@ -84,7 +83,8 @@
 
                                 <div class="col-md-10 text-left ">
                                     
-                                  {!! htmlspecialchars_decode($question-> question_body) !!}
+                                  <?php echo htmlspecialchars_decode($question-> question_body); ?>
+
                                 </div>
                             </div>
                             
@@ -93,7 +93,7 @@
                          <!--Panel 2-->
                          <div class="tab-pane fade" id="panel6" role="tabpanel">
                              <br>
-                             @include('part.chat')
+                             <?php echo $__env->make('part.chat', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                                 
                          </div>
                          <!--/.Panel 2-->
@@ -108,46 +108,46 @@
                                <hr>
 
 
-                                @foreach($files as $file)
+                                <?php $__currentLoopData = $files; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                    <p class="down-files"><a href="{{route('file-download',
+                                    <p class="down-files"><a href="<?php echo e(route('file-download',
                                                     [
                                                         'question_id' =>$question->question_id,
                                                         'filename'=>$file['basename'],
                                                         'type' =>'question'
-                                                     ])}}"
-                                        ><i class="icon-download-alt">{{$file['basename'] }}</a>   </p>
-                                @endforeach
-                                   @if($assigned == 1)
+                                                     ])); ?>"
+                                        ><i class="icon-download-alt"><?php echo e($file['basename']); ?></a>   </p>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                   <?php if($assigned == 1): ?>
                             <hr>
                                <div class="text-center">
                                     <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#post-ans">Post Answer now</a>
                                 </div>
                                 <hr>
-                                @endif
+                                <?php endif; ?>
 
-                            @if($role != 'tutor')
+                            <?php if($role != 'tutor'): ?>
                               
                                <table class="table">
-                               @foreach($answer_files as $file)
+                               <?php $__currentLoopData = $answer_files; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
                                 <td> <span style="font-size: 38px; color: blue"><i class="fas fa-file"></i></span></td>
-                                <td> <p style="font-size:18px;color:blue; font-weight: 800" class="down-files"><a href="{{route('file-download',
+                                <td> <p style="font-size:18px;color:blue; font-weight: 800" class="down-files"><a href="<?php echo e(route('file-download',
                                                     [
                                                         'question_id' =>$question->question_id,
                                                         'filename'=>$file['basename'],
                                                         'type' =>'answer'
-                                                     ])}}"
-                                        ><i class="icon-download-alt">{{$file['basename'] }}</a>   </p>
+                                                     ])); ?>"
+                                        ><i class="icon-download-alt"><?php echo e($file['basename']); ?></a>   </p>
                                 </td>
                                     
                                 </tr>                          
 
                                     
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </table>
 
-                            @if($question->status == 'answered')
+                            <?php if($question->status == 'answered'): ?>
 
                              <hr>
 
@@ -170,11 +170,11 @@
 
                     </p>
                     </div>
-                    @else 
+                    <?php else: ?> 
                     <h4> The Question has not been Answered</h4>
-                      @endif
+                      <?php endif; ?>
 
-                      @endif
+                      <?php endif; ?>
                          </div>
                          <!--/.Panel 3-->
 
@@ -192,27 +192,27 @@
                 <p>
                         <div class="col-md-4" >
                      
-                            <p>Page Numbers: {{ $question->pagenum}} </p>
-                             <p>Writing Style: {{ $question->lang_style}}</p>
+                            <p>Page Numbers: <?php echo e($question->pagenum); ?> </p>
+                             <p>Writing Style: <?php echo e($question->lang_style); ?></p>
                              
                         
                         </div>
                        
                         <div class="col-md-4">                    
-                             <p>Spacing: {{ $question->spacing}}</p>
-                              <p>Paper Format: {{ $question->paper_format}}</p>
-                              <p>Paper Type: {{ $question->paper_type}}</p>
+                             <p>Spacing: <?php echo e($question->spacing); ?></p>
+                              <p>Paper Format: <?php echo e($question->paper_format); ?></p>
+                              <p>Paper Type: <?php echo e($question->paper_type); ?></p>
                            
                          </div>                          
         
                         <div class="col-md-4">
-                          <p>Subject: {{ $question->order_subject}}</p>
-                            <p>Academic Level: {{$question->academic_level}}</p>
-                            @if($assigned == 1)
-                             <p>Number of Bids: {{$question->academic_level}}</p>
-                             @else
-                              <p>Assigned to: {{$tutor}}</p>
-                             @endif
+                          <p>Subject: <?php echo e($question->order_subject); ?></p>
+                            <p>Academic Level: <?php echo e($question->academic_level); ?></p>
+                            <?php if($assigned == 1): ?>
+                             <p>Number of Bids: <?php echo e($question->academic_level); ?></p>
+                             <?php else: ?>
+                              <p>Assigned to: <?php echo e($tutor); ?></p>
+                             <?php endif; ?>
                         </div>
 
                     </p>
@@ -220,7 +220,7 @@
 
                            
             </div>
-        @if(Auth::user()->user_role != 'tutor')
+        <?php if(Auth::user()->user_role != 'tutor'): ?>
         <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h3>Tutor Bids </h3></div>
           <br>
@@ -229,11 +229,12 @@
                 <p>
                         <div class="col-md-6" > 
 
-                        <form method="post" action="{{ route('assign-question', ['question_id' => $question->question_id])  }}"> 
-                             {{ csrf_field() }}
+                        <form method="post" action="<?php echo e(route('assign-question', ['question_id' => $question->question_id])); ?>"> 
+                             <?php echo e(csrf_field()); ?>
+
 
                         <h5>Select a tutor to assign the Question</h5> 
-                            @if(count($bids)  >=1  )
+                            <?php if(count($bids)  >=1  ): ?>
 
                             <?php 
 
@@ -241,7 +242,7 @@
 
                             ?>
 
-                                @foreach($bids as $bid => $key)
+                                <?php $__currentLoopData = $bids; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bid => $key): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                             <?php
                             ++ $num;
@@ -249,16 +250,16 @@
                             ?>
 
                                      <div>
-                                        <input type="radio" id="huey" name="tutor_id" value="{{ $key->tutor_id }}"  checked />
-                                        <label for="huey">{{$num }}:- Tutor Keen | ${{$key->bid_price}} | {{ $key->question_deadline }} </label>
+                                        <input type="radio" id="huey" name="tutor_id" value="<?php echo e($key->tutor_id); ?>"  checked />
+                                        <label for="huey"><?php echo e($num); ?>:- Tutor Keen | $<?php echo e($key->bid_price); ?> | <?php echo e($key->question_deadline); ?> </label>
                                     </div>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     
                                     <button class="btn btn-warning btn-rounded"> Assign Question</button>
-                            @else 
+                            <?php else: ?> 
                             <h6>The Question has no Bids </h6>
 
-                            @endif
+                            <?php endif; ?>
 
 
 
@@ -285,8 +286,8 @@
 
                            
             </div>
-            @else 
-            @if($assigned != 1)
+            <?php else: ?> 
+            <?php if($assigned != 1): ?>
 
             <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h4>Answer Question</h4></div>
@@ -311,9 +312,9 @@
 
                            
             </div>
-            @endif
+            <?php endif; ?>
 
-        @endif
+        <?php endif; ?>
 
     <div class="modal fade bottom" id="post-ans" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
@@ -335,13 +336,13 @@
           
             <div class="col-xl-12">
                 <div class="card-body">
-                    <form action="{{ route('update-question', ['question_id' => $question->question_id]) }}"  enctype="multipart/form-data" method="POST">
-                   {{ csrf_field() }} 
+                    <form action="<?php echo e(route('update-question', ['question_id' => $question->question_id])); ?>"  enctype="multipart/form-data" method="POST">
+                   <?php echo e(csrf_field()); ?> 
                                             
                     <input type="hidden" name="update" value="post-ans">
 
                       <div class="form-group">
-                      @include('part.file-picker')
+                      <?php echo $__env->make('part.file-picker', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                      </div>                 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success">Post answer</button>
@@ -379,8 +380,8 @@
           
             <div class="col-xl-12">
                 <div class="card-body">
-                    <form action="{{ route('update-question', ['question_id' => $question->question_id]) }}" method="POST">
-                   {{ csrf_field() }} 
+                    <form action="<?php echo e(route('update-question', ['question_id' => $question->question_id])); ?>" method="POST">
+                   <?php echo e(csrf_field()); ?> 
                                             
                     <input type="hidden" name="update" value="accept-ans">
                     <h4>Rate tutor</h4>
@@ -437,13 +438,13 @@
           
             <div class="col-xl-12">
                 <div class="card-body">
-                    <form action="{{ route('update-question', ['question_id' => $question->question_id]) }}" method="POST">
-                   {{ csrf_field() }} 
+                    <form action="<?php echo e(route('update-question', ['question_id' => $question->question_id])); ?>" method="POST">
+                   <?php echo e(csrf_field()); ?> 
                                             
                     <input type="hidden" name="update" value="reassign">
                     <h4>Select Tutor</h4>
                     <div class="col-md-12">
-                        @include('part.auto-com')
+                        <?php echo $__env->make('part.auto-com', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     </div>
                                      
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -481,8 +482,8 @@
           
             <div class="col-xl-12">
                 <div class="card-body">
-                    <form action="{{ route('update-question', ['question_id' => $question->question_id]) }}" method="POST">
-                   {{ csrf_field() }} 
+                    <form action="<?php echo e(route('update-question', ['question_id' => $question->question_id])); ?>" method="POST">
+                   <?php echo e(csrf_field()); ?> 
                                             
                     <input type="hidden" name="update" value="revision">
                     <h4>Are you sure you want to put the question on Revision? </h4>
@@ -522,8 +523,9 @@
           
             <div class="col-xl-12">
                 <div class="card-body">
-                    <form action="{{ route('post-bids', ['question_id' => $question->question_id, 'tutor_id' => Auth::user()->email]) }}" method="POST">
-                   {{ csrf_field() }}
+                    <form action="<?php echo e(route('post-bids', ['question_id' => $question->question_id, 'tutor_id' => Auth::user()->email])); ?>" method="POST">
+                   <?php echo e(csrf_field()); ?>
+
                     <h4>Confirm that you will provide answer at the right time and appropriate answer. If you are not sure Use the CANCEL button to return back? </h4>
                     <div class="form-group">
 
@@ -533,7 +535,7 @@
 
                     <div class="form-group">
 
-                        @include ('part.datetimepicker')
+                        <?php echo $__env->make('part.datetimepicker', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                         
                     </div>
                               
@@ -573,9 +575,10 @@
             <div class="col-xl-12">
                 <div class="card-body">
 
-                    <form action="{{ route('assign-question', ['question_id' => $question->question_id, 'tutor_id' => Auth::user()->email]) }}" method="POST">
+                    <form action="<?php echo e(route('assign-question', ['question_id' => $question->question_id, 'tutor_id' => Auth::user()->email])); ?>" method="POST">
 
-                   {{ csrf_field() }}
+                   <?php echo e(csrf_field()); ?>
+
 
                     <h4>
                         Confirm that you will provide answer at the right time and appropriate answer. If you are not sure Use the CANCEL button to return back? 
@@ -595,4 +598,6 @@
 </div>
   <!-- Place Bids  -->
     
- @endsection
+ <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.current-template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
