@@ -230,7 +230,9 @@
                     </div>
 
             </div>
+            @if($role != 'admin')
              <h4>{{ $questions->links() }}</h4> 
+             @endif
         </main>
         <!-- page-content" -->
     </div>

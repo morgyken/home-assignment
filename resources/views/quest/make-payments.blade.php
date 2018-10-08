@@ -87,13 +87,11 @@
                                   <br>
                                 </div>
 
-                      <!--
+                   
                         <div class="text-center col-md-12">
-                          <a href="{{ route('get.paypal', ['price'=> session('question_price')]) }}" ><img src="https://news.androidout.com/wp-content/uploads/sites/3/sites/3/2014/05/paypal.png" height="150px"> </a>
+                          <a href="{!! URL::to('paypal', ['price' => substr(Session::get('question_price'),2), 'qid' => session('question_id')]) !!}" ><img src="https://news.androidout.com/wp-content/uploads/sites/3/sites/3/2014/05/paypal.png" height="150px"> </a>
 
-                      -->
-                        <a href="{!! URL::to('paypal', ['price' => substr(Session::get('question_price'),2), 'qid' => session('question_id')]) !!}" class="btn btn-primary">
-                                                
+                                                                   
                                       
             Pay with PayPal</a>
                           </form>

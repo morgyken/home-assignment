@@ -231,7 +231,9 @@
                     </div>
 
             </div>
+            <?php if($role != 'admin'): ?>
              <h4><?php echo e($questions->links()); ?></h4> 
+             <?php endif; ?>
         </main>
         <!-- page-content" -->
     </div>

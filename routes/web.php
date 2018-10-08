@@ -21,8 +21,8 @@ Route::get('/', function () {  return view('gen.index1'); })->name('general');
 
 //Route::get('/sample', function () {  return view('layouts.index-template'); });
 
-Route::get('/sample', array('as'=>'index1',
-	'uses' => 'Auth\UserRegisterController@GenerateArray'));
+Route::get('/sample', array('as'=>'questions',
+	'uses' => 'HomeController@test2'));
 
 Route::get('/sample2', function () {  return view('quest.ask-question-12'); });
 

@@ -96,15 +96,29 @@ class HomeController extends Controller
             
 
        if(Auth::check())
-       {                
+       {     
+        if($role ='admin') 
+          {
+               return view ('admin.dashboard',
+                   [
+                    'user' => $user,               
+                    'role' => $role
 
-               return view ('layouts.index-template',
-                 [
-                  'user' => $user,
-                  'questions' => $questions,
-                  'role' => $role
+                 ]);
 
-               ]);
+          } 
+          else{
+            return view ('layouts.index-template',
+             [
+              'user' => $user,
+              'questions' => $questions,
+              'role' => $role
+
+           ]);
+
+          }         
+
+           
                     
        }
        else{
@@ -148,10 +162,24 @@ class HomeController extends Controller
 
 
 
-    public function ViewQuestions ($params = null)
+    public function test2 ()
     {
+     $questions =  DB::table('question_bodies')
 
-      
+            ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')  
+
+            ->join(
+              'question_matrices', 'question_details.question_id', '=', 
+              'question_matrices.question_id'
+          )
+
+            ->orderBy('question_bodies.created_at', 'desc')
+
+            ->paginate(25);
+
+    
+
+      return view('admin.questions', ['questions'=> $questions]);    
 
     }
 
