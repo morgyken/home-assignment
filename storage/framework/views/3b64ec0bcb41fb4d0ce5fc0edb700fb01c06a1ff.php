@@ -24,6 +24,9 @@
     <link rel="shortcut icon" type="image/png" href="<?php echo e(URL::asset('sidebar/assets/img/favicon.png ')); ?>" />
 
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<!--- Paypal Button -->
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
   <script>tinymce.init({ selector:'textarea' });</script>
 
@@ -259,12 +262,13 @@
     
   </footer>
 
+
+
   <?php echo $__env->make('gen.part.login', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <!------ Include the the stripe tags----------> 
  
   <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/jquery-3.3.1.min.js ')); ?>"></script>
-  <!-- Bootstrap tooltips -->
+
+    <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/popper.min.js ')); ?>"></script>
   <!-- Bootstrap core JavaScript -->
   <script type="text/javascript" src="<?php echo e(URL::asset('mdb/landing/js/bootstrap.min.js ')); ?>"></script>
@@ -280,71 +284,11 @@
     <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/uikit.min.js')); ?>"></script>
 
      <!-- MDB core JavaScript -->
-     <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/my.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(URL::asset('uikit/js/my.js')); ?>"></script>
 
-   <script type="text/javascript">
-     <script type="text/javascript">
-       // Create a Stripe client.
-            var stripe = Stripe('pk_test_LvVBuMY1fQNF0g0xcJFU18ur');
-
-            // Create an instance of Elements.
-            var elements = stripe.elements();
-
-            // Custom styling can be passed to options when creating an Element.
-            // (Note that this demo uses a wider set of styles than the guide below.)
-            var style = {
-              base: {
-                color: '#32325d',
-                lineHeight: '18px',
-                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                fontSmoothing: 'antialiased',
-                fontSize: '16px',
-                '::placeholder': {
-                  color: '#aab7c4'
-                }
-              },
-              invalid: {
-                color: '#fa755a',
-                iconColor: '#fa755a'
-              }
-            };
-
-            // Create an instance of the card Element.
-            var card = elements.create('card', {style: style});
-
-            // Add an instance of the card Element into the `card-element` <div>.
-            card.mount('#card-element');
-
-            // Handle real-time validation errors from the card Element.
-            card.addEventListener('change', function(event) {
-              var displayError = document.getElementById('card-errors');
-              if (event.error) {
-                displayError.textContent = event.error.message;
-              } else {
-                displayError.textContent = '';
-              }
-            });
-
-            // Handle form submission.
-            var form = document.getElementById('payment-form');
-            form.addEventListener('submit', function(event) {
-              event.preventDefault();
-
-              stripe.createToken(card).then(function(result) {
-                if (result.error) {
-                  // Inform the user if there was an error.
-                  var errorElement = document.getElementById('card-errors');
-                  errorElement.textContent = result.error.message;
-                } else {
-                  // Send the token to your server.
-                  stripeTokenHandler(result.token);
-                }
-              });
-            });
-     </script>
-   </script>
-
-  <!-- Initializations -->
+    <!-- MDB core JavaScript -->
+       
+    <!-- Initializations -->
   <script type="text/javascript">
     // Animations initialization
     new WOW().init();

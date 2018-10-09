@@ -1,9 +1,7 @@
-@extends('layouts.admin-template')
-
-@section('title', 'Questions/Orders')
+<?php $__env->startSection('title', 'Questions/Orders'); ?>
 
 <!--Grid row-->
-@section ('content')
+<?php $__env->startSection('content'); ?>
 
 <style type="text/css">
 table {
@@ -60,22 +58,22 @@ table {border-collapse:collapse; table-layout:fixed;}
                             <!-- Table body -->
                             <tbody>
 
-                                @foreach($questions as $question => $key)
+                                <?php $__currentLoopData = $questions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $question => $key): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
-                                    <th scope="row"> <a href = "{{route('question_det', ['question_id' =>$key->question_id ]) }}" >
-                                      {{ $key->question_id }} </a></th>
-                                    <td>{{$key->topic }}</td>
-                                    <td>{{$key->created_at }}</td>
-                                    <td> {{$key->question_deadline }}</td>
-                                    <td>{{$key->question_price }}</td>
+                                    <th scope="row"> <a href = "<?php echo e(route('question_det', ['question_id' =>$key->question_id  ])); ?>" >
+                                      <?php echo e($key->question_id); ?> </a></th>
+                                    <td><?php echo e($key->topic); ?></td>
+                                    <td><?php echo e($key->created_at); ?></td>
+                                    <td> <?php echo e($key->question_deadline); ?></td>
+                                    <td><?php echo e($key->question_price); ?></td>
 
-                                    <td>{{$key->user_id }}</td>
-                                    <td>{{$key->tutor_price }}</td>
-                                    <td>{{$key->pagenum }}</td>
+                                    <td><?php echo e($key->user_id); ?></td>
+                                    <td><?php echo e($key->tutor_price); ?></td>
+                                    <td><?php echo e($key->pagenum); ?></td>
 
                                 </tr>
 
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             </tbody>
                             <!-- Table body -->
@@ -83,7 +81,8 @@ table {border-collapse:collapse; table-layout:fixed;}
                         <!-- Table  -->
 
                     </div>
-                    {{$questions->links('pagination.pagination') }}
+                    <?php echo e($questions->links('pagination.pagination')); ?>
+
 
                 </div>
                 <!--/.Card-->
@@ -109,4 +108,6 @@ table {border-collapse:collapse; table-layout:fixed;}
 
       </script>
 
-            @endsection
+            <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin-template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

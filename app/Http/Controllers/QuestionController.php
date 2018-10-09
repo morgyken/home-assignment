@@ -42,11 +42,11 @@ class QuestionController extends AdminController
     public static function questionStat($column)
     {
         //$user = Auth::user()->email;
-        $user= 'morgyken@gmail.com'; 
+        $user= 'morgyken@gmail.com';
 
         $countAssigned = DB::table('question_matrices')->select($column)
-        ->where('user_id',$user)  
-        ->where($column, 1) 
+        ->where('user_id',$user)
+        ->where($column, 1)
         ->get();
 
         return  count($countAssigned);
@@ -74,15 +74,15 @@ class QuestionController extends AdminController
 
         return redirect()->route('adm-tut-payments');
     }
-    
+
     public function PostPaymentRequest(Request $request, $amount){
-        
+
         $request_id = str_random(12);
-        
+
         $user_id = Auth::user()->email;
-        
+
         DB::table('payment_requests')->insert(
-            [              
+            [
                 'user_id' => Auth::user()->email,
                 'amount' => $amount,
                 'request_id' => $request_id,
@@ -135,17 +135,17 @@ class QuestionController extends AdminController
 
         return redirect()->route('question.det', ['question_id'=> $question]);
     }
-    
+
     /*
-     * file download from the view 
+     * file download from the view
      * $qeustion is the question iD
      * File name is the passed file name
      * $type can be questron or answer folder
      */
-    
+
     public function downloads($question, $fileName, $type){
-        
-            $path = public_path().'/storage/uploads/'.$question.'/'.$type.'/'.$fileName;   
+
+            $path = public_path().'/storage/uploads/'.$question.'/'.$type.'/'.$fileName;
 
             return Response::download($path);
     }
@@ -183,10 +183,10 @@ class QuestionController extends AdminController
 
     }
 
-    // question details 
-    
+    // question details
+
     public static function getDeadlineInSeconds12($deadline){
-   
+
 
       $TimeStart = strtotime(\Carbon\Carbon::now());
 
@@ -203,14 +203,14 @@ class QuestionController extends AdminController
 
       $user =  User::where('email', Auth::user()->email) ->first();
 
-               
+
       $role = $user->user_role;
 
       $messages = MessagesModel::all();
 
        $question =  DB::table('question_bodies')
             ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')
-            ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')             
+            ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')
             ->where('question_details.question_id', '=', $question_id)
             ->first();
 
@@ -221,7 +221,7 @@ class QuestionController extends AdminController
         *
         */
 
-        $bids = DB::table('question_bids') ->where('question_id', $question_id) 
+        $bids = DB::table('question_bids') ->where('question_id', $question_id)
                   ->orderby('bidpoints')
                   ->take(5)
                   ->get();
@@ -232,10 +232,10 @@ class QuestionController extends AdminController
         $path_question = public_path().'/storage/uploads/'.$question_id.'/question/';
 
             //dd($path_question);
-                                
+
 
             $manuals = [];
-         
+
             $filesInFolder = \File::files($path_question);
 
 
@@ -246,7 +246,7 @@ class QuestionController extends AdminController
             }
 
         /**
-         * Find the path to the files 
+         * Find the path to the files
          */
         $path_ans = public_path().'/storage/uploads/'.$question_id.'/answer/';
 
@@ -258,55 +258,59 @@ class QuestionController extends AdminController
         {
             $manuals_ans[] = pathinfo($path);
         }
-    
+
     //check if the question is assigned
 
         $tutor= '';
 
-    /
         $assigned ='1';
 
 
 
       if(Auth::check())
        {
-            
 
-                return view ('quest.question-details', 
+
+                return view ('quest.question-details',
                   [
+                    // class for html data
+
+
+                    'class' =>  $user,
+
                     'user' => $user,
 
                     'question' => $question,
                     /*
                      * Get user type here, include messages
                      */
-                    
+
                     'files'=>$manuals,
                     /*
-                     * Get diference in time 
+                     * Get diference in time
                      */
                     'difference' => $interval,
 
-                    //assigned 
+                    //assigned
                     'assigned'   => $assigned,
-                  
+
                     'answer_files' => $manuals_ans,
 
-                    'role'   => $role,        
+                    'role'   => $role,
 
                     'tutor'   => $tutor,
 
-                    //bids 
+                    //bids
 
-                    'bids' => $bids,  
+                    'bids' => $bids,
 
                     //messages
 
-                    'messages'     => $messages   
+                    'messages'     => $messages
 
                   ]);
-            
-            
+
+
        }
        else{
             return redirect()-> route('general');
@@ -326,18 +330,18 @@ class QuestionController extends AdminController
       //let tutors be on fire!!!
 
 
-      //calculate success rate 
+      //calculate success rate
 
       //Check number of questions anwered
 
-    } 
+    }
 
     public function AssignQuestion ( Request $request, $question, $tutor=null)
     {
 
       DB::table('assign_questions')->insert(
             [
-               
+
                 'tutor_id' => ($tutor == null) ? $request->tutor_id: $tutor ,
                 'question_id' =>$question,
                 'assigned' => 1,
@@ -345,28 +349,28 @@ class QuestionController extends AdminController
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
             ]);
 
-      //return home 
+      //return home
 
     return redirect()->back();
 
 
-    } 
-    
+    }
+
     // count question matrices
     public function GetBids($question_id)
     {
 
-        //get bids, let all bids to be automatched 
+        //get bids, let all bids to be automatched
 
         $bids = DB::table('question_bids')->select('bidpoints')
 
                     ->where('question_id',$question_id)->get();
 
-        //return bids 
+        //return bids
         return count($bids);
     }
 
-     // Post bids 
+     // Post bids
     public function PostBids(Request $request, $question_id, $tutor_id)
     {
 
@@ -376,11 +380,11 @@ class QuestionController extends AdminController
         if($checkbid  == null)
         {
 
-        //avoid bidding twice for the same tutor 
+        //avoid bidding twice for the same tutor
 
             DB::table('question_bids')->insert(
             [
-                'bidpoints' => 34, //calculate bidpoints 
+                'bidpoints' => 34, //calculate bidpoints
 
                 'tutor_id' =>$tutor_id,
                 'question_id' =>$question_id,
@@ -394,7 +398,7 @@ class QuestionController extends AdminController
 
         }
 
-     return redirect()-> back();        
+     return redirect()-> back();
     }
 
     public function increaseDeadline(Request $request, $question)
@@ -440,11 +444,11 @@ class QuestionController extends AdminController
 
     public function  PostComments(Request $request, $question){
         $comments_id = rand(1000, 9999);
-        
+
         $path=  public_path().'/storage/uploads/'.$question.'/comments/'.$comments_id;
-     
+
         $this-> FileUploads($request, $path);
-            
+
         /*
          * Give comments an IDentificatiion Number
          */
@@ -461,10 +465,10 @@ class QuestionController extends AdminController
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
             ]);
-        
+
         return redirect()->route('view-question', ['question_id'=> $question]);
     }
-    
+
     /*
      * Use this function to update question status history
      */
@@ -483,22 +487,22 @@ class QuestionController extends AdminController
         return redirect()->route('view-question', ['question_id'=> $question]);
 
     }
-    
+
     /*
-     * Update status here 
+     * Update status here
      */
-      
+
       public function FileUploads(Request $request, $path){
 
         /*
          * The state of the school
          */
-          
+
          $file = Input::file('file');
 
           $dest = $path;
 
-          
+
 
             foreach ($file as $files){
 
@@ -524,11 +528,11 @@ class QuestionController extends AdminController
                 $name =  $files->getClientOriginalName();
                 $files->move($dest, $name);
             }
-            
+
         /*
          * Update the question status
-         
-            
+
+
             $this->UpdateQuestionStatus($request, $question);
 
         //Insert into database
@@ -575,7 +579,7 @@ class QuestionController extends AdminController
         return view('questions.ask-question');
 
     }
- 
+
     public function askPriceDeadline(Request $request)
     {
         $username = Auth::user()->email;
@@ -612,7 +616,7 @@ class QuestionController extends AdminController
     public function postdeadlinePrice(){
 
       $academic_level = DB::table('academic_levels')
-                      ->select('academic-level') 
+                      ->select('academic-level')
                       -> get();
 
               return view('quest.ask-deadline-1',['category'=> $this->getQuestionCategories()]);
@@ -631,7 +635,7 @@ class QuestionController extends AdminController
 
 
     public function postQuestions(){
-        
+
         return view('quest.ask-question',['category' => $this->getQuestionCategories()]);
     }
 

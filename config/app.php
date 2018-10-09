@@ -140,7 +140,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        
+
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -171,6 +171,12 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
 
         /*
+         * Paypal Mass payment using Amsify42
+         */
+
+      //  Amsify42\PaypalMassPayment\PaypalMassPaymentServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
@@ -185,9 +191,9 @@ return [
 
         Kim\Activity\ActivityServiceProvider::class,
 
-        //Add image processing to the providers 
+        //Add image processing to the providers
 
-        Intervention\Image\ImageServiceProvider::class, 
+        Intervention\Image\ImageServiceProvider::class,
 
 
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
@@ -241,13 +247,15 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Input' => Illuminate\Support\Facades\Input::class,  
+        'Input' => Illuminate\Support\Facades\Input::class,
 
         'Activity' => Kim\Activity\ActivityFacade::class,
 
-        //image processor 
+        //image processor
 
-        'Image' => Intervention\Image\Facades\Image::class,    
+      //  'PaypalMassPayment'	=> Amsify42\PaypalMassPayment\PaypalMassPaymentFacade::class,
+
+        'Image' => Intervention\Image\Facades\Image::class,
 
 
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class

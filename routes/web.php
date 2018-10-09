@@ -19,10 +19,7 @@ Route::group(['middleware' => 'web'], function () {
 //current home page
 Route::get('/', function () {  return view('gen.index1'); })->name('general');
 
-//Route::get('/sample', function () {  return view('layouts.index-template'); });
 
-Route::get('/sample', array('as'=>'questions',
-	'uses' => 'HomeController@test2'));
 
 Route::get('/sample2', function () {  return view('quest.ask-question-12'); });
 
@@ -80,8 +77,8 @@ Route::post('post-payment',array(
 
 Route::get('post-questions',array('as'=>'post-questions','uses'=>'QuestionController@postQuestions'));
 
-//sample post questions 
-Route::post('post-question',array('as'=>'post-question','uses'=>'AskQuestionController@postQuestion')); 
+//sample post questions
+Route::post('post-question',array('as'=>'post-question','uses'=>'AskQuestionController@postQuestion'));
 
 Route::post('/post-answer/{question_id}', ['as' =>'post.answer', 'uses' => 'QuestionController@PostAnswer']);
 
@@ -196,39 +193,39 @@ Route::get('/get-payment-meta', 'AskQuestionController@getMetadata')->name('get.
 Route::any('/payment_meta', 'AskQuestionController@PostMetadata')->name('post.meta');
 
 
-Route::get('/tutor-auto', 
+Route::get('/tutor-auto',
 	[ 'as'=>'tutor-auto', 'uses'=>'AutoComplete@Tutor']);
 
-Route::get('/question_det/{question_id}', 
+Route::get('/question_det/{question_id}',
 
 	[ 'as'=>'question_det', 'uses'=>'QuestionController@NewQuestionDetails']);
 
-//questio bids 
+//questio bids
 
-Route::get('/bids/{question_id}/', 
+Route::get('/bids/{question_id}/',
 
 	[ 'as'=>'get-bids', 'uses'=>'QuestionController@GetTBids']);
 
 
 
-Route::post('/bids/{question_id}/{tutor_id}', 
+Route::post('/bids/{question_id}/{tutor_id}',
 
 	[ 'as'=>'post-bids', 'uses'=>'QuestionController@PostBids']);
 
-Route::post('/assign/{question_id}/{tutor_id?}', 
+Route::post('/assign/{question_id}/{tutor_id?}',
 
 	[ 'as'=>'assign-question', 'uses'=>'QuestionController@AssignQuestion']);
 
 Route::get('/home/{params?}', [ 'as'=>'home', 'uses'=>'HomeController@index']);
 
-//paypal routes 
+//paypal routes
 
-Route::get('payment-with-paypal/{price}', 
+Route::get('payment-with-paypal/{price}',
 	['uses' => 'PaypalPayments@PayWithPaypal', 'as' =>'get.paypal']);
 
 Route::get('/view-make-payment',['as'=>'view-make-payment', 'uses' =>'AskQuestionController@GetMakePayments'] );
 
-Route::get('paypal/callback/', 
+Route::get('paypal/callback/',
 	['uses' => 'PaypalPayments@PayWithPaypalCallback', 'as' =>'paypal-callback']);
 
 Route::get('payment/success', function () {
@@ -259,7 +256,7 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-//paypal Here 
+//paypal Here
 
 Route::get('paypal/{price}/{qid}', 'PaymentControllerOne@payWithpaypal');
 
@@ -269,5 +266,11 @@ Route::get('status', 'PaymentControllerOne@getPaymentStatus');
 Route::get('/payment/success/{qid}', 'PaymentControllerOne@getPaymentSuccess');
 
 Route::get('/payment/failed/{qid}', 'PaymentControllerOne@getPaymentFailed');
+
+
+//Route::get('/sample', function () {  return view('layouts.index-template'); });
+
+Route::get('/sample', array('as'=>'questions',
+	'uses' => 'HomeController@test2'));
 
 });

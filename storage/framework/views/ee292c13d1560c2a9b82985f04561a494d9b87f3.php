@@ -21,13 +21,15 @@
                 <a href="#" class=pull-right data-toggle="modal" data-target=".bs-example-modal-lg"> <i class="fa fa-plus"></i>
             </a> </h3></div>
             <div class="panel-body">
-            {{ csrf_field() }}
+            <?php echo e(csrf_field()); ?>
+
             <ul class="list-group">
-            @foreach ( $messages as $message )
-                <li class="list-group-item {{$class}}" data-toggle="modal" data-target=".bs-example-modal-lg">{{$message->message}}
-                <input type="hidden" value ="{{$message->id}}" />
+            <?php $__currentLoopData = $messages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $message): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li class="list-group-item <?php echo e($class); ?>" data-toggle="modal" data-target=".bs-example-modal-lg"><?php echo e($message->message); ?>
+
+                <input type="hidden" value ="<?php echo e($message->id); ?>" />
                 </li>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             </div>
         </div>
@@ -38,7 +40,7 @@
 
   <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-<form action=" {{ route ('messages', ['questionid' =>$question->question_id]) }}" method="post">
+<form action=" <?php echo e(route ('messages', ['questionid' =>$question->question_id])); ?>" method="post">
 
     <div class="modal-content">
       <div class="modal-header">
@@ -48,8 +50,8 @@
       <div class="modal-body">
       <input type="hidden" id="id">
        <input id="add-item" class="form-control" name="text" placeholder="Add new Item" />
-       <input type="hidden" id="qid"  name="qid"   class="form-control" value="{{ $question->question_id }} ">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+       <input type="hidden" id="qid"  name="qid"   class="form-control" value="<?php echo e($question->question_id); ?> ">
+        <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
       </div>
       <div class="modal-footer">
 

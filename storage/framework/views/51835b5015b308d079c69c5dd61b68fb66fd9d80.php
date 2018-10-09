@@ -10,13 +10,13 @@
        <!-- Card Light -->
         <div class="card">
 
-      
-        
+
+
             <div class="row" style="text-align: center; margin-bottom:70px;" >
 
-                <div class="col-xl-12">     
+                <div class="col-xl-12">
         <!-- Card Light -->
-                    
+
                     <!-- Link -->
 
                                 <!-- Nav tabs -->
@@ -36,23 +36,23 @@
                          <!--Panel 1-->
                          <div class="tab-pane fade in show active" id="panel5" role="tabpanel">
                              <br>
-                              <div class="row col-md-12">              
-                
+                              <div class="row col-md-12">
+
                                     <div class="col-md-3" >
                                         <p>Category: <?php echo e($question->order_subject); ?></p>
                                     </div>
                                     <div class="col-md-3" >
-                                 
+
                                         <p>Time left: <?php echo $difference; ?> </p>
-                                    
+
                                     </div>
                                    <?php if(Auth::user()->user_role=='admin'): ?>
-                                    <div class="col-md-3">                    
+                                    <div class="col-md-3">
                                          <p>Price: $<?php echo e($question->question_price); ?></p>
-                                       
+
                                      </div>
                                       <?php endif; ?>
-                               
+
                                     <div class="col-md-3" >
                                         <span >
                                             <?php if(Auth::user()->user_role=='tutor'): ?>
@@ -63,7 +63,7 @@
                                         </span>
                                     </div>
                                     <div class="col-md-3">
-                                      
+
                                       <span>Posted:<?php echo e($question->created_at); ?></span>
                                     </div>
                                 </div>
@@ -72,29 +72,29 @@
                                     <div class="col-md-2 ">
                                         <img src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg" class="img-fluid z-depth-1 rounded-circle img-thumbnail" alt="Responsive image">
                                         <hr>
-                                                       
+
 
                             <span style="font-weight:800; color:#337ab7;"><?php echo e(ucfirst(strstr($question->user_id, '@', true))); ?>
 
 
-                                        </span> Posted a Question 
+                                        </span> Posted a Question
                             <hr>
                              </div>
 
                                 <div class="col-md-10 text-left ">
-                                    
+
                                   <?php echo htmlspecialchars_decode($question-> question_body); ?>
 
                                 </div>
                             </div>
-                            
+
                          </div>
                          <!--/.Panel 1-->
                          <!--Panel 2-->
                          <div class="tab-pane fade" id="panel6" role="tabpanel">
                              <br>
-                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.</p>
-                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.</p>
+                             <?php echo $__env->make('part.chat', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
                          </div>
                          <!--/.Panel 2-->
 
@@ -102,8 +102,8 @@
                          <!--Panel 3-->
                          <div class="tab-pane fade" id="panel7" role="tabpanel">
                             <br>
-                          
-                             
+
+
                                <h4> Question attachments</h4>
                                <hr>
 
@@ -127,7 +127,7 @@
                                 <?php endif; ?>
 
                             <?php if($role != 'tutor'): ?>
-                              
+
                                <table class="table">
                                <?php $__currentLoopData = $answer_files; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
@@ -140,10 +140,10 @@
                                                      ])); ?>"
                                         ><i class="icon-download-alt"><?php echo e($file['basename']); ?></a>   </p>
                                 </td>
-                                    
-                                </tr>                          
 
-                                    
+                                </tr>
+
+
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </table>
 
@@ -151,26 +151,26 @@
 
                              <hr>
 
-                             <div class="row col-md-12 text-left card-body">              
+                             <div class="row col-md-12 text-left card-body">
                 <p>
                         <div class="col-md-4" >
                         <a href="" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#accept-ans">Accept answer</a>
-                        
+
                         </div>
-                       
-                        <div class="col-md-4">                    
-                            
+
+                        <div class="col-md-4">
+
                            <a href="" class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#revision">Put on revision</a>
                          </div>
-                          
-        
+
+
                         <div class="col-md-4">
                           <a href="" class="btn btn-secondary btn-rounded mb-4" data-toggle="modal" data-target="#reassign">Reassign the question</a>
                         </div>
 
                     </p>
                     </div>
-                    <?php else: ?> 
+                    <?php else: ?>
                     <h4> The Question has not been Answered</h4>
                       <?php endif; ?>
 
@@ -179,32 +179,100 @@
                          <!--/.Panel 3-->
 
                      </div>
-     
+
             </div>
-         
+
     </div>
     </div>
+    <?php if($role == 'admin'): ?>
+    <div class="card" style="margin-top: 20px;">
+      <div class="card-header text-center"> <h3>Admin Pannel</h3></div>
+      <br>
+
+        <div class="row col-md-12 text-left card-body">
+            <p>
+                    <div class="col-md-6" >
+
+                    <form method="post" action="<?php echo e(route('assign-question', ['question_id' => $question->question_id])); ?>">
+                         <?php echo e(csrf_field()); ?>
+
+
+                    <h5>Select a tutor to assign the Question</h5>
+                        <?php if(count($bids)  >=1  ): ?>
+
+                        <?php
+
+                        $num = 1;
+
+                        ?>
+
+                            <?php $__currentLoopData = $bids; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bid => $key): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                        <?php
+                        ++ $num;
+
+                        ?>
+
+                                 <div>
+                                    <input type="radio" id="huey" name="tutor_id" value="<?php echo e($key->tutor_id); ?>"  checked />
+                                    <label for="huey"><?php echo e($num); ?>:- Tutor Keen | $<?php echo e($key->bid_price); ?> | <?php echo e($key->question_deadline); ?> </label>
+                                </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                <button class="btn btn-warning btn-rounded"> Assign Question</button>
+                        <?php else: ?>
+                        <h6>The Question has no Bids </h6>
+
+                        <?php endif; ?>
+
+
+
+                        </form>
+
+
+                        <form  action="" type="post">
+                            <h5> Or just assign your favourite tutor</h5>
+
+                        </form>
+
+
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <button class="btn btn-secondary"> Reassign </button> <br>
+                        <button class="btn btn-secondary">Adjust Price </button> <br>
+                        <button class="btn btn-secondary">Adjust Deadline</button> <br>
+                    </div>
+
+                </p>
+                </div>
+
+
+        </div>
+
+      <?php endif; ?>
 
        <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h3>Question Details </h3></div>
           <br>
-            <div class="row col-md-12 text-left card-body">              
+            <div class="row col-md-12 text-left card-body">
                 <p>
                         <div class="col-md-4" >
-                     
+
                             <p>Page Numbers: <?php echo e($question->pagenum); ?> </p>
                              <p>Writing Style: <?php echo e($question->lang_style); ?></p>
-                             
-                        
+
+
                         </div>
-                       
-                        <div class="col-md-4">                    
+
+                        <div class="col-md-4">
                              <p>Spacing: <?php echo e($question->spacing); ?></p>
                               <p>Paper Format: <?php echo e($question->paper_format); ?></p>
                               <p>Paper Type: <?php echo e($question->paper_type); ?></p>
-                           
-                         </div>                          
-        
+
+                         </div>
+
                         <div class="col-md-4">
                           <p>Subject: <?php echo e($question->order_subject); ?></p>
                             <p>Academic Level: <?php echo e($question->academic_level); ?></p>
@@ -218,25 +286,28 @@
                     </p>
                     </div>
 
-                           
+
             </div>
+
+
+
         <?php if(Auth::user()->user_role != 'tutor'): ?>
         <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h3>Tutor Bids </h3></div>
           <br>
 
-            <div class="row col-md-12 text-left card-body">              
+            <div class="row col-md-12 text-left card-body">
                 <p>
-                        <div class="col-md-6" > 
+                        <div class="col-md-6" >
 
-                        <form method="post" action="<?php echo e(route('assign-question', ['question_id' => $question->question_id])); ?>"> 
+                        <form method="post" action="<?php echo e(route('assign-question', ['question_id' => $question->question_id])); ?>">
                              <?php echo e(csrf_field()); ?>
 
 
-                        <h5>Select a tutor to assign the Question</h5> 
+                        <h5>Select a tutor to assign the Question</h5>
                             <?php if(count($bids)  >=1  ): ?>
 
-                            <?php 
+                            <?php
 
                             $num = 1;
 
@@ -254,9 +325,9 @@
                                         <label for="huey"><?php echo e($num); ?>:- Tutor Keen | $<?php echo e($key->bid_price); ?> | <?php echo e($key->question_deadline); ?> </label>
                                     </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    
+
                                     <button class="btn btn-warning btn-rounded"> Assign Question</button>
-                            <?php else: ?> 
+                            <?php else: ?>
                             <h6>The Question has no Bids </h6>
 
                             <?php endif; ?>
@@ -272,9 +343,9 @@
                             </form>
 
 
-                        
-                        </div>                                       
-        
+
+                        </div>
+
                         <div class="col-md-6">
                             <p>Accept offer: $45</p>
                             <p>Interested Tutors: 44</p>
@@ -284,25 +355,25 @@
                     </p>
                     </div>
 
-                           
+
             </div>
-            <?php else: ?> 
+            <?php else: ?>
             <?php if($assigned != 1): ?>
 
             <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h4>Answer Question</h4></div>
           <br>
-            <div class="row col-md-12 text-left card-body">              
+            <div class="row col-md-12 text-left card-body">
                 <p>
-                        <div class="col-md-6" >                     
-                            <a href="" data-toggle="modal" data-target="#bid" class="btn btn-secondary btn-rounded btn-block"> 
+                        <div class="col-md-6" >
+                            <a href="" data-toggle="modal" data-target="#bid" class="btn btn-secondary btn-rounded btn-block">
                                 Place Bid
-                            </a>                           
-                        
-                        </div>                                       
-        
+                            </a>
+
+                        </div>
+
                         <div class="col-md-6">
-                            <a href="" data-toggle="modal" data-target="#assign" class="btn btn-secondary btn-rounded btn-block"> 
+                            <a href="" data-toggle="modal" data-target="#assign" class="btn btn-secondary btn-rounded btn-block">
                                 Commit to Answer
                             </a>
                         </div>
@@ -310,7 +381,7 @@
                     </p>
                     </div>
 
-                           
+
             </div>
             <?php endif; ?>
 
@@ -333,23 +404,24 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
                     <form action="<?php echo e(route('update-question', ['question_id' => $question->question_id])); ?>"  enctype="multipart/form-data" method="POST">
-                   <?php echo e(csrf_field()); ?> 
-                                            
+                   <?php echo e(csrf_field()); ?>
+
+
                     <input type="hidden" name="update" value="post-ans">
 
                       <div class="form-group">
                       <?php echo $__env->make('part.file-picker', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                     </div>                 
+                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success">Post answer</button>
             </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -377,12 +449,13 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
                     <form action="<?php echo e(route('update-question', ['question_id' => $question->question_id])); ?>" method="POST">
-                   <?php echo e(csrf_field()); ?> 
-                                            
+                   <?php echo e(csrf_field()); ?>
+
+
                     <input type="hidden" name="update" value="accept-ans">
                     <h4>Rate tutor</h4>
                     <div class="col-md-2">
@@ -401,13 +474,13 @@
                           <label><input type="radio" id="urg" value="5" name="rating">Excellent!</label>
                         </div>
                     </div>
-                                     
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success"> Accept Answer </button>
             </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -435,24 +508,25 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
                     <form action="<?php echo e(route('update-question', ['question_id' => $question->question_id])); ?>" method="POST">
-                   <?php echo e(csrf_field()); ?> 
-                                            
+                   <?php echo e(csrf_field()); ?>
+
+
                     <input type="hidden" name="update" value="reassign">
                     <h4>Select Tutor</h4>
                     <div class="col-md-12">
                         <?php echo $__env->make('part.auto-com', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     </div>
-                                     
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success"> Accept Answer </button>
             </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -479,21 +553,22 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
                     <form action="<?php echo e(route('update-question', ['question_id' => $question->question_id])); ?>" method="POST">
-                   <?php echo e(csrf_field()); ?> 
-                                            
+                   <?php echo e(csrf_field()); ?>
+
+
                     <input type="hidden" name="update" value="revision">
                     <h4>Are you sure you want to put the question on Revision? </h4>
-                              
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success"> Put on Revision </button>
             </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -520,7 +595,7 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
                     <form action="<?php echo e(route('post-bids', ['question_id' => $question->question_id, 'tutor_id' => Auth::user()->email])); ?>" method="POST">
@@ -530,21 +605,21 @@
                     <div class="form-group">
 
                         <input type="text" name="bid_price" class="form-control" placeholder="Enter Bid Price">
-                        
+
                     </div>
 
                     <div class="form-group">
 
                         <?php echo $__env->make('part.datetimepicker', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                        
+
                     </div>
-                              
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success"> Place Bid </button>
             </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -571,7 +646,7 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
 
@@ -581,15 +656,15 @@
 
 
                     <h4>
-                        Confirm that you will provide answer at the right time and appropriate answer. If you are not sure Use the CANCEL button to return back? 
+                        Confirm that you will provide answer at the right time and appropriate answer. If you are not sure Use the CANCEL button to return back?
                     </h4>
-                                                 
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success"> Commit to answer</button>
                 </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -597,7 +672,7 @@
   </div>
 </div>
   <!-- Place Bids  -->
-    
+
  <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.current-template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -12,13 +12,13 @@
        <!-- Card Light -->
         <div class="card">
 
-      
-        
+
+
             <div class="row" style="text-align: center; margin-bottom:70px;" >
 
-                <div class="col-xl-12">     
+                <div class="col-xl-12">
         <!-- Card Light -->
-                    
+
                     <!-- Link -->
 
                                 <!-- Nav tabs -->
@@ -38,23 +38,23 @@
                          <!--Panel 1-->
                          <div class="tab-pane fade in show active" id="panel5" role="tabpanel">
                              <br>
-                              <div class="row col-md-12">              
-                
+                              <div class="row col-md-12">
+
                                     <div class="col-md-3" >
                                         <p>Category: {{$question->order_subject}}</p>
                                     </div>
                                     <div class="col-md-3" >
-                                 
+
                                         <p>Time left: {!! $difference !!} </p>
-                                    
+
                                     </div>
                                    @if(Auth::user()->user_role=='admin')
-                                    <div class="col-md-3">                    
+                                    <div class="col-md-3">
                                          <p>Price: ${{ $question->question_price}}</p>
-                                       
+
                                      </div>
                                       @endif
-                               
+
                                     <div class="col-md-3" >
                                         <span >
                                             @if(Auth::user()->user_role=='tutor')
@@ -65,7 +65,7 @@
                                         </span>
                                     </div>
                                     <div class="col-md-3">
-                                      
+
                                       <span>Posted:{{ $question->created_at }}</span>
                                     </div>
                                 </div>
@@ -74,27 +74,27 @@
                                     <div class="col-md-2 ">
                                         <img src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg" class="img-fluid z-depth-1 rounded-circle img-thumbnail" alt="Responsive image">
                                         <hr>
-                                                       
+
 
                             <span style="font-weight:800; color:#337ab7;">{{ ucfirst(strstr($question->user_id, '@', true)) }}
 
-                                        </span> Posted a Question 
+                                        </span> Posted a Question
                             <hr>
                              </div>
 
                                 <div class="col-md-10 text-left ">
-                                    
+
                                   {!! htmlspecialchars_decode($question-> question_body) !!}
                                 </div>
                             </div>
-                            
+
                          </div>
                          <!--/.Panel 1-->
                          <!--Panel 2-->
                          <div class="tab-pane fade" id="panel6" role="tabpanel">
                              <br>
                              @include('part.chat')
-                                
+
                          </div>
                          <!--/.Panel 2-->
 
@@ -102,8 +102,8 @@
                          <!--Panel 3-->
                          <div class="tab-pane fade" id="panel7" role="tabpanel">
                             <br>
-                          
-                             
+
+
                                <h4> Question attachments</h4>
                                <hr>
 
@@ -127,7 +127,7 @@
                                 @endif
 
                             @if($role != 'tutor')
-                              
+
                                <table class="table">
                                @foreach($answer_files as $file)
                                 <tr>
@@ -140,10 +140,10 @@
                                                      ])}}"
                                         ><i class="icon-download-alt">{{$file['basename'] }}</a>   </p>
                                 </td>
-                                    
-                                </tr>                          
 
-                                    
+                                </tr>
+
+
                                 @endforeach
                             </table>
 
@@ -151,26 +151,26 @@
 
                              <hr>
 
-                             <div class="row col-md-12 text-left card-body">              
+                             <div class="row col-md-12 text-left card-body">
                 <p>
                         <div class="col-md-4" >
                         <a href="" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#accept-ans">Accept answer</a>
-                        
+
                         </div>
-                       
-                        <div class="col-md-4">                    
-                            
+
+                        <div class="col-md-4">
+
                            <a href="" class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#revision">Put on revision</a>
                          </div>
-                          
-        
+
+
                         <div class="col-md-4">
                           <a href="" class="btn btn-secondary btn-rounded mb-4" data-toggle="modal" data-target="#reassign">Reassign the question</a>
                         </div>
 
                     </p>
                     </div>
-                    @else 
+                    @else
                     <h4> The Question has not been Answered</h4>
                       @endif
 
@@ -179,32 +179,99 @@
                          <!--/.Panel 3-->
 
                      </div>
-     
+
             </div>
-         
+
     </div>
     </div>
+    @if($role == 'admin')
+    <div class="card" style="margin-top: 20px;">
+      <div class="card-header text-center"> <h3>Admin Pannel</h3></div>
+      <br>
+
+        <div class="row col-md-12 text-left card-body">
+            <p>
+                    <div class="col-md-6" >
+
+                    <form method="post" action="{{ route('assign-question', ['question_id' => $question->question_id])  }}">
+                         {{ csrf_field() }}
+
+                    <h5>Select a tutor to assign the Question</h5>
+                        @if(count($bids)  >=1  )
+
+                        <?php
+
+                        $num = 1;
+
+                        ?>
+
+                            @foreach($bids as $bid => $key)
+
+                        <?php
+                        ++ $num;
+
+                        ?>
+
+                                 <div>
+                                    <input type="radio" id="huey" name="tutor_id" value="{{ $key->tutor_id }}"  checked />
+                                    <label for="huey">{{$num }}:- Tutor Keen | ${{$key->bid_price}} | {{ $key->question_deadline }} </label>
+                                </div>
+                            @endforeach
+
+                                <button class="btn btn-warning btn-rounded"> Assign Question</button>
+                        @else
+                        <h6>The Question has no Bids </h6>
+
+                        @endif
+
+
+
+                        </form>
+
+
+                        <form  action="" type="post">
+                            <h5> Or just assign your favourite tutor</h5>
+
+                        </form>
+
+
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <button class="btn btn-secondary"> Reassign </button> <br>
+                        <button class="btn btn-secondary">Adjust Price </button> <br>
+                        <button class="btn btn-secondary">Adjust Deadline</button> <br>
+                    </div>
+
+                </p>
+                </div>
+
+
+        </div>
+
+      @endif
 
        <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h3>Question Details </h3></div>
           <br>
-            <div class="row col-md-12 text-left card-body">              
+            <div class="row col-md-12 text-left card-body">
                 <p>
                         <div class="col-md-4" >
-                     
+
                             <p>Page Numbers: {{ $question->pagenum}} </p>
                              <p>Writing Style: {{ $question->lang_style}}</p>
-                             
-                        
+
+
                         </div>
-                       
-                        <div class="col-md-4">                    
+
+                        <div class="col-md-4">
                              <p>Spacing: {{ $question->spacing}}</p>
                               <p>Paper Format: {{ $question->paper_format}}</p>
                               <p>Paper Type: {{ $question->paper_type}}</p>
-                           
-                         </div>                          
-        
+
+                         </div>
+
                         <div class="col-md-4">
                           <p>Subject: {{ $question->order_subject}}</p>
                             <p>Academic Level: {{$question->academic_level}}</p>
@@ -218,24 +285,27 @@
                     </p>
                     </div>
 
-                           
+
             </div>
+
+
+
         @if(Auth::user()->user_role != 'tutor')
         <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h3>Tutor Bids </h3></div>
           <br>
 
-            <div class="row col-md-12 text-left card-body">              
+            <div class="row col-md-12 text-left card-body">
                 <p>
-                        <div class="col-md-6" > 
+                        <div class="col-md-6" >
 
-                        <form method="post" action="{{ route('assign-question', ['question_id' => $question->question_id])  }}"> 
+                        <form method="post" action="{{ route('assign-question', ['question_id' => $question->question_id])  }}">
                              {{ csrf_field() }}
 
-                        <h5>Select a tutor to assign the Question</h5> 
+                        <h5>Select a tutor to assign the Question</h5>
                             @if(count($bids)  >=1  )
 
-                            <?php 
+                            <?php
 
                             $num = 1;
 
@@ -253,9 +323,9 @@
                                         <label for="huey">{{$num }}:- Tutor Keen | ${{$key->bid_price}} | {{ $key->question_deadline }} </label>
                                     </div>
                                 @endforeach
-                                    
+
                                     <button class="btn btn-warning btn-rounded"> Assign Question</button>
-                            @else 
+                            @else
                             <h6>The Question has no Bids </h6>
 
                             @endif
@@ -271,9 +341,9 @@
                             </form>
 
 
-                        
-                        </div>                                       
-        
+
+                        </div>
+
                         <div class="col-md-6">
                             <p>Accept offer: $45</p>
                             <p>Interested Tutors: 44</p>
@@ -283,25 +353,25 @@
                     </p>
                     </div>
 
-                           
+
             </div>
-            @else 
+            @else
             @if($assigned != 1)
 
             <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h4>Answer Question</h4></div>
           <br>
-            <div class="row col-md-12 text-left card-body">              
+            <div class="row col-md-12 text-left card-body">
                 <p>
-                        <div class="col-md-6" >                     
-                            <a href="" data-toggle="modal" data-target="#bid" class="btn btn-secondary btn-rounded btn-block"> 
+                        <div class="col-md-6" >
+                            <a href="" data-toggle="modal" data-target="#bid" class="btn btn-secondary btn-rounded btn-block">
                                 Place Bid
-                            </a>                           
-                        
-                        </div>                                       
-        
+                            </a>
+
+                        </div>
+
                         <div class="col-md-6">
-                            <a href="" data-toggle="modal" data-target="#assign" class="btn btn-secondary btn-rounded btn-block"> 
+                            <a href="" data-toggle="modal" data-target="#assign" class="btn btn-secondary btn-rounded btn-block">
                                 Commit to Answer
                             </a>
                         </div>
@@ -309,7 +379,7 @@
                     </p>
                     </div>
 
-                           
+
             </div>
             @endif
 
@@ -332,23 +402,23 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
                     <form action="{{ route('update-question', ['question_id' => $question->question_id]) }}"  enctype="multipart/form-data" method="POST">
-                   {{ csrf_field() }} 
-                                            
+                   {{ csrf_field() }}
+
                     <input type="hidden" name="update" value="post-ans">
 
                       <div class="form-group">
                       @include('part.file-picker')
-                     </div>                 
+                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success">Post answer</button>
             </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -376,12 +446,12 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
                     <form action="{{ route('update-question', ['question_id' => $question->question_id]) }}" method="POST">
-                   {{ csrf_field() }} 
-                                            
+                   {{ csrf_field() }}
+
                     <input type="hidden" name="update" value="accept-ans">
                     <h4>Rate tutor</h4>
                     <div class="col-md-2">
@@ -400,13 +470,13 @@
                           <label><input type="radio" id="urg" value="5" name="rating">Excellent!</label>
                         </div>
                     </div>
-                                     
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success"> Accept Answer </button>
             </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -434,24 +504,24 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
                     <form action="{{ route('update-question', ['question_id' => $question->question_id]) }}" method="POST">
-                   {{ csrf_field() }} 
-                                            
+                   {{ csrf_field() }}
+
                     <input type="hidden" name="update" value="reassign">
                     <h4>Select Tutor</h4>
                     <div class="col-md-12">
                         @include('part.auto-com')
                     </div>
-                                     
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success"> Accept Answer </button>
             </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -478,21 +548,21 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
                     <form action="{{ route('update-question', ['question_id' => $question->question_id]) }}" method="POST">
-                   {{ csrf_field() }} 
-                                            
+                   {{ csrf_field() }}
+
                     <input type="hidden" name="update" value="revision">
                     <h4>Are you sure you want to put the question on Revision? </h4>
-                              
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success"> Put on Revision </button>
             </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -519,7 +589,7 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
                     <form action="{{ route('post-bids', ['question_id' => $question->question_id, 'tutor_id' => Auth::user()->email]) }}" method="POST">
@@ -528,21 +598,21 @@
                     <div class="form-group">
 
                         <input type="text" name="bid_price" class="form-control" placeholder="Enter Bid Price">
-                        
+
                     </div>
 
                     <div class="form-group">
 
                         @include ('part.datetimepicker')
-                        
+
                     </div>
-                              
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success"> Place Bid </button>
             </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -569,7 +639,7 @@
 
          <div class="row d-flex justify-content-center align-items-center">
 
-          
+
             <div class="col-xl-12">
                 <div class="card-body">
 
@@ -578,15 +648,15 @@
                    {{ csrf_field() }}
 
                     <h4>
-                        Confirm that you will provide answer at the right time and appropriate answer. If you are not sure Use the CANCEL button to return back? 
+                        Confirm that you will provide answer at the right time and appropriate answer. If you are not sure Use the CANCEL button to return back?
                     </h4>
-                                                 
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success"> Commit to answer</button>
                 </form>
 
             </div>
-              
+
           </div>
         </div>
       </div>
@@ -594,5 +664,5 @@
   </div>
 </div>
   <!-- Place Bids  -->
-    
+
  @endsection

@@ -20,9 +20,9 @@ class CreateTutorPaymentsTable extends Migration
             $table->rememberToken();
             $table->text('order_id');
             $table->string('tutor_id');
-            $table->text('payment_id');           
-            $table->text('paid_by');            
-            $table->text('order_summary');            
+            $table->text('payment_id');
+            $table->text('paid_by');
+            $table->text('order_summary');
             $table->string('status')->nullable();
             $table->text('amount');
         });
@@ -38,4 +38,3 @@ class CreateTutorPaymentsTable extends Migration
         Schema::dropIfExists('tutor_payment');
     }
 }
-
