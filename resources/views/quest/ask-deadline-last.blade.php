@@ -212,45 +212,48 @@
     
 
                         <div class="row">
-                            <!--Panel-->
-                            <div class="col-sm-6 text-left">
+                                                      <!--Panel-->
+                            <div class="col-sm-12 text-left">
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="card-title">Paper Formating</h3>
-                                        <div class="radio">
-                                            <label><input type="radio" value="APA" name="paper_format">APA</label>
-                                            </div>
-                                            <div class="radio">
-                                              <label><input type="radio" value="MLA" name="paper_format">MLA</label>
-                                            </div>
-                                            <div class="radio">
-                                              <label><input type="radio" value="Chicago" name="paper_format">Chicago</label>
-                                            </div>
-                                            <div class="radio">
-                                              <label><input type="radio" value="Harvard" name="paper_format">Harvard</label>
-                                            </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/.Panel-->
 
-                            <!--Panel-->
-                            <div class="col-sm-6 text-left">
-                                <div class="card">
-                                    <div class="card-body">
+                                        <div class="col-sm-12">
+                                                <select id="" name="paper_format" class="form-control" size="1">
+                                                    <option selected="selected" value="1">APA</option>
+                                                        <option value="MLA">MLA</option>
+                                                        <option value="Turabian">Turabian</option>
+                                                        <option value="Chicago">Chicago</option>
+                                                        <option value="Harvard">Harvard</option>
+                                                        <option value="Oxford">Oxford</option>
+                                                        <option value="Vancouver">Vancouver</option>
+                                                        <option value="CBE">CBE</option>
+                                                        <option value="Other">Other</option>  
+                                                </select>                                   
+                                                                                                      
+                                                    </div>
+                                    <hr>
+
                                         <h3 class="card-title">Urgency</h3>
                                         <div class="radio">
-                                          <label><input type="radio" id="urg" value="low" name="urgency">Low</label>
+                                    <div class="col-md-5">
+                                        <label><input type="radio" id="urg" value="low" name="urgency">Low</label>
                                         </div>
                                         <div class="radio">
                                           <label><input type="radio" id="urg" value="medium" name="urgency">Medium</label>
                                         </div>
+                                    </div>
+                                          
+                                     <div class="col-md-4">
                                         <div class="radio">
                                           <label><input type="radio" id="urg" value="high" name="urgency">High</label>
                                         </div>
                                         <div class="radio">
                                           <label><input type="radio" id="urg" value="very_high" name="urgency">Very High</label>
                                         </div>
+                                     </div>
+
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -259,7 +262,7 @@
                             <!--Panel-->
                             <div class="col-sm-12 " style="margin: 20px; margin-left: 0px;">
                                 <div class="card">
-                                    <div class="card-body text-center">
+                                    <div class="card-body">
                                         <h3 class="card-title">Other details</h3>
                                         <div class="form-group">
                                              <label class="col-md-4">No. of Pages </label>
@@ -572,7 +575,7 @@
                                              <div class="col-md-8"> 
 
                                             <select title="paper_type" class="form-control" name="paper_type">
-                                            <option selected="selected" value="1">Essay</option>
+                                            <option selected="selected" value="Essay">Essay</option>
                                                 <option value="Term Paper">Term Paper</option>
                                                 <option value="Research Paper">Research Paper</option>
                                                 <option value="Coursework">Coursework</option>
@@ -630,24 +633,6 @@
                                             
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label class="col-md-4">Paper Style  </label>
-                                                    <div class="col-md-8">
-                                                <select id="" name="paper_format" class="form-control" size="1">
-                                                    <option selected="selected" value="1">APA</option>
-                                                        <option value="2">MLA</option>
-                                                        <option value="3">Turabian</option>
-                                                        <option value="4">Chicago</option>
-                                                        <option value="5">Harvard</option>
-                                                        <option value="6">Oxford</option>
-                                                        <option value="8">Vancouver</option>
-                                                        <option value="9">CBE</option>
-                                                        <option value="7">Other</option>  
-                                                </select>                                   
-                                                                                                      
-                                                    </div>
-                                            
-                                                </div>
 
                                                    <div class="form-group">
                                                     <label class="col-md-4">Academic level  </label>

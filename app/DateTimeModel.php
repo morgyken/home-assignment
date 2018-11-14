@@ -31,10 +31,12 @@ class DateTimeModel extends Model
 
     public static  function getDeadlineInSeconds($question_id){
 
-        $question_price= DB::table('post_question_prices')->where('question_id', '=', $question_id)
+        $deadline= DB::table('question_details')->where('question_id', '=', $question_id)
             ->value('question_deadline');
 
-        $deadline = Carbon::parse($question_price);
+          //  dd($deadline);
+
+        $deadline = Carbon::parse($deadline);
 
         $now = Carbon::now();
 

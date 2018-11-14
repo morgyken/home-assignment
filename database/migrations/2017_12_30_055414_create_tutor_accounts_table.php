@@ -17,14 +17,29 @@ class CreateTutorAccountsTable extends Migration
             $table->timestamps();
             $table->increments('id');           
             $table->rememberToken();
+
             $table->string('account_id'); 
             $table->string('tutor_id');
+             $table->string('county')->nullable();
+
+
             $table->string('account_level')->nullable();
             $table->string('account_status')->nullable();
             $table->string('payment_method')->nullable();
-            $table->string('payment_account')->nullable(); 
-            $table->string('ratings')->nullable(); 
-            $table->string('active')->nullable();
+
+            $table->string('payment_account')->nullable();
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('skype')->nullable();
+
+            $table->string('city')->nullable();
+            $table->string('phoneno')->nullable();
+            $table->string('town')->nullable();
+            
+            $table->string('ratings')->nullable();
+            $table->string('categories')->nullable();
+    
+         
 
         });
     }

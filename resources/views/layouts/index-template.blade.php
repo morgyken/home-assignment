@@ -180,7 +180,13 @@
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
         </a>
-       @include('sidebar.nav')
+      @if(Auth::User()->user_role =='cust')
+        @include('sidebar.nav-cust')
+       @elseif(Auth::user()->user_role =='admin')
+        @include('sidebar.nav-admin')
+       @else
+        @include('sidebar.nav')
+       @endif
         <!-- sidebar-wrapper  -->
         <main class="page-content">
             <div class="container-fluid">
@@ -209,6 +215,9 @@
                               <th scope="col">Details</th>
                               <th scope="col">Deadline</th>
                               <th scope="col">Price</th>
+                               @if(Auth::user()->user_role == 'cust')
+                                <th scope="col">Status</th>
+                                @endif
                             </tr>
                           </thead>
                           <tbody>
@@ -222,6 +231,9 @@
                               @else
                               <td> ${{ $value->question_price  }}</td>
                               @endif
+                               @if(Auth::user()->user_role == 'cust')
+                              <td class="btn btn-{{'primary'}}">{{ $value->status }} </td>
+                                 @endif
                             </tr>
                           @endforeach
                           </tbody>

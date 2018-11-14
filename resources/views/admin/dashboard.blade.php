@@ -130,7 +130,7 @@
                 <a href="#" class="list-group-item active waves-effect">
                     <i class="fa fa-pie-chart mr-3"></i>Admin Dashboard
                 </a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect">
+                <a href="{{ route('adm.questions') }}" class="list-group-item list-group-item-action waves-effect">
                     <i class="fa fa-user mr-3"></i>Questions</a>
                 <a href="#" class="list-group-item list-group-item-action waves-effect">
                     <i class="fa fa-table mr-3"></i>Customers</a>

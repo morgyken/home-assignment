@@ -18,6 +18,8 @@
     <link href="{{URL::asset('stripe/css/base.css ')}}" rel="stylesheet"> 
      <!-- Your custom styles (optional) -->
 
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="{{URL::asset('sidebar/assets/css/custom.css')}}">
     <link rel="stylesheet" href="{{URL::asset('sidebar/assets/css/custom-themes.css ')}}">
@@ -186,7 +188,13 @@
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
         </a>
-          @include('sidebar.nav')
+      @if(Auth::User()->user_role =='cust')
+        @include('sidebar.nav-cust')
+       @elseif(Auth::user()->user_role =='admin')
+        @include('sidebar.nav-admin')
+       @else
+        @include('sidebar.nav')
+       @endif
         <!-- sidebar-wrapper  -->
         <main class="page-content">
             <div class="container-fluid">
@@ -197,20 +205,17 @@
                     <!--Main layout-->
                  
             </div>
-                     <hr>       
-
-               
+                                   
                   <!-- SHOW IF STUDENT: ASK QUESTION BUTTON -->  
                                
                    @yield('content')
-                    <hr> 
+                
               
             </div>
         </main>
         <!-- page-content" -->
     </div>
-    <!-- page-wrapper -->
-        <hr class="my-4">
+   
 
       </section>
       <!--Section: Main features & Quick Start--> 

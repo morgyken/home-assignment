@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAssignQuestionsTable extends Migration
+class CreateLoginMetasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateAssignQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assign_questions', function (Blueprint $table) {
+        Schema::create('login_metas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tutor_id')->unique();    
-            $table-> string('question_id');
-            $table->integer('assigned')->default(0);
             $table->timestamps();
-            $table->rememberToken();
-        });
+             $table->rememberToken();
+            $table->string('tutor_id');
+          });
     }
 
     /**
@@ -30,6 +28,6 @@ class CreateAssignQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assign_questions');
+        Schema::dropIfExists('login_metas');
     }
 }

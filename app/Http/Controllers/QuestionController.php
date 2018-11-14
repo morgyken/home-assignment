@@ -14,6 +14,7 @@ use App\AssignQuestion;
 use App\CreditCardDetails;
 use App\Transaction;
 
+
 use App\QuestionCategories;
 use App\User;
 use App\PostComments;
@@ -27,6 +28,7 @@ use App\SuggestDeadline;
 use App\SuggestPriceIncrease;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use App\Http\Controllers\FileUploadController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -34,7 +36,7 @@ use Illuminate\Support\Facades\Auth;
 use App\ MessagesModel;
 
 
-class QuestionController extends AdminController
+class QuestionController extends Controller
 {
     /*
     * Get the question starts, used in the view for links
@@ -227,11 +229,15 @@ class QuestionController extends AdminController
                   ->get();
 
 
-        $interval = $time ->getDeadlineInSeconds($question_id);
+        $interval = $time->getDeadlineInSeconds($question_id);
+
 
         $path_question = public_path().'/storage/uploads/'.$question_id.'/question/';
 
             //dd($path_question);
+        $files = new FileUploadController();
+
+        $files->getFiles( $path_question);
 
 
             $manuals = [];
@@ -263,9 +269,24 @@ class QuestionController extends AdminController
 
         $tutor= '';
 
-        $assigned ='1';
+
+        $status =  DB::table('question_matrices')
+                    ->select('status') 
+
+                    ->where('user_id', Auth::user()->id)
+                    ->where('question_id', $question_id)
+                    ->first();
 
 
+        if($status == null)
+        {
+          $status = '';
+        }
+        else 
+        {
+
+        $status = $status->status;
+        }
 
       if(Auth::check())
        {
@@ -292,7 +313,7 @@ class QuestionController extends AdminController
                     'difference' => $interval,
 
                     //assigned
-                    'assigned'   => $assigned,
+                    'status'   => $status,
 
                     'answer_files' => $manuals_ans,
 
@@ -336,25 +357,6 @@ class QuestionController extends AdminController
 
     }
 
-    public function AssignQuestion ( Request $request, $question, $tutor=null)
-    {
-
-      DB::table('assign_questions')->insert(
-            [
-
-                'tutor_id' => ($tutor == null) ? $request->tutor_id: $tutor ,
-                'question_id' =>$question,
-                'assigned' => 1,
-                'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
-                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
-            ]);
-
-      //return home
-
-    return redirect()->back();
-
-
-    }
 
     // count question matrices
     public function GetBids($question_id)
@@ -370,37 +372,7 @@ class QuestionController extends AdminController
         return count($bids);
     }
 
-     // Post bids
-    public function PostBids(Request $request, $question_id, $tutor_id)
-    {
-
-        $checkbid = DB::table('question_bids')->select('tutor_id')
-                    ->where('tutor_id', $tutor_id)->first();
-
-        if($checkbid  == null)
-        {
-
-        //avoid bidding twice for the same tutor
-
-            DB::table('question_bids')->insert(
-            [
-                'bidpoints' => 34, //calculate bidpoints
-
-                'tutor_id' =>$tutor_id,
-                'question_id' =>$question_id,
-
-                'question_deadline' =>$request->question_deadline,
-                'bid_price' =>$request->bid_price,
-
-                'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
-                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
-            ]);
-
-        }
-
-     return redirect()-> back();
-    }
-
+    
     public function increaseDeadline(Request $request, $question)
     {
         $quest = new SuggestDeadline;

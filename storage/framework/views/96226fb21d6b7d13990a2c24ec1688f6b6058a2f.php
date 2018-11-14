@@ -181,7 +181,13 @@
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
         </a>
-       <?php echo $__env->make('sidebar.nav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php if(Auth::User()->user_role =='cust'): ?>
+        <?php echo $__env->make('sidebar.nav-cust', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+       <?php elseif(Auth::user()->user_role =='admin'): ?>
+        <?php echo $__env->make('sidebar.nav-admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+       <?php else: ?>
+        <?php echo $__env->make('sidebar.nav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+       <?php endif; ?>
         <!-- sidebar-wrapper  -->
         <main class="page-content">
             <div class="container-fluid">
@@ -210,6 +216,9 @@
                               <th scope="col">Details</th>
                               <th scope="col">Deadline</th>
                               <th scope="col">Price</th>
+                               <?php if(Auth::user()->user_role == 'cust'): ?>
+                                <th scope="col">Status</th>
+                                <?php endif; ?>
                             </tr>
                           </thead>
                           <tbody>
@@ -223,6 +232,9 @@
                               <?php else: ?>
                               <td> $<?php echo e($value->question_price); ?></td>
                               <?php endif; ?>
+                               <?php if(Auth::user()->user_role == 'cust'): ?>
+                              <td class="btn btn-<?php echo e('primary'); ?>"><?php echo e($value->status); ?> </td>
+                                 <?php endif; ?>
                             </tr>
                           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                           </tbody>
@@ -231,7 +243,9 @@
                     </div>
 
             </div>
+            <?php if($role != 'admin'): ?>
              <h4><?php echo e($questions->links()); ?></h4> 
+             <?php endif; ?>
         </main>
         <!-- page-content" -->
     </div>

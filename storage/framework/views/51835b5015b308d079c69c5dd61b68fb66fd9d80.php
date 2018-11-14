@@ -25,7 +25,7 @@
                              <a class="nav-link active" data-toggle="tab" href="#panel5" role="tab"><i class="fa fa-user"></i>Question Details</a>
                          </li>
                          <li class="nav-item">
-                             <a class="nav-link" data-toggle="tab" href="#panel6" role="tab"><i class="fa fa-heart"></i> Chat Box </a>
+                             <a class="nav-link" data-toggle="tab" id="chatpanel" href="#panel6" role="tab"><i class="fa fa-heart"></i> Chat Box </a>
                          </li>
                          <li class="nav-item">
                              <a class="nav-link" data-toggle="tab" href="#panel7" role="tab"><i class="fa fa-envelope"></i> Files </a>
@@ -40,6 +40,7 @@
 
                                     <div class="col-md-3" >
                                         <p>Category: <?php echo e($question->order_subject); ?></p>
+                                        <p>Status: <?php echo e($question->status); ?></p>
                                     </div>
                                     <div class="col-md-3" >
 
@@ -66,6 +67,11 @@
 
                                       <span>Posted:<?php echo e($question->created_at); ?></span>
                                     </div>
+                                </div>
+                                <hr class="my-4">
+                                <div class="col-md-12">
+                                    Topic:<?php echo e($question->topic); ?>
+
                                 </div>
                                     <hr class="my-4">
                                 <div class="row container">
@@ -118,7 +124,7 @@
                                                      ])); ?>"
                                         ><i class="icon-download-alt"><?php echo e($file['basename']); ?></a>   </p>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                   <?php if($assigned == 1): ?>
+                                   <?php if($status == 'Assigned'): ?>
                             <hr>
                                <div class="text-center">
                                     <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#post-ans">Post Answer now</a>
@@ -147,7 +153,7 @@
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </table>
 
-                            <?php if($question->status == 'answered'): ?>
+                            <?php if($status == 'answered'): ?>
 
                              <hr>
 
@@ -276,7 +282,7 @@
                         <div class="col-md-4">
                           <p>Subject: <?php echo e($question->order_subject); ?></p>
                             <p>Academic Level: <?php echo e($question->academic_level); ?></p>
-                            <?php if($assigned == 1): ?>
+                            <?php if($status == 'Assigned'): ?>
                              <p>Number of Bids: <?php echo e($question->academic_level); ?></p>
                              <?php else: ?>
                               <p>Assigned to: <?php echo e($tutor); ?></p>
@@ -357,22 +363,27 @@
 
 
             </div>
+
+
             <?php else: ?>
-            <?php if($assigned != 1): ?>
+            <?php if($status != 'Assigned'): ?>
 
             <div class="card" style="margin-top: 20px;">
           <div class="card-header text-center"> <h4>Answer Question</h4></div>
           <br>
             <div class="row col-md-12 text-left card-body">
                 <p>
+                    <!--
                         <div class="col-md-6" >
                             <a href="" data-toggle="modal" data-target="#bid" class="btn btn-secondary btn-rounded btn-block">
-                                Place Bid
+                                Place Bid 
                             </a>
+
+                        --->
 
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <a href="" data-toggle="modal" data-target="#assign" class="btn btn-secondary btn-rounded btn-block">
                                 Commit to Answer
                             </a>
@@ -638,7 +649,7 @@
       <div class="modal-content">
         <div class="modal-body">
           <div class="modal-header ">
-                <h4 class="modal-title" id="exampleModalLongTitle"> Place a bid </h4>
+                <h4 class="modal-title" id="exampleModalLongTitle"> Assign Yourself the question </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

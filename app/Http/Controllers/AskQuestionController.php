@@ -67,14 +67,19 @@ class AskQuestionController extends Controller
         $question_id =  $request->session()->get('question_id');
         $question_price =  $request->session()->get('question_price');
 
+        $user = Auth::User();
+
         DB::table('payment_metadata')->insert(
             [
-                'name' => $request->name, 
+                'name' => $user->name, 
                 'email' => Auth::user()->email,     
+                
+                /*
                 'country' => $request->country,
                 'city'    => $request->city,
                 'state' => $request->state,
                 'zip' => $request->zip,
+                */
                 'question_id'=> $question_id,
                 'amount' =>substr($request->$request['question_price'], 2),
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
@@ -156,10 +161,22 @@ class AskQuestionController extends Controller
 
             ]);
 
+        DB::table('question_history_tables')->insert(
+            [
+                'question_id' =>$question_id,
+                'status' => 'new',
+                'user_id' => Auth::user()->id,
+                'message' => 'A new Question has been posted!',
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+
         DB::table('question_matrices')->insert(
             [
                 'question_id' =>$question_id,
                 'status' => 'new',
+                'user_id' => Auth::user()->id,
+                'message' => 'A new Question has been posted!',
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
@@ -178,6 +195,7 @@ class AskQuestionController extends Controller
         DB::table('assign_questions')->insert(
             [
                 'question_id' =>$question_id,
+                'cust_id' => Auth::User()->email,
                 'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
@@ -271,8 +289,9 @@ class AskQuestionController extends Controller
           'currency' => 'usd',
           'description' => 'Payment for Essay',
           'source' => $token,
-           'metadata' => ['order_id' => $question_id, 'username' => Auth::user()->name, 
-           'email' => Auth::user()->email]
+           'metadata' => ['order_id' => $question_id, 'username' => Auth::user()->name], 
+           'email' => Auth::user()->email
+
       ]);
 
         DB::table('question_matrices')->where('question_id', $question_id )

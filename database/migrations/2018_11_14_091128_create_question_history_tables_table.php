@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-class CreateTutorEducationModelsTable extends Migration
+
+class CreateQuestionHistoryTablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +13,18 @@ class CreateTutorEducationModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tutor_education_models', function (Blueprint $table) {
+        Schema::create('question_history_tables', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->rememberToken();
-            $table->string('tutor_id');
-            $table->string('college');
-            $table->string('expertise');
-           
+            $table->integer('question_id')->unique();
+            $table->integer('user_id')->nullable();          
+            $table->string('status')->default('');
+            
+
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -29,6 +32,6 @@ class CreateTutorEducationModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tutor_education_models');
+        Schema::dropIfExists('question_history_tables');
     }
 }

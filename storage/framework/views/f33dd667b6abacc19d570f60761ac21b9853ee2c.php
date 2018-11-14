@@ -1,9 +1,4 @@
-
-
-
-@extends('layouts.current-template')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <style>
 
@@ -23,32 +18,32 @@
 
         <hr>
 
-    <form method="post" action="{{route ('post.tut-profile')}}" enctype="multipart/form-data"> 
+    <form method="post" action="<?php echo e(route ('post.tut-profile')); ?>" enctype="multipart/form-data"> 
 
      <article class="col-xl-12 maincontent">
          <div class="row">
 
              <div class="col-sm-4"> Name:  </div>
-             <div class="col-sm-8"> <input type="" name="firstname" class="form-control" value="{{$tutorprofile->firstname }}">  </div>
+             <div class="col-sm-8"> <input type="" name="firstname" class="form-control" value="<?php echo e($tutorprofile->firstname); ?>">  </div>
 
          </div>
 
          <div class="row">
 
              <div class="col-sm-4"> Second Name: </div>
-             <div class="col-sm-8"> <input type="" name="lastname" class="form-control" value="{{$tutorprofile->lastname }}">  </div>
+             <div class="col-sm-8"> <input type="" name="lastname" class="form-control" value="<?php echo e($tutorprofile->lastname); ?>">  </div>
 
          </div>
          <div class="row">
 
              <div class="col-sm-4"> Skype ID: </div>
-             <div class="col-sm-8"> <input type="" name="skype" value="{{$tutorprofile->skype }}" class="form-control">  </div>
+             <div class="col-sm-8"> <input type="" name="skype" value="<?php echo e($tutorprofile->skype); ?>" class="form-control">  </div>
 
          </div>
         <div class="row">
 
              <div class="col-sm-4"> Phone Number:</div>
-             <div class="col-sm-8"> <input type="" name="phoneno" class="form-control" value="{{$tutorprofile->phoneno }}">  </div>
+             <div class="col-sm-8"> <input type="" name="phoneno" class="form-control" value="<?php echo e($tutorprofile->phoneno); ?>">  </div>
 
          </div>
 
@@ -57,11 +52,11 @@
              <div class="col-sm-4"> Town/City: </div>
              <div class="col-sm-8">
                 <div class="row1">
-                    <input type="" name="town" class="form-control" placeholder="Town"  value="{{$tutorprofile-> town }}"> 
+                    <input type="" name="town" class="form-control" placeholder="Town"  value="<?php echo e($tutorprofile-> town); ?>"> 
                 </div>
 
                 <div class="row1">
-                    <input type="" name="city" class="form-control" placeholder="City" value="{{$tutorprofile->city }}"> 
+                    <input type="" name="city" class="form-control" placeholder="City" value="<?php echo e($tutorprofile->city); ?>"> 
                     
                 </div>  
         `</div>
@@ -225,5 +220,6 @@
                            
              </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
 <!-- /Article -->
+<?php echo $__env->make('layouts.current-template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

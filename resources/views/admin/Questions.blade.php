@@ -62,7 +62,7 @@ table {border-collapse:collapse; table-layout:fixed;}
 
                                 @foreach($questions as $question => $key)
                                 <tr>
-                                    <th scope="row"> <a href = "{{route('question_det', ['question_id' =>$key->question_id ]) }}" >
+                                    <th scope="row"> <a href = "{{route('question_det', ['question_id' =>$key->question_id ]) }}" style="color: blue" >
                                       {{ $key->question_id }} </a></th>
                                     <td>{{$key->topic }}</td>
                                     <td>{{$key->created_at }}</td>

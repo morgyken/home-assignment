@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Http\Controllers\Auth\Session;
+use DB;
 
 class UserLoginController extends Controller
 {
@@ -50,11 +51,22 @@ class UserLoginController extends Controller
       ]))
       {
      
-       $user =  User::where('email', Auth::user()->email) ->first();
+       $user =  User::where('email', $request->email)->first();
             
        $role = $user->user_role;
 
-       session(['user' => $user, 'role' => $role]);
+       $user_id = $user->email;
+
+       session(['user' => $user, 'role' => $role, 'email' =>  $request->email]);
+
+       DB::table('login_metas')->insert(
+            [
+                'tutor_id' =>$user_id,
+
+                'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            ]);
+
        
        //redirect differently for every user.
        

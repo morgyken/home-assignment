@@ -38,23 +38,16 @@
                             <a href="#">
                                 <i class="fa fa-tachometer-alt"></i>
                                 <span>Qustions</span>
-                                <span class="badge badge-pill badge-danger">New</span>
+                                
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="<?php echo e(route('home')); ?>">All Questions
-                                            <span class="badge badge-pill badge-success">Pro</span>
+                                        <a href="{{ route('home') }}">All Questions
+                                            <span class="badge badge-pill badge-success">45</span>
                                         </a>
                                     </li>
-                                   
-                                    <li>
-                                        <a href="<?php echo e(route('home', ['params' => 'Bid'])); ?>">My Bids</a>
-                                    </li>
-
-                                     <li>
-                                        <a href="<?php echo e(route('home', ['params' => 'Suggested'])); ?>">Suggested </a>
-                                    </li>
+                                                                      
                                 </ul>
                             </div>
                         </li>
@@ -64,29 +57,7 @@
                                 <span>My Questions</span>
                                 <span class="badge badge-pill badge-primary">3</span>
                             </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="<?php echo e(route('home', ['params' => 'Assigned'])); ?>">Current
-
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo e(route('home', ['params' => 'Answered'])); ?>">Answered</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo e(route('home', ['params' => 'Completed'])); ?>">Completed</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo e(route('home', ['params' => 'Revision'])); ?>">Revisions</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="<?php echo e(route('home', ['params' => 'Reassigned'])); ?>">Reassigned</a>
-                                    </li>
-
-                                </ul>
-                            </div>
+                           
                         </li>
                         <li class="sidebar-dropdown">
                             <a href="#">
@@ -140,7 +111,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo e(route('tut-profile')); ?>">
+                            <a href="{{ route('tut-profile')}}">
                                 <i class="fa fa-folder"></i>
                                 <span>Account Profile</span>
                             </a>

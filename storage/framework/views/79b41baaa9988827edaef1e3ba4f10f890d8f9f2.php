@@ -37,19 +37,21 @@ table {border-collapse:collapse; table-layout:fixed;}
                     <div class="card-body clearfix" >
 
                         <!-- Table  -->
-                        <table class="table table-striped table-hover" style="max-width: 900px">
+                        <table class="table table-striped table-hover">
                             <!-- Table head -->
                             <thead class="blue-grey lighten-4">
                                 <tr>
                                     <th>#</th>
-                                    <th>Summary</th>
-                                    <th>Date Posted</th>
-                                    <th>Deadline</th>
+                                    <th>Tutor Name</th>
+                                    <th>Method</th>
+                                    <th>Account</th>
 
-                                    <th>Status</th>
-                                    <th>Customer</th>
-                                    <th>Tutor </th>
-                                    <th>Amount Paid</th>
+                                    <th>Orders (C)</th>
+                                
+                                    <th>Next Date</th>
+                                    <th>Amount Due</th>
+
+                                    <th>More...</th>
 
                                 </tr>
                             </thead>
@@ -58,22 +60,37 @@ table {border-collapse:collapse; table-layout:fixed;}
                             <!-- Table body -->
                             <tbody>
 
-                                <?php $__currentLoopData = $questions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $question => $key): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <tr>
-                                    <th scope="row"> <a href = "<?php echo e(route('question_det', ['question_id' =>$key->question_id ])); ?>" style="color: blue" >
-                                      <?php echo e($key->question_id); ?> </a></th>
-                                    <td><?php echo e($key->topic); ?></td>
-                                    <td><?php echo e($key->created_at); ?></td>
-                                    <td> <?php echo e($key->question_deadline); ?></td>
-                                    <td><?php echo e($key->question_price); ?></td>
 
-                                    <td><?php echo e($key->user_id); ?></td>
-                                    <td><?php echo e($key->tutor_price); ?></td>
-                                    <td><?php echo e($key->pagenum); ?></td>
+                                <tr>
+                                    <th scope="row"> <a href = "" style="color: blue" >
+                                       1</a> </th>
+                                    <td>Morgan Okoth </td>
+                                    <td>Paypal </td>
+                                    <td> morgyken@gmail.com</td>
+                                    <td>34</td>
+
+                                    <td><?php echo e($paydate); ?></td>
+                                    <td> $234</td>
+                                   <td> <a href=""> More .. </a></td>
 
                                 </tr>
 
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <tr>
+                                    <th scope="row"> <a href = "" style="color: blue" >
+                                       1</a> </th>
+                                    <td>Morgan Okoth </td>
+                                    <td>Paypal </td>
+                                    <td> 23422</td>
+                                    <td>34</td>
+
+                                    <td>12/12/1990</td>
+                                    <td> $234</td>
+                                      <td> <a href=""> More .. </a></td>
+                                   
+
+                                </tr>
+
+                       
 
                             </tbody>
                             <!-- Table body -->
@@ -81,8 +98,7 @@ table {border-collapse:collapse; table-layout:fixed;}
                         <!-- Table  -->
 
                     </div>
-                    <?php echo e($questions->links('pagination.pagination')); ?>
-
+                   
 
                 </div>
                 <!--/.Card-->

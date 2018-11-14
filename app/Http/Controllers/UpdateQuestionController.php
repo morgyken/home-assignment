@@ -14,33 +14,21 @@ use Illuminate\Support\Facades\Input;
 
 use Illuminate\Support\Facades\Auth;
 
-class UpdateQuestionController extends Controller
+class UpdateQuestionController extends FileUploadController
 {
     //post comments 
+    private $user;
 
-    public function postComment($comment,  $question, $message_type)
-    {
-        DB::table('post_comments')->insert(
-                [
-                    'comment_body' => $comment,
-                    'comments_id' =>  rand(1000, 9999),
-                    'question_id' => $question,
-                    'message_type'=>  $message_type,
-                    'user_id' => Auth::user()->email,
-                    'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
-                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
-                ]);
-    }
-
+    
     public function UpdateQuestionStatus(Request $request, $question)
     {
         /**
          * Cancel Question here
          */
 
-        $tutor = DB::table('assign_questions')->select('tutor_id')->where('question_id', $question)->first();
+        $this->user = Auth::user()->name;
 
-
+      
         if($request->update =='optout'){
 
              $this-> UpdateQuestion('new', $question);
@@ -48,11 +36,8 @@ class UpdateQuestionController extends Controller
         }        
 
         if($request->update ==='revision'){
-            /**
-             * Post to assigned matrix
-             */
-           
-                  $this-> UpdateQuestion('revision', $question);
+               
+            $this-> UpdateQuestion('revision', $question);
 
 
         }
@@ -64,59 +49,113 @@ class UpdateQuestionController extends Controller
 
           //handle question Ratings
 
+          $ratings = $request->ratings;
+
+          $this-> UpdateQuestion('Rated', $question, $ratings); 
+
 
         }
-
-
+        
        if($request->update =='post-ans'){
             //file uploads
 
             $file = Input::file('file');
+             $dest = public_path().'/storage/uploads/'.$question.'/answer/';
 
-            if(is_array($file)){
-                 $dest = public_path().'/storage/uploads/'.$question.'/answer/';
-
-               // $dest = public_path().'/storage/uploads/'.$question.'/answer/';
-
-                foreach ($file as $files){
-                    /**
-                     * loop through multiple files
-                     */
-
-                    $name =  $files->getClientOriginalName();
-                    $files->move($dest, $name);
-                }
-
-            }
-
+            $this->UploadFiles($file, $dest);
             
            //update status 
 
            $this-> UpdateQuestion('answered', $question);
-
-
 
          }
 
 
     if($request->update =='reassigned'){
 
-        $this-> UpdateQuestion('new', $question);
+        DB::table('question_matrices')->where('question_id', $question)->delete();
 
       }
 
+      return redirect()->back();
+    }
+
             
-    public function UpdateQuestion($status, $question)
+    public function UpdateQuestion($status, $question, $rated = null)
     {
-         DB::table('question_matrices')->where('question_id', $question)
-                ->update(
-                    [        
-                                             
+        $message= '';
+
+        //use this for Ask uestion->Assign Question-> answer-question-> Accept answer
+        //                                                           -> put on revision
+        //                                                           -> Withdraw Question 
+        //                                                           -> reassign Question 
+        //Accept answwer means question paid 
+        //put on revision -----Same tutor// Assign to same tutor
+        // Reassign --- Give another tutor-- Bring it back for another selection
+        // Recommended tutor check on that
+
+        switch ($status) {
+            case 'update':
+                $message = $this->user. " Has Opted out of the uestion!"; 
+                break;
+
+                 case 'revision':
+                $message = $this->user. " Has Opted out of the uestion!"; 
+                break;
+
+                case 'Assigned':
+                $message = $this->user. " The Question has been Assigned!"; 
+                break;
+
+                 case 'accept-ans':
+                $message = $this->user. " Congrats! Your Answer has been accepted"; 
+                break;
+                 case 'Rated':
+                $message = $this->user. " Your Answer has been Rated!"; 
+                break;
+                 case 'answered':
+                $message = $this->user. " Please Check your Question has been Answered!"; 
+                break;
+                 case 'reassigned':
+                $message = $this->user. " The Question was Reassigned!"; 
+                break;
+                 case 'update':
+                $message = $this->user. " THe Question has been Updated !"; 
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+            DB::table('question_matrices')->where('question_id', $question)
+                    ->update(
+                    [     
+                                           
                         'status' =>$status,
-                        'user_id' => Auth::user()->email,                      
+
+                        'message' =>$message,
+
+                        'user_id' => Auth::user()->id, 
+                                             
                         'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
                     ]
                 );
+
+          DB::table('question_history_tables')
+                ->insert(
+                    [       
+                                             
+                        'status' =>$status,
+
+                        'question_id' => $question,
+
+                        'user_id' => Auth::user()->id,
+
+                        'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                    ]
+                );
+
     }
 
     

@@ -32,7 +32,7 @@
                     <?php else: ?> 
                     <div class="col-xl-3">
                         <h4><?php echo e(Auth::user()->user_name); ?></h4>
-                        <p> Tutor Since: <?php echo e($user->created_at); ?></p>
+                        
                         <p> Success rate: 122/9 </p>
                         <p> Total Earnings: $400 </p>                                    
                     </div>

@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\TutorAccount;
 
 use App\RandomNames;
 
@@ -64,13 +65,39 @@ class UserRegisterController extends Controller
             
             
         ]);
-          
-      //User login 
+
+       //init pofile 
+       $id = DB::table('tutor_accounts')->max('id');
+
+       if($id == null)
+       {
+        $id = 1;
+       }
+       else 
+       {
+        $id = $id + 1;
+       }
+
+
+       $tutor_account = new TutorAccount();
+
+       $tutor_account->tutor_id = $request['email'];
+
+       $tutor_account->id =$id;
+
+        $tutor_account->account_id = rand(99900,999000);
+
+       $tutor_account -> save();
+
+       //end of init tutor account 
+                //User login 
       if(Auth::attempt([
         'email' => $request->email,
         'password' => $request->password
       ]))
       {
+        session(['email' => $request['email']]); //save emai in the sesion 
+
         return redirect()->route('home');
       }
       else

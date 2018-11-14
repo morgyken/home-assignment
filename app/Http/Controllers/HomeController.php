@@ -9,6 +9,15 @@ use DB;
 
 class HomeController extends Controller  
 {
+
+  private $user;
+
+
+  private $role;
+
+  private $questions;
+
+
     /**
      * Create a new controller instance.
      *
@@ -17,6 +26,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     /**
@@ -27,22 +37,20 @@ class HomeController extends Controller
     
        public function index($params = null)
     {
-
-      //Get user 
-      $user = DB::table('users')->where('email', Auth::user()->email) ->first();
-
-      //get user role 
-            
-            $role = $user->user_role;
-
-            //initialize object 
+      $user1 = Auth::User();
 
 
-//if customer 
-       if($role == 'cust'){
+
+      $this->role =$user1['user_role'];
+
+      //$user = $user1['user']; 
+
+
+       if($this->role == 'cust'){
 
             $questions =  DB::table('question_bodies')
-            ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')        
+            ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')
+             ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')
             
             ->where('question_bodies.user_id', '=', Auth::user()->email)
             ->orderBy('question_bodies.created_at', 'desc')
@@ -50,8 +58,9 @@ class HomeController extends Controller
 
           }
 
+
 //if tutor 
-      if($role == 'tutor'){
+      if($this->role == 'tutor'){
 
           if($params == null)
           {
@@ -61,16 +70,13 @@ class HomeController extends Controller
 
             ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')
 
+            ->where('question_matrices.status','=', 'new')
 
-            ->where('question_matrices.status', '=','new')
-
-            ->orwhere('question_matrices.status', '=','active')
-
-            ->orwhere('question_matrices.status', '=',1)
+            ->orwhere('question_matrices.status','=', 'reassined')
 
             ->orderBy('question_bodies.created_at', 'desc')
 
-            ->paginate(25);
+            ->paginate(35);
 
 
           }
@@ -82,7 +88,7 @@ class HomeController extends Controller
 
             ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')
 
-            ->where('question_matrices.status', '=', $params)
+            ->where('question_matrices.status', '=', 'new')
 
             ->where('question_matrices.user_id', '=', Auth::user()->email)
 
@@ -93,16 +99,15 @@ class HomeController extends Controller
           }             
 
           }
-            
 
-       if(Auth::check())
+          if(Auth::check())
        {     
-        if($role ='admin') 
+        if($this->role=='admin') 
           {
                return view ('admin.dashboard',
                    [
-                    'user' => $user,               
-                    'role' => $role
+                    'user' => $user1,               
+                    'role' => $this->role
 
                  ]);
 
@@ -110,15 +115,14 @@ class HomeController extends Controller
           else{
             return view ('layouts.index-template',
              [
-              'user' => $user,
+              'user' => $user1,
               'questions' => $questions,
-              'role' => $role
+              'role' => $this->role
 
            ]);
 
           }         
-
-           
+          
                     
        }
        else{
@@ -126,31 +130,19 @@ class HomeController extends Controller
        }
     }
 
-    public function index2(){   
-      
-     return view ('gen.landing');
-    }
-    
-
-    public function AskSample(){
-
-        $user = session('user');  //get user roles from the sessions 
-          
-         return view ('quest.part.ask1', ['user' =>$user]);
- }
 
  public function getQuestionPrice()
     {
+       $user1 = Auth::User();
+
+      $this->role =$user1['user_role'];
+
        if(Auth::check())
        {
-            $user =  User::where('email', Auth::user()->email) ->first();
-            
-            $role = $user->user_role;
-
-            if($role == 'cust'){
-                $user =  User::where('email', Auth::user()->email)->first();
-                               
-                return view ('quest.ask-deadline-last', ['user' => $user, 'role' => $role]);
+          
+            if($this->role == 'cust'){
+                                               
+                return view ('quest.ask-deadline-last', ['user' => $user1, 'role' => $this->role]);
             }
             
        }
@@ -160,28 +152,58 @@ class HomeController extends Controller
     }
 
 
+    public function getTutProfile()
+    { 
+        $tutor  = session('email');
 
+        $tutor_profile = DB::table ('tutor_accounts')
 
-    public function test2 ()
-    {
-     $questions =  DB::table('question_bodies')
+                        ->where('tutor_id', $tutor)
 
-            ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')  
+                        ->first();
 
-            ->join(
-              'question_matrices', 'question_details.question_id', '=', 
-              'question_matrices.question_id'
-          )
+        if($tutor_profile != NULL) 
+        {
+          return view ('tut.tut-profile', $this->GetUser(), 
 
-            ->orderBy('question_bodies.created_at', 'desc')
-
-            ->paginate(25);
-
-    
-
-      return view('admin.questions', ['questions'=> $questions]);    
-
+                        ['tutorprofile' => $tutor_profile]);
+        }   
+        else
+        {
+          return view ('tut.tut-profile', $this->GetUser());
+        }          
+              
     }
 
-    
+    public function getUser()
+    {
+      //init user 
+        $user = DB::table('users')->where('email', Auth::user()->email) ->first();
+
+        //define role 
+
+        $role =  $user->user_role;
+
+        $array = array('user' => $user, 'role' => $role);
+
+        return $array;
+
+
+    }   
+
+    public function viewTutorPayment()
+    {
+
+      $payment_date = \Carbon\Carbon::parse('this sunday')->toDateString();
+
+      //$number_of_orders = DB::table('')->get();
+
+      return view ('admin.tutor-payments', ['paydate' => $payment_date]);
+    }
+
+
+    //completed Questions 
+
+
+  
 }

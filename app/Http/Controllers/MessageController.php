@@ -15,7 +15,7 @@ class MessageController extends Controller
 
    
 
-        public function PostMessages(Request $request){
+public function PostMessages(Request $request){
 
         DB::table('messages_models')->insert(
             [      
@@ -27,13 +27,14 @@ class MessageController extends Controller
                 'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
             ]);
 
-        return redirect()->url('question_det', ['question_id' =>$request->qid,]);
+        return redirect()->back()->withInput(['tab' =>'chatpanel']) ;
     }
      
     public function delete(Request $request){    
 
-        MessagesModel::where('id', $request->id) ->delete();              
-        return $request->all();     
+        MessagesModel::where('id', $request->id) ->delete();   
+                   
+        return redirect()->route('question_det', ['question_id' =>$request->qid,]);    
     }
 
     public function update(Request $request){    
@@ -44,7 +45,7 @@ class MessageController extends Controller
         
         $item->save();
 
-        return $request->all();     
+        return redirect()->route('question_det', ['question_id' =>$request->qid,]);     
     }
 
 

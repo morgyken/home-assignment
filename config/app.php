@@ -198,6 +198,8 @@ return [
 
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
+        //Coderjp\Notify\NotifyServiceProvider::class,
+
     ],
 
     /*
@@ -258,7 +260,9 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
 
 
-        'PayPal' => Srmklive\PayPal\Facades\PayPal::class
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
+
+        'Notify'    => Coderjp\Notify\Facades\Notify::class,
     ],
 
 ];

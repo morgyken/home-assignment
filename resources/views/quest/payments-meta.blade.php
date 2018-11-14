@@ -177,7 +177,7 @@
                     <!-- Link -->
                 </div>
             <div class="col-md-12" style="text-align: center; margin-bottom:70px;" >
-            <form method="post" action="{{route('post.meta')}}"  >
+              <form action="{{route('post.payment')}}" class="" method="post" >
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">     
                        
@@ -185,10 +185,7 @@
                           
                               <div class="row container ">                              
 	                             
-	             <form action="{{route('post.meta')}}" class="" method="post" >
-	                               
-                                        {{ csrf_field() }}                                    
-                                      
+	 
     
             <div class="receipt-main col-md-12">
                 <table class="table table-bordered">

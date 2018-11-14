@@ -105,16 +105,7 @@ Route::post('/post-comments/{question_id}', ['as'=> 'post-comments', 'uses' => '
 
 Route::post('/update-question/{question_id}', array('as' => 'update-question', 'uses'=>'UpdateQuestionController@UpdateQuestionStatus'));
 
-/*
- * accept answer here
- */
 
-Route::get('tut-questions',array('as'=>'tut-questions','uses'=>'TutorController@TutProfile'))->name('tut.home');
-
-/**
- *
- * end tutor side
- */
 Route::post('/autocomplete', array('as' => 'autocomplete', 'uses'=>'SearchController@autocomplete'));
 
 Route::post('autocomplete',array('as'=>'autocomplete','uses'=>'SearchController@autocomplete'));
@@ -123,34 +114,38 @@ Route::post('autocomplete-search',array('as'=>'autocomplete.search','uses'=>'Sea
 
 Route::post('autocomplete-ajax',array('as'=>'searchajax','uses'=>'SearchController@autoComplete'));
 
-//admin routes starts here
-Route::get('adm-tut-payments',array('as'=>'adm-tut-payments','uses'=>'AdminController@AdmGetPyments'));
-
-Route::get('adm-dashboard',array('as'=>'adm-dashboard','uses'=>'AdminController@AdmDashboard'));
 
 
 Route::get('post-payment-request/{amount}',array('as'=>'post-payment-request','uses'=>'QuestionController@PostPaymentRequest'));
 
 
 Route::post('tut-payment12',array('as'=>'tut-payment','uses'=>'QuestionController@PayRequests'));
-//get tutor profile
-Route::get('tut-profile',array('as'=>'tut-profile','uses'=>'TutorController@getTutProfile'));
+//get tutor  
+
+Route::get('tut-profile',
+	array('as'=>'tut-profile','uses'=>'HomeController@getTutProfile'));
 //post tutor profile
-Route::post('tut-profile',array('as'=>'tut-profile','uses'=>'TutorController@postTutProfile'));
+Route::post('tut-profile',
+	array('as'=>'post.tut-profile','uses'=>'TutorProfileController@postTutProfile'));
 
 //get tutor proggress
-Route::get('tut-progress',array('as'=>'tut-progress','uses'=>'TutorController@getTutProgress'));
+Route::get('tut-progress',
+	array('as'=>'tut-progress','uses'=>'TutorProfileController@getTutProgress'));
 //post tutor progress
-Route::post('tut-progress',array('as'=>'tut-progress','uses'=>'TutorController@postTutProgress'));
+Route::post('tut-progress',
+	array('as'=>'tut-progress','uses'=>'TutorProfileController@postTutProgress'));
 //get tutor profile
-Route::get('tut-account',array('as'=>'tut-account','uses'=>'TutorController@getTutAccount'));
+Route::get('tut-account',
+	array('as'=>'tut-account','uses'=>'TutorProfileController@getTutAccount'));
 
 //post tutor profile
-Route::post('tut-account',array('as'=>'tut-account','uses'=>'TutorController@postTutAccount'));
+Route::post('tut-account',
+	array('as'=>'tut-account','uses'=>'TutorProfileController@postTutAccount'));
 
 //post tutor profile
 
-Route::post('tut-education',array('as'=>'tut-education','uses'=>'TutorController@postTutEducation'));
+Route::post('tut-education',
+	array('as'=>'tut-education','uses'=>'TutorProfileController@postTutEducation'));
 
 //get all tutors
 Route::get('adm-tutors', array('as'=>'adm-tutors','uses'=>'AdminController@admTutors'));
@@ -206,17 +201,15 @@ Route::get('/bids/{question_id}/',
 
 	[ 'as'=>'get-bids', 'uses'=>'QuestionController@GetTBids']);
 
-
-
 Route::post('/bids/{question_id}/{tutor_id}',
 
-	[ 'as'=>'post-bids', 'uses'=>'QuestionController@PostBids']);
+	[ 'as'=>'post-bids', 'uses'=>'QuestionBidsController@PostBids']);
 
 Route::post('/assign/{question_id}/{tutor_id?}',
 
-	[ 'as'=>'assign-question', 'uses'=>'QuestionController@AssignQuestion']);
+	[ 'as'=>'assign-question', 'uses'=>'QuestionBidsController@AssignQuestion']);
 
-Route::get('/home/{params?}', [ 'as'=>'home', 'uses'=>'HomeController@index']);
+Route::get('home/{params?}', [ 'as'=>'home', 'uses'=>'HomeController@index']);
 
 //paypal routes
 
@@ -267,10 +260,14 @@ Route::get('/payment/success/{qid}', 'PaymentControllerOne@getPaymentSuccess');
 
 Route::get('/payment/failed/{qid}', 'PaymentControllerOne@getPaymentFailed');
 
-
+Route::get('/admin/questions', array('as'=>'adm.questions',
+	'uses' => 'AdminTutorController@AdminQuestionsView'));
 //Route::get('/sample', function () {  return view('layouts.index-template'); });
 
-Route::get('/sample', array('as'=>'questions',
-	'uses' => 'HomeController@test2'));
+//admin routes starts here
+Route::get('adm-tut-payments',array('as'=>'adm-tut-payments','uses'=>'HomeController@viewTutorPayment'));
+
+Route::get('adm-dashboard',array('as'=>'adm-dashboard','uses'=>'AdminController@AdmDashboard'));
+
 
 });

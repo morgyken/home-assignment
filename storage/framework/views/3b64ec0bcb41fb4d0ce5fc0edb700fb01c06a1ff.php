@@ -18,6 +18,8 @@
     <link href="<?php echo e(URL::asset('stripe/css/base.css ')); ?>" rel="stylesheet"> 
      <!-- Your custom styles (optional) -->
 
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="<?php echo e(URL::asset('sidebar/assets/css/custom.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(URL::asset('sidebar/assets/css/custom-themes.css ')); ?>">
@@ -187,7 +189,13 @@
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
         </a>
-          <?php echo $__env->make('sidebar.nav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+      <?php if(Auth::User()->user_role =='cust'): ?>
+        <?php echo $__env->make('sidebar.nav-cust', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+       <?php elseif(Auth::user()->user_role =='admin'): ?>
+        <?php echo $__env->make('sidebar.nav-admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+       <?php else: ?>
+        <?php echo $__env->make('sidebar.nav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+       <?php endif; ?>
         <!-- sidebar-wrapper  -->
         <main class="page-content">
             <div class="container-fluid">
@@ -198,20 +206,17 @@
                     <!--Main layout-->
                  
             </div>
-                     <hr>       
-
-               
+                                   
                   <!-- SHOW IF STUDENT: ASK QUESTION BUTTON -->  
                                
                    <?php echo $__env->yieldContent('content'); ?>
-                    <hr> 
+                
               
             </div>
         </main>
         <!-- page-content" -->
     </div>
-    <!-- page-wrapper -->
-        <hr class="my-4">
+   
 
       </section>
       <!--Section: Main features & Quick Start--> 
