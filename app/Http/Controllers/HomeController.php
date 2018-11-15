@@ -102,6 +102,10 @@ class HomeController extends Controller
 
           $success = $this->successRate();
 
+          $sus = $this->GetSuspensions();
+
+          $plag= $this->GetPlagiarism();
+
         //  dd($success);
 
           if(Auth::check())
@@ -119,10 +123,16 @@ class HomeController extends Controller
           else{
             return view ('layouts.index-template',
              [
-              'user' => $user1,
-              'questions' => $questions,
-              'role' => $this->role,
-              'success' => $success
+              'user'          => $user1,
+              'questions'     => $questions,
+              'role'          => $this->role,
+              'success'       => $success,
+              'suspension'    => $sus,
+              'plag'          => $plag,
+              'next_payment'   =>$this->NextPayments(),
+              'total_earned'  =>$this->TotalEarnedAmount(),
+              'current_amount' => $this->CurrentEarnedAmount()
+
            ]);
 
           }         
@@ -206,7 +216,83 @@ class HomeController extends Controller
     }
 
 
+   //Find sum of the total amount to be paid
+
+       public function NextPayments()
+    {
     //completed Questions 
+
+      $sumOfCurrent = DB::table('question_details')
+
+                      ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id') 
+
+                        ->where('user_id', Auth::user()->id)
+
+                        ->where('status', 'Rated')
+
+                        ->orwhere('status', 'rated')
+
+                        ->whereDate('question_matrices.updated_at', '>', \Carbon\Carbon::today()->subDays(14)->toDateString())
+
+                         ->whereDate('question_matrices.updated_at', '<', \Carbon\Carbon::today()->subDays(7)->toDateString())
+
+                        ->sum('tutor_price');
+
+          
+          return $sumOfCurrent;
+
+    }
+
+
+
+//Find sum of the total amount already earned
+
+       public function TotalEarnedAmount()
+    {
+    //completed Questions 
+
+      $sumOfCurrent = DB::table('question_details')
+
+                      ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id') 
+
+                        ->where('user_id', Auth::user()->id)
+
+                        ->where('status', 'Rated')
+
+                        ->orwhere('status', 'rated')
+
+                        ->whereDate('question_matrices.updated_at', '<', \Carbon\Carbon::today()->subDays(14)->toDateString())
+
+                        ->sum('tutor_price');
+
+          return $sumOfCurrent;
+
+    }
+
+    //Find sum of the total amount already earned// to be adjusted to 2
+
+       public function CurrentEarnedAmount()
+    {
+    //completed Questions 
+
+      $sumOfCurrent = DB::table('question_details')
+
+                      ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id') 
+
+                        ->where('user_id', Auth::user()->id)
+
+                        ->where('status', 'Assigned')
+
+                        ->orwhere('status', 'assigned')
+
+                        ->whereDate('question_matrices.updated_at', '>', \Carbon\Carbon::today()->subDays(7)->toDateString())
+
+                        ->sum('tutor_price');
+
+          return $sumOfCurrent;
+
+    }
+
 
     //success rate
 
@@ -278,10 +364,82 @@ class HomeController extends Controller
 
     }
 
+    //get suspensions
+
+    public function GetSuspensions()
+    {
+      $suspension = DB::table('suspension_models')
+                    ->select('mode')
+                    ->where('mode', 'suspension')
+                    ->get();
+
+      $suspension = $suspension->count();
+
+      return $suspension;
+    }
+
+    public function GetPlagiarism()
+    {
+      $plag = DB::table('suspension_models')
+                    ->select('mode')
+                    ->where('mode', 'plagiarism')
+                    ->get();
+
+      $plag = $plag->count();
+
+      return $plag;
+    }
+
+
+public function GetWidthdrawn()
+    {
+      $plag = DB::table('suspension_models')
+                    ->select('mode')
+                    ->where('mode', 'widthdrawn')
+                    ->get();
+
+      $plag = $plag->count();
+
+      return $plag;
+    }
+
     //Post suspension via Kennel
 
     public function PostSuspension()
     {
+      $tutor = DB::table('question_history_tables')
+              ->select('user_id')
+              ->where('status', 'Reassigned')
+              ->orwhere('status', 'Widthdrawn')
+              ->whereDate('created_at', '>', \Carbon\Carbon::today()->subMonth()->toDateString())
+              ->get();
+
+      //change obect to array
+
+      $tutor = (array) $tutor;
+
+      if($this->GetWidthdrawn() > 2 || $this->GetPlagiarism() > 2 ){
+
+      foreach ($tutor as $key => $value) {
+
+        DB::table('suspension_models')->insert(
+                [
+                    'tutor_id' => $value,
+
+                    'mode' => 'suspended',
+
+                    'user_id' => Auth::user()->id,
+
+                    'message' => 'The user has been suspended for Poor Quality',
+
+                    'created_at' =>\Carbon\Carbon::now()->toDateTimeString(),
+                    
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                ]);
+     
+      }
+
+      }
       
 
     }

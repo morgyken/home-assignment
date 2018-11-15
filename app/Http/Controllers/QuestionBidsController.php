@@ -8,6 +8,8 @@ use App\Http\Controllers\UpdateQuestionController;
 
 use DB;
 
+use App\Http\Controllers\HomeController;
+
 use Auth;
 
 class QuestionBidsController extends QuestionController
@@ -137,10 +139,16 @@ public function AssignQuestion ( Request $request, $question, $tutor=null)
                     -> select('account_level')
                     ->where('tutor_id', Auth::user()->email)
                     ->first();
+    //check suspensions 
+
+    $suspen = new HomeController();
+
+    $sus = $suspen->GetSuspensions();
+
 
     $level = $tutor_level->account_level;
 
-    if($level == null)
+    if($level == null && $sus > 0)
     {
         //catch tutors here before they post jobs 
         

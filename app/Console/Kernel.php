@@ -17,7 +17,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         Commands\HourlyUpdate::class,
-        Commands\AssignQuestions::class
+        Commands\AssignQuestions::class,
+        Commands\UpdateTutorAccount::class
     ];
 
     /**
@@ -28,8 +29,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        echo "Scheduler running....";
+        //echo "Scheduler running....";
         $schedule->command('UpdateDeadline')->everyMinute();
+        $schedule->command('UpdateTutorAccount')->daily();
     }
 
     /**

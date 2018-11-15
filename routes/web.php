@@ -23,7 +23,8 @@ Route::get('/', function () {  return view('gen.index1'); })->name('general');
 
 Route::get('/sample2', function () {  return view('quest.ask-question-12'); });
 
-
+Route::get('/suspensions', array('as'=>'sus',
+	'uses' => 'HomeController@PostSuspension'));
 
 Route::get('/ask', array('as'=>'ask',
 	'uses' => 'HomeController@askSample'))->middleware('user');
