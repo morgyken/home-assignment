@@ -128,6 +128,8 @@ class UpdateQuestionController extends FileUploadController
                 break;
         }
 
+          if(Auth::user()->user_role == 'cust')
+          {
             DB::table('question_matrices')->where('question_id', $question)
                     ->update(
                     [     
@@ -142,6 +144,47 @@ class UpdateQuestionController extends FileUploadController
                     ]
                 );
 
+          }
+
+           if(Auth::user()->user_role == 'admin')
+           {
+
+              DB::table('question_matrices')->where('question_id', $question)
+                    ->update(
+                    [     
+                                           
+                        'status' =>$status,
+
+                        'message' =>$message,
+
+                        'admin_id' => Auth::user()->id, 
+                                             
+                        'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                    ]
+                );
+
+           }
+
+          else 
+          {
+            DB::table('question_matrices')->where('question_id', $question)
+                    ->update(
+                    [     
+                                           
+                        'status' =>$status,
+
+                        'message' =>$message,
+
+                        'tutor_id' => Auth::user()->id, 
+                                             
+                        'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                    ]
+                );
+
+          }
+            
+          
+
           DB::table('question_history_tables')
                 ->insert(
                     [       
@@ -155,6 +198,7 @@ class UpdateQuestionController extends FileUploadController
                         'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
                     ]
                 );
+          }
 
     }
 

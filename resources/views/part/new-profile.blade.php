@@ -30,18 +30,17 @@
                     </div>
                     
                     @else 
-                    <div class="col-xl-3">
-                        <h4>{{ Auth::user()->user_name }}</h4>
-                        
-                        <p> Success rate: 122/9 </p>
-                        <p> Total Earnings: $400 </p>                                    
-                    </div>
                     <div class="col-xl-5">
+                        <h4>{{ Auth::user()->user_name }}</h4>
+                        <p> Success rate: {{ $success['current']}} / {{ $success['completed']}} / {{ $success['other']}}  {{ (($success['completed'] - $success['other'])/ $success['completed'])* 100}} % </p>
+                        <p>Suspensions 24, PLG 4  </p>                                       
+                    </div>
+                    <div class="col-xl-3">
                         <h4>Finances</h4>
+                        <p> Current: $20 </p>
                         <p> Amount Ready: $234 </p>
-                        <p> Current Orders:$78 </p>
-                        <p> Warnings: Reassigned 23 Withdrawn 78</p>
-                        <p>Plagiarism 4</p> 
+                        <p> Total Earnings: $400 </p> 
+                        
             
                     </div>
                     @endif

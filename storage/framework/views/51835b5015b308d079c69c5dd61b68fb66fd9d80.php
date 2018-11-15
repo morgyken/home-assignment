@@ -152,8 +152,7 @@
 
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </table>
-
-                            <?php if($status == 'answered'): ?>
+                            <?php if($status == 'Answered'  Or $status == 'answered' ): ?>
 
                              <hr>
 
@@ -177,7 +176,10 @@
                     </p>
                     </div>
                     <?php else: ?>
+                    <!--
                     <h4> The Question has not been Answered</h4>
+
+                -->
                       <?php endif; ?>
 
                       <?php endif; ?>
@@ -470,24 +472,24 @@
                     <input type="hidden" name="update" value="accept-ans">
                     <h4>Rate tutor</h4>
                     <div class="col-md-2">
-                          <label><input type="radio" id="urg" value="1" name="rating">Poor</label>
+                          <label><input type="radio" id="urg1" value="1" name="rating">Poor</label>
                         </div>
                         <div class="col-md-2">
-                          <label><input type="radio" id="urg" value="2" name="rating">Average</label>
+                          <label><input type="radio" id="urg2" value="2" name="rating">Average</label>
                         </div>
                         <div class="col-md-2">
-                          <label><input type="radio" id="urg" value="3" name="rating">Good</label>
+                          <label><input type="radio" id="urg3" value="3" name="rating">Good</label>
                         </div>
                         <div class="col-md-2">
-                          <label><input type="radio" id="urg" value="4" name="rating">Very Good</label>
+                          <label><input type="radio" id="urg4" value="4" name="rating">Very Good</label>
                         </div>
                         <div class="col-md-2">
-                          <label><input type="radio" id="urg" value="5" name="rating">Excellent!</label>
+                          <label><input type="radio" id="urg5" value="5" name="rating">Excellent!</label>
                         </div>
                     </div>
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success"> Accept Answer </button>
+                    <button type="submit" id="button-accept" class="btn btn-success"> Accept Answer </button>
             </form>
 
             </div>
@@ -671,7 +673,7 @@
                     </h4>
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success"> Commit to answer</button>
+                    <button type="submit" id="button-commit" class="btn btn-success"> Commit to answer</button>
                 </form>
 
             </div>

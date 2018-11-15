@@ -271,9 +271,7 @@ class QuestionController extends Controller
 
 
         $status =  DB::table('question_matrices')
-                    ->select('status') 
-
-                    ->where('user_id', Auth::user()->id)
+                    ->select('status')
                     ->where('question_id', $question_id)
                     ->first();
 

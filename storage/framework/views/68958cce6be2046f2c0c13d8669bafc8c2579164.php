@@ -75,7 +75,7 @@
                                         <a href="<?php echo e(route('home', ['params' => 'Answered'])); ?>">Answered</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo e(route('home', ['params' => 'Completed'])); ?>">Completed</a>
+                                        <a href="<?php echo e(route('home', ['params' => 'Rated'])); ?>">Completed</a>
                                     </li>
                                     <li>
                                         <a href="<?php echo e(route('home', ['params' => 'Revision'])); ?>">Revisions</a>
@@ -117,13 +117,7 @@
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">Available payments</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Amount in-Progress</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Total Earnings</a>
+                                        <a href="#">Payment Details</a>
                                     </li>
                                     
                                 </ul>

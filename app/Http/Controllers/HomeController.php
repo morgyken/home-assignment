@@ -87,10 +87,10 @@ class HomeController extends Controller
             ->join('question_details', 'question_bodies.question_id', '=', 'question_details.question_id')  
 
             ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')
+ 
+            ->where('question_matrices.status', '=', $params)
 
-            ->where('question_matrices.status', '=', 'new')
-
-            ->where('question_matrices.user_id', '=', Auth::user()->email)
+            ->where('question_matrices.tutor_id', '=', Auth::user()->id)
 
             ->orderBy('question_bodies.created_at', 'desc')
 
@@ -99,6 +99,10 @@ class HomeController extends Controller
           }             
 
           }
+
+          $success = $this->successRate();
+
+        //  dd($success);
 
           if(Auth::check())
        {     
@@ -117,8 +121,8 @@ class HomeController extends Controller
              [
               'user' => $user1,
               'questions' => $questions,
-              'role' => $this->role
-
+              'role' => $this->role,
+              'success' => $success
            ]);
 
           }         
@@ -203,6 +207,84 @@ class HomeController extends Controller
 
 
     //completed Questions 
+
+    //success rate
+
+    public function successRate()
+    {
+
+    
+
+      //completed Questions 
+
+      $completed = DB::table('question_history_tables')
+
+                        ->distinct('question_id')
+
+                        ->where('user_id', Auth::user()->id)
+
+                        ->where('status', 'Rated')
+
+                        ->orwhere('status', 'rated')
+
+                        ->orwhere('status', 'answered')
+
+                        ->get();
+
+        $completed = $completed->count();
+
+
+      $current = DB::table('question_history_tables')
+
+                        ->distinct('question_id')
+
+                        ->where('user_id', Auth::user()->id)
+
+                        ->where('status', 'assigned')
+
+                        ->orwhere('status', 'revision')
+
+                        ->orwhere('status', 'Assigned')
+
+                        ->get();
+
+        $current = $current->count();
+
+
+        $other = DB::table('question_history_tables')
+
+                        ->distinct('question_id')
+
+                        ->where('user_id', Auth::user()->id)
+
+                        ->where('status', 'reassined')
+
+                        ->orwhere('status', 'Reassined')
+
+                        ->orwhere('status', 'widthdrawn')
+
+                        ->get();
+
+
+        $other = $other->count();
+
+         $results = array(
+                            'current' => $current, 
+                            'other' =>  $other,  
+                            'completed' =>  $completed
+                          );
+        
+        return $results;
+
+    }
+
+    //Post suspension via Kennel
+
+    public function PostSuspension()
+    {
+      
+
+    }
 
 
   

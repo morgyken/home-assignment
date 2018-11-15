@@ -140,6 +140,13 @@ public function AssignQuestion ( Request $request, $question, $tutor=null)
 
     $level = $tutor_level->account_level;
 
+    if($level == null)
+    {
+        //catch tutors here before they post jobs 
+        
+        return redirect()->route('tut-profile');
+    }
+
     //get the number of assigned questions which are currently active 
 
     $active = DB::table('question_history_tables')

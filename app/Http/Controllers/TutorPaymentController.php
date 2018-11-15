@@ -43,4 +43,40 @@ class TutorPaymentController extends Controller
 
                 return redirect()->route('get-payment');
     	}
+
+        public function tutorPayment ()
+        {
+            // Check if it is Thurs
+            $tutor_payment = 0;
+
+            $today = new Carbon();
+        
+            // Select the total from the orders done upto 7 days ago
+
+            // Select the total 
+            if($today->dayOfWeek == Carbon::THURSDAY)
+            {
+
+            $tutor_payment = DB::table('question_details')
+            
+            ->join('question_matrices', 'question_details.question_id', '=', 'question_matrices.question_id')
+
+            ->where('question_matrices.status', '=','Rated')
+
+            ->where( 'updated_at', '>', Carbon::now()->subDays(8))
+
+            ->where('question_matrices.tutor_id', '=', Auth:: User()->id)
+
+            ->sum('question_details.tutor_price');
+
+            }
+
+            // post to database
+
+
+           //post the total on the Home page 
+
+
+            //mark all of them as paid
+        }
     }
